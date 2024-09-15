@@ -30,13 +30,3 @@ Product* SimpleFactory::CreatProduct(ProductType _idx)
         return nullptr;
     }
 }
-
-namespace Test_Simple_Factory
-{
-    void MainTest()
-    {
-        SimpleFactory factory;
-        factory.CreatProduct(ProductType::A)->Use();
-        factory.CreatProduct(ProductType::B)->Use();
-    }
-}
