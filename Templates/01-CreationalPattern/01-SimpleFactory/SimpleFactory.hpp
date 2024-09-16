@@ -12,7 +12,8 @@ enum ProductType
 class SimpleFactory
 {
 public:
-    Product* CreatProduct(ProductType);  //通过传入参数创建某个产品
+    //通过传入参数创建某个产品
+    Product* CreatProduct(ProductType);
 };
 
 Product* SimpleFactory::CreatProduct(ProductType _idx)
