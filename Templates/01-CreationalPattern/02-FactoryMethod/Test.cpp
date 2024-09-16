@@ -3,7 +3,7 @@
 int main()
 {
     ConcreteFactoryA fa;
-    ConcreteFactoryB fb;
     fa.CreateProduct()->Use();
+    ConcreteFactoryB fb;
     fb.CreateProduct()->Use();
 }
