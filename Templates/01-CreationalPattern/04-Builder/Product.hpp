@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _PRODUCT_HPP_
+#define _PRODUCT_HPP_
 
 #include <iostream>
 
@@ -38,3 +39,5 @@ void Product::Use()
 {
     std::cout << "Use Product: {[" << part1 << "], [" << part2 << "], [" << part3 << "]}\n";
 }
+
+#endif

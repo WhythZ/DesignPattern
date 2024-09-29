@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DIRECTOR_HPP_
+#define _DIRECTOR_HPP_
 
 #include <iostream>
 #include "Builder.hpp"
@@ -35,3 +36,5 @@ Product* Director::GetProduct()
     //返回最终成品
     return builder->GetBuilding();
 }
+
+#endif

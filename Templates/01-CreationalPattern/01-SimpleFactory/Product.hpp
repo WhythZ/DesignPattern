@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _PRODUCT_HPP_
+#define _PRODUCT_HPP_
 
 #include <iostream>
 
@@ -16,3 +17,5 @@ Product::~Product()
     //产品都是通过new开辟到堆区实例化的（这需要在工厂的实现中被保证），故这里可直接delete
     delete this;
 }
+
+#endif

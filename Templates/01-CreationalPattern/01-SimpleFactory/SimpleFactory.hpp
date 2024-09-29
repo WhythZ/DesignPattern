@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SIMPLE_FACTORY_HPP_
+#define _SIMPLE_FACTORY_HPP_
 
 #include "ConcreteProductA.hpp"
 #include "ConcreteProductB.hpp"
@@ -31,3 +32,5 @@ Product* SimpleFactory::CreatProduct(ProductType _idx)
         return nullptr;
     }
 }
+
+#endif

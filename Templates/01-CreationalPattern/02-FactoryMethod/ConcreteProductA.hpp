@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONCRETE_PRODUCT_A_HPP_
+#define _CONCRETE_PRODUCT_A_HPP_
 
 #include "Product.hpp"
 
@@ -16,3 +17,5 @@ void ConcreteProductA::Use()
 {
     std::cout << "Use Product A\n";
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FACTORY_HPP_
+#define _FACTORY_HPP_
 
 #include "Product.hpp"
 
@@ -8,3 +9,5 @@ class Factory
 public:
     virtual Product* CreateProduct() = 0;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONCRETE_BUILDER_B_HPP_
+#define _CONCRETE_BUILDER_B_HPP_
 
 #include "Builder.hpp"
 
@@ -41,3 +42,5 @@ Product* ConcreteBuilderB::GetBuilding()
     //因为返回的是一个开辟在堆区的产品，所以需要记得在使用完后清理内存
     return new Product(product);
 }
+
+#endif

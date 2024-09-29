@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _BUILDER_HPP_
+#define _BUILDER_HPP_
 
 #include "Product.hpp"
 
@@ -24,3 +25,5 @@ public:
 
 //纯虚析构函数需要实现
 Builder::~Builder() {}
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FACTORY_HPP_
+#define _FACTORY_HPP_
 
 #include "Product.hpp"
 
@@ -11,3 +12,5 @@ public:
     //生产该工厂所代表品牌的B产品
     virtual Product* CreateProductB() = 0;
 };
+
+#endif

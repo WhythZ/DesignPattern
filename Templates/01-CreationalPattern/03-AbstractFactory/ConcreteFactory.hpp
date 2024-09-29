@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONCRETE_FACTORY_HPP_
+#define _CONCRETE_FACTORY_HPP_
 
 #include "ConcreteProductA.hpp"
 #include "ConcreteProductB.hpp"
@@ -42,3 +43,5 @@ ConcreteProductB2* ConcreteFactory2::CreateProductB()
 {
     return new ConcreteProductB2();
 }
+
+#endif
