@@ -7,15 +7,15 @@
 class ConcreteProductB1 : public Product
 {
 public:
-    ~ConcreteProductB1();
-    void Use();
+    ~ConcreteProductB1() override;
+    void Use() override;
 };
 
 class ConcreteProductB2 : public Product
 {
 public:
-    ~ConcreteProductB2();
-    void Use();
+    ~ConcreteProductB2() override;
+    void Use() override;
 };
 
 ConcreteProductB1::~ConcreteProductB1() {}
