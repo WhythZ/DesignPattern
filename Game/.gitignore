@@ -1,6 +1,9 @@
 # Keep third party dependencies in this repo
 !Dependencies/
 !Dependencies/**
+# Ignore accidental VSCode files and cache
+.vscode/
+output/
 
 # Ignore CMake build results
 [Bb]uild/
