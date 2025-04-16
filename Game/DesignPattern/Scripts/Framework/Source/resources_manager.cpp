@@ -10,7 +10,7 @@ void ResourcesManager::load(SDL_Renderer* renderer)
 
     this->renderer = renderer;
 
-    for (const auto& entry : directory_iterator("resources"))
+    for (const auto& entry : directory_iterator("Assets"))
     {
         if (entry.is_regular_file())
         {
