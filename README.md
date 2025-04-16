@@ -1,4 +1,4 @@
-# GameDesignPattern
+# DesignPattern
 
 ## About
 This repo stores common design pattern templates for C++
