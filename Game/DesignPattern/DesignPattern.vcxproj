@@ -127,7 +127,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib\x64;$(SolutionDir)Dependencies\SDL2_image\lib\x64;$(SolutionDir)Dependencies\SDL2_ttf\lib\x64;$(SolutionDir)Dependencies\SDL2_mixer\lib\x64;$(SolutionDir)Dependencies\SDL2_gfx\lib\x64;$(SolutionDir)Dependencies\lua\lib\x64;$(SolutionDir)Dependencies\EasyX\lib\x64;$(SolutionDir)Dependencies\raylib\lib\x64;$(SolutionDir)Dependencies\cJSON\lib\x64;$(SolutionDir)Dependencies\pugixml\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib\x64lib;$(SolutionDir)Dependencies\SDL2_image\lib\x64lib;$(SolutionDir)Dependencies\SDL2_ttf\lib\x64lib;$(SolutionDir)Dependencies\SDL2_mixer\lib\x64lib;$(SolutionDir)Dependencies\SDL2_gfx\lib\x64lib;$(SolutionDir)Dependencies\lua\lib\x64lib;$(SolutionDir)Dependencies\EasyX\lib\x64lib;$(SolutionDir)Dependencies\raylib\lib\x64lib;$(SolutionDir)Dependencies\cJSON\lib\x64lib;$(SolutionDir)Dependencies\pugixml\lib\x64lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_gfx.lib;lua.lib;EasyXw.lib;raylibdll.lib;cjson.lib;pugixml.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
