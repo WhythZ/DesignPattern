@@ -1,4 +1,4 @@
-﻿#include "8.strategy.h"
+﻿#include "Strategy.h"
 
 #include <imgui.h>
 

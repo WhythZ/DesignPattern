@@ -31,6 +31,75 @@
     <Filter Include="01-Framework\Source">
       <UniqueIdentifier>{614c1ffa-6913-46eb-a44c-cdba4c761461}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02-Templates\01-Creational\01-FactoryMethod">
+      <UniqueIdentifier>{3d0fbe8e-f24f-431a-a260-24c89475bbd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\01-Creational\02-AbstractFactory">
+      <UniqueIdentifier>{abb69864-6eec-436e-bd0f-ae65185ee17a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\01-Creational\03-Builder">
+      <UniqueIdentifier>{203298dc-9e35-470c-b9eb-526f8c8ec4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\01-Creational\04-Prototype">
+      <UniqueIdentifier>{84a5e2d6-bd0e-4284-af79-6a0016ff945a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\01-Creational\05-Singleton">
+      <UniqueIdentifier>{e66fda61-c5b4-43fc-8a07-7943c3647a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\01-Adapter">
+      <UniqueIdentifier>{ad00b9a0-810f-46a6-a5ff-f98afb09fe85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\02-Bridge">
+      <UniqueIdentifier>{9151cfcb-ee3b-41fe-9402-862edf04887f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\03-Composite">
+      <UniqueIdentifier>{cfac9507-62e7-4841-b350-792ead03540e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\04-Decorator">
+      <UniqueIdentifier>{3e7df333-a327-470b-80f7-26124f320889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\05-Facade">
+      <UniqueIdentifier>{c8018a69-bec4-4fe3-a706-61fea5d13e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\07-Proxy">
+      <UniqueIdentifier>{87b67354-5e12-44b9-9692-503874222f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\01-ChainOfResponsibility">
+      <UniqueIdentifier>{91624af9-87aa-46d0-b718-08559f84a5ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\02-Command">
+      <UniqueIdentifier>{cf337ade-1090-41b4-9999-e22a078f248b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\03-Iterator">
+      <UniqueIdentifier>{b9b84f1d-2147-49cc-a2ef-2780cd5d90e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\04-Mediator">
+      <UniqueIdentifier>{95ebe82a-2cc5-416e-b40e-491e8a7bddc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\05-Memento">
+      <UniqueIdentifier>{50ed82f8-d58f-4b8d-9595-0bcfd5f6bf4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\06-Observer">
+      <UniqueIdentifier>{9dc0efbd-37c7-42ab-b513-103c63fc45eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\07-State">
+      <UniqueIdentifier>{20197a27-ad90-4a13-b3ce-caed38db3d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\08-Strategy">
+      <UniqueIdentifier>{e20182a9-8c34-4ea1-88c4-61a67edc057d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\09-TemplateMethod">
+      <UniqueIdentifier>{250a976a-e985-433d-bdc2-9b10c622b0fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\10-Visitor">
+      <UniqueIdentifier>{b50eedad-25d2-4a1e-a928-da82c9b66d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\03-Behavioral\11-Interpreter">
+      <UniqueIdentifier>{3806411c-50bb-462f-ae69-03bb3d081eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02-Templates\02-Structural\06-Flyweight">
+      <UniqueIdentifier>{0e46d8ef-60b2-4597-912d-add8422bb7a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scripts\03-Resources\DesignPattern.rc">
@@ -45,75 +114,6 @@
   <ItemGroup>
     <ClInclude Include="Scripts\03-Resources\resource.h">
       <Filter>03-Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\2.abstract_factory.h">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\01-Creational\03-Builder\3.builder.h">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\1.factory_method.h">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\01-Creational\04-Prototype\4.prototype.h">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\01-Creational\05-Singleton\5.singleton.h">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\01-Adapter\1.adapter.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\03-Composite\3.composite.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\04-Decorator\4.decorator.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\05-Facade\5.facade.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\06-Flyweight\6.flyweight.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\02-Structural\07-Proxy\7.proxy.h">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\01-ChainOfResonsibility\1.chain_of_responsibility.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\02-Command\2.command.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\03-Iterator\3.iterator.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\04-Mediator\4.mediator.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\05-Memento\5.memento.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\06-Observer\6.observer.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\07-State\7.state.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\08-Strategy\8.strategy.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\9.template_method.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\10-Visitor\10.visitor.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\11.interpreter.h">
-      <Filter>02-Templates\03-Behavioral</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\01-Framework\Include\Animation.h">
       <Filter>01-Framework\Include</Filter>
@@ -142,29 +142,77 @@
     <ClInclude Include="Scripts\01-Framework\Include\Vector2.h">
       <Filter>01-Framework\Include</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\FactoryMethod.h">
+      <Filter>02-Templates\01-Creational\01-FactoryMethod</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\AbstractFactory.h">
+      <Filter>02-Templates\01-Creational\02-AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\01-Creational\03-Builder\Builder.h">
+      <Filter>02-Templates\01-Creational\03-Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\01-Creational\04-Prototype\Prototype.h">
+      <Filter>02-Templates\01-Creational\04-Prototype</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\01-Creational\05-Singleton\Singleton.h">
+      <Filter>02-Templates\01-Creational\05-Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\01-Adapter\Adapter.h">
+      <Filter>02-Templates\02-Structural\01-Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\02-Bridge\Bridge.h">
+      <Filter>02-Templates\02-Structural\02-Bridge</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\03-Composite\Composite.h">
+      <Filter>02-Templates\02-Structural\03-Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\04-Decorator\Decorator.h">
+      <Filter>02-Templates\02-Structural\04-Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\05-Facade\Facade.h">
+      <Filter>02-Templates\02-Structural\05-Facade</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\06-Flyweight\Flyweight.h">
+      <Filter>02-Templates\02-Structural\06-Flyweight</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\02-Structural\07-Proxy\Proxy.h">
+      <Filter>02-Templates\02-Structural\07-Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\01-ChainOfResonsibility\ChainOfResponsibility.h">
+      <Filter>02-Templates\03-Behavioral\01-ChainOfResponsibility</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\02-Command\Command.h">
+      <Filter>02-Templates\03-Behavioral\02-Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\03-Iterator\Iterator.h">
+      <Filter>02-Templates\03-Behavioral\03-Iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\04-Mediator\Mediator.h">
+      <Filter>02-Templates\03-Behavioral\04-Mediator</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\05-Memento\Memento.h">
+      <Filter>02-Templates\03-Behavioral\05-Memento</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\06-Observer\Observer.h">
+      <Filter>02-Templates\03-Behavioral\06-Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\07-State\State.h">
+      <Filter>02-Templates\03-Behavioral\07-State</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\08-Strategy\Strategy.h">
+      <Filter>02-Templates\03-Behavioral\08-Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\TemplateMethod.h">
+      <Filter>02-Templates\03-Behavioral\09-TemplateMethod</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\10-Visitor\Visitor.h">
+      <Filter>02-Templates\03-Behavioral\10-Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\Interpreter.h">
+      <Filter>02-Templates\03-Behavioral\11-Interpreter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\2.abstract_factory.cpp">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\01-Creational\03-Builder\3.builder.cpp">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\1.factory_method.cpp">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\01-Creational\04-Prototype\4.prototype.cpp">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\01-Creational\05-Singleton\5.singleton.cpp">
-      <Filter>02-Templates\01-Creational</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\01-Adapter\1.adapter.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
     <ClCompile Include="..\Dependencies\imgui\imgui.cpp">
       <Filter>_Dependencies\ImGUI</Filter>
     </ClCompile>
@@ -186,63 +234,9 @@
     <ClCompile Include="..\Dependencies\imgui\imgui_widgets.cpp">
       <Filter>_Dependencies\ImGUI</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\03-Composite\3.composite.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\04-Decorator\4.decorator.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\05-Facade\5.facade.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\06-Flyweight\6.flyweight.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\07-Proxy\7.proxy.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\01-ChainOfResonsibility\1.chain_of_responsibility.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\02-Command\2.command.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\03-Iterator\3.iterator.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\04-Mediator\4.mediator.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\05-Memento\5.memento.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\06-Observer\6.observer.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\07-State\7.state.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\08-Strategy\8.strategy.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\9.template_method.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\10-Visitor\10.visitor.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\11.interpreter.cpp">
-      <Filter>02-Templates\03-Behavioral</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\Main.cpp" />
     <ClCompile Include="..\Dependencies\imgui\TextEditor.cpp">
       <Filter>_Dependencies\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge_raylib_impl.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge_easyx_impl.cpp">
-      <Filter>02-Templates\02-Structural</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\01-Framework\Source\Application.cpp">
       <Filter>01-Framework\Source</Filter>
@@ -252,6 +246,81 @@
     </ClCompile>
     <ClCompile Include="Scripts\01-Framework\Source\ResourceManager.cpp">
       <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\FactoryMethod.cpp">
+      <Filter>02-Templates\01-Creational\01-FactoryMethod</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\AbstractFactory.cpp">
+      <Filter>02-Templates\01-Creational\02-AbstractFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\01-Creational\03-Builder\Builder.cpp">
+      <Filter>02-Templates\01-Creational\03-Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\01-Creational\04-Prototype\Prototype.cpp">
+      <Filter>02-Templates\01-Creational\04-Prototype</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\01-Creational\05-Singleton\Singleton.cpp">
+      <Filter>02-Templates\01-Creational\05-Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\01-Adapter\Adapter.cpp">
+      <Filter>02-Templates\02-Structural\01-Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\Bridge.cpp">
+      <Filter>02-Templates\02-Structural\02-Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\BridgeEasyX.cpp">
+      <Filter>02-Templates\02-Structural\02-Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\BridgeRaylib.cpp">
+      <Filter>02-Templates\02-Structural\02-Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\03-Composite\Composite.cpp">
+      <Filter>02-Templates\02-Structural\03-Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\04-Decorator\Decorator.cpp">
+      <Filter>02-Templates\02-Structural\04-Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\05-Facade\Facade.cpp">
+      <Filter>02-Templates\02-Structural\05-Facade</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\06-Flyweight\Flyweight.cpp">
+      <Filter>02-Templates\02-Structural\06-Flyweight</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\02-Structural\07-Proxy\Proxy.cpp">
+      <Filter>02-Templates\02-Structural\07-Proxy</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\01-ChainOfResonsibility\ChainOfResponsibility.cpp">
+      <Filter>02-Templates\03-Behavioral\01-ChainOfResponsibility</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\02-Command\Command.cpp">
+      <Filter>02-Templates\03-Behavioral\02-Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\03-Iterator\Iterator.cpp">
+      <Filter>02-Templates\03-Behavioral\03-Iterator</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\04-Mediator\Mediator.cpp">
+      <Filter>02-Templates\03-Behavioral\04-Mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\05-Memento\Memento.cpp">
+      <Filter>02-Templates\03-Behavioral\05-Memento</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\06-Observer\Observer.cpp">
+      <Filter>02-Templates\03-Behavioral\06-Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\07-State\State.cpp">
+      <Filter>02-Templates\03-Behavioral\07-State</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\08-Strategy\Strategy.cpp">
+      <Filter>02-Templates\03-Behavioral\08-Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\TemplateMethod.cpp">
+      <Filter>02-Templates\03-Behavioral\09-TemplateMethod</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\10-Visitor\Visitor.cpp">
+      <Filter>02-Templates\03-Behavioral\10-Visitor</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\Interpreter.cpp">
+      <Filter>02-Templates\03-Behavioral\11-Interpreter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

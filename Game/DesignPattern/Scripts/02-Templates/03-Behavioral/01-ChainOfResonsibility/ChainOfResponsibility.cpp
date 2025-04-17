@@ -1,4 +1,4 @@
-#include "1.chain_of_responsibility.h"
+#include "ChainOfResponsibility.h"
 
 #include <imgui_stdlib.h>
 

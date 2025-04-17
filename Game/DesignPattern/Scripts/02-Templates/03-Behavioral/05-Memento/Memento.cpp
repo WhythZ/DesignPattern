@@ -1,4 +1,4 @@
-﻿#include "5.memento.h"
+﻿#include "Memento.h"
 
 #include <imgui.h>
 
@@ -27,10 +27,10 @@ void MementoPattern::on_update(float delta)
 {
 	player.on_update(delta);
 
-	if (ImGui::Button(u8"加载 \"data/save.json\" 存档文件到场景", { ImGui::GetContentRegionAvail().x / 2, 35 }))
+	if (ImGui::Button(u8"加载 \"Data/save.json\" 存档文件到场景", { ImGui::GetContentRegionAvail().x / 2, 35 }))
 		load_scene();
 	ImGui::SameLine();
-	if (ImGui::Button(u8"保存场景到 \"data/save.json\" 存档文件", { ImGui::GetContentRegionAvail().x, 35 }))
+	if (ImGui::Button(u8"保存场景到 \"Data/save.json\" 存档文件", { ImGui::GetContentRegionAvail().x, 35 }))
 		dump_scene();
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());

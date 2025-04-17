@@ -1,4 +1,4 @@
-#include "6.observer.h"
+#include "Observer.h"
 #include "ResourceManager.h"
 
 #include <imgui.h>

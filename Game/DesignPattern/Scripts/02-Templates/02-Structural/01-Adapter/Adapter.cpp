@@ -1,4 +1,4 @@
-#include "1.adapter.h"
+#include "Adapter.h"
 #include "ResourceManager.h"
 
 #include <imgui.h>
@@ -74,14 +74,14 @@ AdapterPattern::~AdapterPattern()
 
 void AdapterPattern::on_update(float delta)
 {
-	if (ImGui::Button(u8"加载 \"data/json_scene.json\" 场景文件", { ImGui::GetContentRegionAvail().x / 2, 35 }))
+	if (ImGui::Button(u8"加载 \"Data/json_scene.json\" 场景文件", { ImGui::GetContentRegionAvail().x / 2, 35 }))
 	{
-		reload_scene(&json_loader, "data/json_scene.json");
+		reload_scene(&json_loader, "Data/json_scene.json");
 	}
 	ImGui::SameLine();
-	if (ImGui::Button(u8"加载 \"data/xml_scene.xml\" 场景文件", { ImGui::GetContentRegionAvail().x, 35 }))
+	if (ImGui::Button(u8"加载 \"Data/xml_scene.xml\" 场景文件", { ImGui::GetContentRegionAvail().x, 35 }))
 	{
-		reload_scene(&xml_loader, "data/xml_scene.xml");
+		reload_scene(&xml_loader, "Data/xml_scene.xml");
 	}
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());

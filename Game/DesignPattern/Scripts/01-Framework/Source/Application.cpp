@@ -74,7 +74,7 @@ Application::Application()
 
 	SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 
-	window = SDL_CreateWindow(u8"GameDesignPattern",
+	window = SDL_CreateWindow(u8"DesignPattern",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		900, 720, SDL_WINDOW_ALLOW_HIGHDPI);
 

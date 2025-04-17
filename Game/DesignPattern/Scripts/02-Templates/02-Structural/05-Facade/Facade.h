@@ -14,7 +14,7 @@ public:
 	void on_update(float delta) override;
 
 private:
-	std::string str_text = u8"详见 framework/application.cpp 中的代码实现";
+	std::string str_text = u8"详见Framework/Application.cpp中的代码实现";
 
 };
 
