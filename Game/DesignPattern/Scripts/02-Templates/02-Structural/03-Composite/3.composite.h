@@ -1,9 +1,9 @@
 #ifndef _COMPOSITE_H_
 #define _COMPOSITE_H_
 
-#include "vector2.h"
-#include "example.h"
-#include "resources_manager.h"
+#include "Vector2.h"
+#include "Example.h"
+#include "ResourceManager.h"
 
 #include <string>
 #include <vector>

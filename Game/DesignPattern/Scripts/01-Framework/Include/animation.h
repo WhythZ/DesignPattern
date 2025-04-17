@@ -1,9 +1,9 @@
 #ifndef _ANIMATION_H_
 #define _ANIMATION_H_
 
-#include "timer.h"
-#include "atlas.h"
-#include "vector2.h"
+#include "Timer.h"
+#include "Atlas.h"
+#include "Vector2.h"
 
 #include <SDL.h>
 

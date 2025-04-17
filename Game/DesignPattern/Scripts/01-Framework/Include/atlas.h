@@ -1,7 +1,7 @@
 #ifndef _ATLAS_H_
 #define _ATLAS_H_
 
-#include "resources_manager.h"
+#include "ResourceManager.h"
 
 #include <SDL.h>
 #include <SDL_image.h>

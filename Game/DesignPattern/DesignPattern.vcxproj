@@ -153,18 +153,18 @@
     <ClInclude Include="Scripts\02-Templates\03-Behavioral\07-State\7.state.h" />
     <ClInclude Include="Scripts\02-Templates\03-Behavioral\08-Strategy\8.strategy.h" />
     <ClInclude Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\9.template_method.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\animation.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\application.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Animation.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Application.h" />
     <ClInclude Include="Scripts\02-Templates\01-Creational\03-Builder\3.builder.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\atlas.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\example.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\example_manager.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Atlas.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Example.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\ExampleManager.h" />
     <ClInclude Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\1.factory_method.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\font_wrapper.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\FontWrapper.h" />
     <ClInclude Include="Scripts\03-Resources\resource.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\resources_manager.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\timer.h" />
-    <ClInclude Include="Scripts\01-Framework\Include\vector2.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\ResourceManager.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Timer.h" />
+    <ClInclude Include="Scripts\01-Framework\Include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scripts\03-Resources\DesignPattern.rc" />
@@ -202,13 +202,13 @@
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\07-State\7.state.cpp" />
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\08-Strategy\8.strategy.cpp" />
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\09-TemplateMethod\9.template_method.cpp" />
-    <ClCompile Include="Scripts\01-Framework\Source\application.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Application.cpp" />
     <ClCompile Include="Scripts\02-Templates\01-Creational\03-Builder\3.builder.cpp" />
-    <ClCompile Include="Scripts\01-Framework\Source\example_manager.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\ExampleManager.cpp" />
     <ClCompile Include="Scripts\02-Templates\01-Creational\01-FactoryMethod\1.factory_method.cpp" />
     <ClCompile Include="Scripts\Main.cpp" />
     <ClCompile Include="Scripts\02-Templates\01-Creational\04-Prototype\4.prototype.cpp" />
-    <ClCompile Include="Scripts\01-Framework\Source\resources_manager.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\ResourceManager.cpp" />
     <ClCompile Include="Scripts\02-Templates\01-Creational\05-Singleton\5.singleton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

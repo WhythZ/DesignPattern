@@ -1,7 +1,7 @@
 #ifndef _PROXY_H_
 #define _PROXY_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <string>
 

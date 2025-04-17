@@ -1,5 +1,5 @@
 #include "7.proxy.h"
-#include "resources_manager.h"
+#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <imgui_stdlib.h>
@@ -28,7 +28,7 @@ void ProxyPattern::on_update(float delta)
 	
 	ImGui::Dummy({ 0, 5 });
 
-	ImGui::TextDisabled(u8"* 此外，另见 framework/font_wrapper.h 中的代码实现。");
+	ImGui::TextDisabled(u8"* 此外，另见 framework/FontWrapper.h 中的代码实现。");
 
 	ImGui::Dummy({ 0, 5 });
 

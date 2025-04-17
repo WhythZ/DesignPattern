@@ -1,4 +1,4 @@
-#include "resources_manager.h"
+#include "ResourceManager.h"
 
 #include <SDL_image.h>
 

@@ -1,8 +1,8 @@
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _BuilderPattern
 {

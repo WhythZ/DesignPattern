@@ -1,8 +1,8 @@
 #ifndef _MEMENTO_H_
 #define _MEMENTO_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 #include <cJSON.h>
 

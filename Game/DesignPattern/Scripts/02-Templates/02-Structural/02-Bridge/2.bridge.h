@@ -1,7 +1,7 @@
 #ifndef _BRIDGE_H_
 #define _BRIDGE_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <string>
 

@@ -1,5 +1,5 @@
 #include "1.adapter.h"
-#include "resources_manager.h"
+#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <cJSON.h>

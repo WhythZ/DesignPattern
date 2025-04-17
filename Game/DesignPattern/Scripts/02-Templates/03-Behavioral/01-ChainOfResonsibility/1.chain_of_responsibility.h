@@ -1,7 +1,7 @@
 #ifndef _CHAIN_OF_RESPONSIBILITY_H_
 #define _CHAIN_OF_RESPONSIBILITY_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <imgui.h>
 

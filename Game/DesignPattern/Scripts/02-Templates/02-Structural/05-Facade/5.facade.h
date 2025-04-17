@@ -1,7 +1,7 @@
 #ifndef _FACADE_H_
 #define _FACADE_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <string>
 

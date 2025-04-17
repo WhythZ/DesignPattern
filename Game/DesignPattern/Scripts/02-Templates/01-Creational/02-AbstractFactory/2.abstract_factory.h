@@ -1,8 +1,8 @@
 #ifndef _ABSTRACT_FACTORY_H_
 #define _ABSTRACT_FACTORY_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _AbstractFactoryPattern
 {

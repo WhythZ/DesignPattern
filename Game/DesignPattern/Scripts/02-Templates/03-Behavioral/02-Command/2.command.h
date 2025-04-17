@@ -1,8 +1,8 @@
 #ifndef _COMMAND_H_
 #define _COMMAND_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _CommandPattern
 {

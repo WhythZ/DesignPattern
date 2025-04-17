@@ -1,7 +1,7 @@
 #ifndef _OBSERVER_H_
 #define _OBSERVER_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <vector>
 

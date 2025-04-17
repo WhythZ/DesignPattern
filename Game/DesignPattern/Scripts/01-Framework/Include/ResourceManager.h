@@ -1,7 +1,7 @@
 #ifndef _RESOURCES_MANAGER_H_
 #define _RESOURCES_MANAGER_H_
 
-#include "font_wrapper.h"
+#include "FontWrapper.h"
 
 #include <SDL.h>
 #include <SDL_ttf.h>

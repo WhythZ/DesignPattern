@@ -1,5 +1,5 @@
 #include "6.observer.h"
-#include "resources_manager.h"
+#include "ResourceManager.h"
 
 #include <imgui.h>
 

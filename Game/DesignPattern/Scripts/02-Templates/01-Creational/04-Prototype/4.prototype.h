@@ -1,8 +1,8 @@
 #ifndef _PROTOTYPE_H_
 #define _PROTOTYPE_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _PrototypePattern
 {

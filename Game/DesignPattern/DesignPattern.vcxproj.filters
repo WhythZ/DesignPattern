@@ -25,6 +25,12 @@
     <Filter Include="03-Resources">
       <UniqueIdentifier>{e296f573-a2d4-44b9-b60d-18f22841f838}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01-Framework\Include">
+      <UniqueIdentifier>{8ff332d9-2ed2-4147-9b22-3674e52f2d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01-Framework\Source">
+      <UniqueIdentifier>{614c1ffa-6913-46eb-a44c-cdba4c761461}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scripts\03-Resources\DesignPattern.rc">
@@ -39,18 +45,6 @@
   <ItemGroup>
     <ClInclude Include="Scripts\03-Resources\resource.h">
       <Filter>03-Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\application.h">
-      <Filter>01-Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\resources_manager.h">
-      <Filter>01-Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\example.h">
-      <Filter>01-Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\example_manager.h">
-      <Filter>01-Framework</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\2.abstract_factory.h">
       <Filter>02-Templates\01-Creational</Filter>
@@ -69,9 +63,6 @@
     </ClInclude>
     <ClInclude Include="Scripts\02-Templates\02-Structural\01-Adapter\1.adapter.h">
       <Filter>02-Templates\02-Structural</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\font_wrapper.h">
-      <Filter>01-Framework</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge.h">
       <Filter>02-Templates\02-Structural</Filter>
@@ -124,29 +115,35 @@
     <ClInclude Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\11.interpreter.h">
       <Filter>02-Templates\03-Behavioral</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\timer.h">
-      <Filter>01-Framework</Filter>
+    <ClInclude Include="Scripts\01-Framework\Include\Animation.h">
+      <Filter>01-Framework\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\atlas.h">
-      <Filter>01-Framework</Filter>
+    <ClInclude Include="Scripts\01-Framework\Include\Atlas.h">
+      <Filter>01-Framework\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\animation.h">
-      <Filter>01-Framework</Filter>
+    <ClInclude Include="Scripts\01-Framework\Include\Application.h">
+      <Filter>01-Framework\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\01-Framework\Include\vector2.h">
-      <Filter>01-Framework</Filter>
+    <ClInclude Include="Scripts\01-Framework\Include\Example.h">
+      <Filter>01-Framework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\01-Framework\Include\ExampleManager.h">
+      <Filter>01-Framework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\01-Framework\Include\FontWrapper.h">
+      <Filter>01-Framework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\01-Framework\Include\ResourceManager.h">
+      <Filter>01-Framework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\01-Framework\Include\Timer.h">
+      <Filter>01-Framework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\01-Framework\Include\Vector2.h">
+      <Filter>01-Framework\Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scripts\01-Framework\Source\application.cpp">
-      <Filter>01-Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\01-Framework\Source\resources_manager.cpp">
-      <Filter>01-Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\01-Framework\Source\example_manager.cpp">
-      <Filter>01-Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\02-Templates\01-Creational\02-AbstractFactory\2.abstract_factory.cpp">
       <Filter>02-Templates\01-Creational</Filter>
     </ClCompile>
@@ -246,6 +243,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\02-Templates\02-Structural\02-Bridge\2.bridge_easyx_impl.cpp">
       <Filter>02-Templates\02-Structural</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\Application.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\ExampleManager.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\ResourceManager.cpp">
+      <Filter>01-Framework\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

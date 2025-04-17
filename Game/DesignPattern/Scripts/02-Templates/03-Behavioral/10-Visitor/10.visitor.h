@@ -1,8 +1,8 @@
 #ifndef _VISITOR_H_
 #define _VISITOR_H_
 
-#include "example.h"
-#include "resources_manager.h"
+#include "Example.h"
+#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <imgui_stdlib.h>

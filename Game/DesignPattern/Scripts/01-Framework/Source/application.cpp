@@ -1,6 +1,6 @@
-#include "application.h"
-#include "example_manager.h"
-#include "resources_manager.h"
+#include "Application.h"
+#include "ExampleManager.h"
+#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <SDL_ttf.h>

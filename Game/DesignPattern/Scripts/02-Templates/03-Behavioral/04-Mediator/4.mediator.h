@@ -1,8 +1,8 @@
 #ifndef _MEDIATOR_H_
 #define _MEDIATOR_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _MediatorPattern
 {

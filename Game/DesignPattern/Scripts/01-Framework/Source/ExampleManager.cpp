@@ -1,5 +1,5 @@
-#include "example_manager.h"
-#include "resources_manager.h"
+#include "ExampleManager.h"
+#include "ResourceManager.h"
 
 #include "../../02-Templates/01-Creational/01-FactoryMethod/1.factory_method.h"
 #include "../../02-Templates/01-Creational/02-AbstractFactory/2.abstract_factory.h"

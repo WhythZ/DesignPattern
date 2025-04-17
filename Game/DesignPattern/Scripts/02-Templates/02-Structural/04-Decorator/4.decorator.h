@@ -1,9 +1,9 @@
 #ifndef _DECORATOR_H_
 #define _DECORATOR_H_
 
-#include "vector2.h"
-#include "example.h"
-#include "resources_manager.h"
+#include "Vector2.h"
+#include "Example.h"
+#include "ResourceManager.h"
 
 #include <vector>
 #include <functional>

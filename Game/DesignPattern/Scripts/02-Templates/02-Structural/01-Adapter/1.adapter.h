@@ -1,7 +1,7 @@
 #ifndef _ADAPTER_H_
 #define _ADAPTER_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <string>
 #include <vector>

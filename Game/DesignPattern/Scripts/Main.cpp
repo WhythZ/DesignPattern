@@ -1,6 +1,6 @@
 #define SDL_MAIN_HANDLED
 
-#include "application.h"
+#include "Application.h"
 
 #pragma comment(linker, "/subsystem:windows /entry:mainCRTStartup")
 

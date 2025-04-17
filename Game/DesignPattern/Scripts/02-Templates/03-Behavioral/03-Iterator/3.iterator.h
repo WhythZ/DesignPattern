@@ -1,8 +1,8 @@
 #ifndef _ITERATOR_H_
 #define _ITERATOR_H_
 
-#include "example.h"
-#include "resources_manager.h"
+#include "Example.h"
+#include "ResourceManager.h"
 
 #include <random>
 #include <string>

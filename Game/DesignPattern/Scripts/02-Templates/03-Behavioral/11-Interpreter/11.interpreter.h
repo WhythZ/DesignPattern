@@ -1,7 +1,7 @@
 #ifndef _INTERPRETER_H_
 #define _INTERPRETER_H_
 
-#include "example.h"
+#include "Example.h"
 
 #include <lua.hpp>
 #include <imgui.h>

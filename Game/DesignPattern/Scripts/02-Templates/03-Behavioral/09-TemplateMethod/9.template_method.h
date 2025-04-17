@@ -1,8 +1,8 @@
 #ifndef _TEMPLATE_METHOD_H_
 #define _TEMPLATE_METHOD_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 namespace _TemplateMethodPattern
 {

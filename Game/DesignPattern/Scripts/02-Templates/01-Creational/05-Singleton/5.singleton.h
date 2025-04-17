@@ -1,8 +1,8 @@
 #ifndef _SINGLETON_H_
 #define _SINGLETON_H_
 
-#include "example.h"
-#include "animation.h"
+#include "Example.h"
+#include "Animation.h"
 
 #include <unordered_map>
 
