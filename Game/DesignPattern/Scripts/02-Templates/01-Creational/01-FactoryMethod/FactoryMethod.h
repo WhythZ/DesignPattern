@@ -191,4 +191,4 @@ private:
 
 };
 
-#endif // !_FACTORY_METHOD_H_
+#endif

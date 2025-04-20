@@ -54,4 +54,4 @@ private:
 
 };
 
-#endif // !_ATLAS_H_
+#endif

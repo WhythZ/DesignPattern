@@ -85,4 +85,4 @@ private:
 
 };
 
-#endif // !_OBSERVER_H_
+#endif

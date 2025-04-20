@@ -213,4 +213,4 @@ private:
 
 };
 
-#endif // !_STRATEGY_H_
+#endif

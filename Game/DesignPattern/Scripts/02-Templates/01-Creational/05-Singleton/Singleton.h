@@ -263,4 +263,4 @@ private:
 
 };
 
-#endif // !_SINGLETON_H_
+#endif

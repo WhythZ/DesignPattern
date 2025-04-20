@@ -84,4 +84,4 @@ public:
 
 };
 
-#endif // !_VECTOR2_H_
+#endif

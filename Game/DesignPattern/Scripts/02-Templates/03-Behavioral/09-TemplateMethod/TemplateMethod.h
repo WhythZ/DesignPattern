@@ -301,4 +301,4 @@ private:
 
 };
 
-#endif // !_TEMPLATE_METHOD_H_
+#endif

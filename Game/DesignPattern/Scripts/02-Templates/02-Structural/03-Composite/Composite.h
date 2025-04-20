@@ -189,4 +189,4 @@ private:
 
 };
 
-#endif // !_COMPOSITE_H_
+#endif

@@ -63,4 +63,4 @@ private:
 
 };
 
-#endif // !_EXAMPLE_MANAGER_H_
+#endif

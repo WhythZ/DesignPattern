@@ -62,4 +62,4 @@ private:
 
 };
 
-#endif // !_ADAPTER_H_
+#endif

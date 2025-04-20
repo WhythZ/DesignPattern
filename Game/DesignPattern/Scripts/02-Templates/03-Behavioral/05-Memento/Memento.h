@@ -191,4 +191,4 @@ private:
 
 };
 
-#endif // !_MEMENTO_H_
+#endif

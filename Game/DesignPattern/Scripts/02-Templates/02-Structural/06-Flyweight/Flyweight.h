@@ -18,4 +18,4 @@ private:
 		u8"• Framework/Atlas.h \n• Framework/Animation.h\n• Framework/ResourcesManager.cpp";
 };
 
-#endif // !_FLYWEIGHT_H_
+#endif

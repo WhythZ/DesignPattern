@@ -39,4 +39,4 @@ private:
 
 };
 
-#endif // !_FONT_WRAPPER_H_
+#endif

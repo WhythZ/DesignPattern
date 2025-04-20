@@ -112,4 +112,4 @@ private:
 
 };
 
-#endif // !_PROTOTYPE_H_
+#endif

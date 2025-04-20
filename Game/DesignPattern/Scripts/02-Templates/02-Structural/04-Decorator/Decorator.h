@@ -260,4 +260,4 @@ private:
 
 };
 
-#endif // !_DECORATOR_H_
+#endif

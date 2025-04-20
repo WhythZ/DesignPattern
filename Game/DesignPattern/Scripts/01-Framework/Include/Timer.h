@@ -65,4 +65,4 @@ private:
 
 };
 
-#endif // !_TIMER_H_
+#endif

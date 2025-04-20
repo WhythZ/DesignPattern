@@ -57,4 +57,4 @@ private:
 
 };
 
-#endif // !_CHAIN_OF_RESPONSIBILITY_H_
+#endif

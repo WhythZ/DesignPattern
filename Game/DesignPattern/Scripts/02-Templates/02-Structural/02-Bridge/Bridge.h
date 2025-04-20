@@ -84,4 +84,4 @@ public:
 
 };
 
-#endif // !_BRIDGE_H_
+#endif

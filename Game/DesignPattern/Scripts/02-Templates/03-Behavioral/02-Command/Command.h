@@ -151,4 +151,4 @@ private:
 
 };
 
-#endif // !_COMMAND_H_
+#endif

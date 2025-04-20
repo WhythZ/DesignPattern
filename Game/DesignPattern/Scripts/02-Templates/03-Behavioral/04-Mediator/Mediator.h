@@ -108,4 +108,4 @@ private:
 
 };
 
-#endif // !_MEDIATOR_H_
+#endif

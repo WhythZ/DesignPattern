@@ -18,4 +18,4 @@ public:
 
 };
 
-#endif // !_EXAMPLE_H_
+#endif

@@ -18,4 +18,4 @@ private:
 
 };
 
-#endif // !_FACADE_H_
+#endif

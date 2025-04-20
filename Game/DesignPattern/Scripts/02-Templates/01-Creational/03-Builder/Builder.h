@@ -175,4 +175,4 @@ private:
 
 };
 
-#endif // !_BUILDER_H_
+#endif

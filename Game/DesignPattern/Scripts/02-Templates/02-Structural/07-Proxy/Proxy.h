@@ -28,4 +28,4 @@ private:
 
 };
 
-#endif // !_PROXY_H_
+#endif

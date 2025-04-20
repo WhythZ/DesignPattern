@@ -126,4 +126,4 @@ private:
 
 };
 
-#endif // ! _STATE_H_
+#endif

@@ -302,4 +302,4 @@ private:
 
 };
 
-#endif // !_ABSTRACT_FACTORY_H_
+#endif

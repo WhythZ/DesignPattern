@@ -227,4 +227,4 @@ private:
 
 };
 
-#endif // !_ITERATOR_H_
+#endif

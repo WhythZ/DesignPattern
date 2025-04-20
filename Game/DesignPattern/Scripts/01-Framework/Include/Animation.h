@@ -158,4 +158,4 @@ private:
 
 };
 
-#endif // !_ANIMATION_H_
+#endif

@@ -168,4 +168,4 @@ private:
 
 };
 
-#endif // !_VISITOR_H_
+#endif

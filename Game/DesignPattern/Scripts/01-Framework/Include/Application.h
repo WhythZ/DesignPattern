@@ -28,4 +28,4 @@ private:
 
 };
 
-#endif // !_APPLICATION_H_
+#endif

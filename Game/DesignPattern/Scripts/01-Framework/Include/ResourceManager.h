@@ -52,4 +52,4 @@ private:
 
 };
 
-#endif // !_RESOURCES_MANAGER_H_
+#endif
