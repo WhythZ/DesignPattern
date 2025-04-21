@@ -39,7 +39,7 @@ namespace _DecoratorPattern
 		{
 			size = { 66, 66 };
 			position = { 360, 360 };
-			texture = ResourcesManager::instance()->find_texture("small_plane");
+			texture = ResourcesManager::Instance()->findTexture("small_plane");
 		}
 
 		~Player() = default;
@@ -175,7 +175,7 @@ namespace _DecoratorPattern
 
 		void OnUpdate(float delta) override
 		{
-			player->set_texture(ResourcesManager::instance()->find_texture("large_plane"));
+			player->set_texture(ResourcesManager::Instance()->findTexture("large_plane"));
 
 			player->OnUpdate(delta);
 		}

@@ -58,7 +58,7 @@ void StrategyPattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("grassland"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("grassland"), nullptr, nullptr);
 	
 	for (Boar* boar : boar_list)
 		boar->OnRender(renderer);

@@ -66,10 +66,10 @@ void TextureNode::on_inspect()
 
 	ImGui::TextUnformatted(u8"纹理："); ImGui::NextColumn(); 
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::instance()->get_texture_resid_list();
+	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getTextureResIDList();
 	if (ImGui::Combo("##纹理", &idx_texture, &combo_getter, (void*)(&resid_list), (int)resid_list.size()))
 	{
-		texture = ResourcesManager::instance()->find_texture(resid_list[idx_texture]);
+		texture = ResourcesManager::Instance()->findTexture(resid_list[idx_texture]);
 		update_size();
 	}
 	ImGui::NextColumn();
@@ -99,10 +99,10 @@ void TextureNode::set_texture(SDL_Texture* texture)
 {
 	this->texture = texture;
 
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::instance()->get_texture_resid_list();
+	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getTextureResIDList();
 	for (int i = 0; i < resid_list.size(); i++)
 	{
-		if (texture == ResourcesManager::instance()->find_texture(resid_list[i]))
+		if (texture == ResourcesManager::Instance()->findTexture(resid_list[i]))
 		{
 			idx_texture = i;
 			break;
@@ -191,8 +191,8 @@ void TextNode::update_texture_text(SDL_Renderer* renderer)
 		(Uint8)(color_text[0] * 255), (Uint8)(color_text[1] * 255),
 		(Uint8)(color_text[2] * 255), (Uint8)(color_text[3] * 255)
 	};
-	SDL_Surface* surface = TTF_RenderUTF8_Blended(ResourcesManager::instance()
-		->find_font("SarasaMonoSC-Regular")->get_font(font_size), text.c_str(), color);
+	SDL_Surface* surface = TTF_RenderUTF8_Blended(ResourcesManager::Instance()
+		->findFont("SarasaMonoSC-Regular")->GetFont(font_size), text.c_str(), color);
 	if (!surface) { size = { 0, 0 }; return; }
 
 	texture_text = SDL_CreateTextureFromSurface(renderer, surface);
@@ -213,14 +213,14 @@ void AudioNode::on_inspect()
 
 	ImGui::TextUnformatted(u8"音频："); ImGui::NextColumn();
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::instance()->get_audio_resid_list();
+	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getAudioResIDList();
 	ImGui::Combo("##音频", &idx_audio, &combo_getter, (void*)(&resid_list), (int)resid_list.size());
 	ImGui::NextColumn();
 
 	ImGui::TextUnformatted(u8"播放："); ImGui::NextColumn();
 	static const ImVec2 size_btn = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
-	if (ImGui::ImageButton(ResourcesManager::instance()->find_texture("icon-play"), size_btn))
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio(ResourcesManager::instance()->get_audio_resid_list()[idx_audio]), 0);
+	if (ImGui::ImageButton(ResourcesManager::Instance()->findTexture("icon-play"), size_btn))
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio(ResourcesManager::Instance()->getAudioResIDList()[idx_audio]), 0);
 	ImGui::NextColumn();
 
 	ImGui::Columns(1);
@@ -228,10 +228,10 @@ void AudioNode::on_inspect()
 
 void _CompositePattern::AudioNode::set_audio(Mix_Chunk* audio)
 {
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::instance()->get_audio_resid_list();
+	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getAudioResIDList();
 	for (int i = 0; i < resid_list.size(); i++)
 	{
-		if (audio == ResourcesManager::instance()->find_audio(resid_list[i]))
+		if (audio == ResourcesManager::Instance()->findAudio(resid_list[i]))
 		{
 			idx_audio = i;
 			break;
@@ -288,13 +288,13 @@ void CompositePattern::OnUpdate(float delta)
 	{
 		if (ImGui::BeginMenu(u8"添加节点"))
 		{
-			if (render_menu_item(ResourcesManager::instance()->find_texture("icon-node"), u8"空节点"))
+			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-node"), u8"空节点"))
 				node_selected->add_child(new Node());
-			if (render_menu_item(ResourcesManager::instance()->find_texture("icon-texture"), u8"纹理节点"))
+			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-texture"), u8"纹理节点"))
 				node_selected->add_child(new TextureNode());
-			if (render_menu_item(ResourcesManager::instance()->find_texture("icon-text"), u8"文本节点"))
+			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-text"), u8"文本节点"))
 				node_selected->add_child(new TextNode());
-			if (render_menu_item(ResourcesManager::instance()->find_texture("icon-audio"), u8"音频节点"))
+			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-audio"), u8"音频节点"))
 				node_selected->add_child(new AudioNode());
 			ImGui::EndMenu();
 		}
@@ -332,7 +332,7 @@ void CompositePattern::init_world_tree()
 	{
 		AudioNode* node_audio = new AudioNode();
 		node_audio->set_name(u8"背景音乐");
-		node_audio->set_audio(ResourcesManager::instance()->find_audio("bgm"));
+		node_audio->set_audio(ResourcesManager::Instance()->findAudio("bgm"));
 		world_tree->add_child(node_audio);
 	}
 	{
@@ -342,7 +342,7 @@ void CompositePattern::init_world_tree()
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"动画静帧");
-			node_texture->set_texture(ResourcesManager::instance()->find_texture("brave"));
+			node_texture->set_texture(ResourcesManager::Instance()->findTexture("brave"));
 			node_brave->add_child(node_texture);
 
 			TextNode* node_text = new TextNode();
@@ -354,7 +354,7 @@ void CompositePattern::init_world_tree()
 
 			AudioNode* node_audio = new AudioNode();
 			node_audio->set_name(u8"私人笑声");
-			node_audio->set_audio(ResourcesManager::instance()->find_audio("manbo"));
+			node_audio->set_audio(ResourcesManager::Instance()->findAudio("manbo"));
 			node_brave->add_child(node_audio);
 		}
 		world_tree->add_child(node_brave);
@@ -366,7 +366,7 @@ void CompositePattern::init_world_tree()
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"冰剑");
-			node_texture->set_texture(ResourcesManager::instance()->find_texture("BlueSword"));
+			node_texture->set_texture(ResourcesManager::Instance()->findTexture("BlueSword"));
 			node_ice_sword->add_child(node_texture);
 
 			TextNode* node_text = new TextNode();
@@ -385,7 +385,7 @@ void CompositePattern::init_world_tree()
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"火剑");
-			node_texture->set_texture(ResourcesManager::instance()->find_texture("RedSword"));
+			node_texture->set_texture(ResourcesManager::Instance()->findTexture("RedSword"));
 			node_ice_sword->add_child(node_texture);
 
 			TextNode* node_text = new TextNode();

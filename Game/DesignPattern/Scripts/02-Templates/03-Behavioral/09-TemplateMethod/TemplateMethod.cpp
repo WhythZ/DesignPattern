@@ -155,7 +155,7 @@ void TemplateMethodPattern::OnUpdate(float delta)
 {
 	map->OnUpdate(delta);
 
-	if (ImGui::ImageButton(ResourcesManager::instance()->find_texture("icon-config"), { 30, 30 }))
+	if (ImGui::ImageButton(ResourcesManager::Instance()->findTexture("icon-config"), { 30, 30 }))
 		ImGui::OpenPopup("config_window");
 	if (ImGui::IsItemHovered())
 	{

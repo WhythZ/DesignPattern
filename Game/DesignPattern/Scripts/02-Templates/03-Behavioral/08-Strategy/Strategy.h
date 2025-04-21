@@ -104,7 +104,7 @@ namespace _StrategyPattern
 		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 30, 32, 20 };
-			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("shadow_player"), nullptr, &rect);
+			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("shadow_player"), nullptr, &rect);
 
 			animation.OnRender(renderer);
 		}
@@ -168,7 +168,7 @@ namespace _StrategyPattern
 		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 20, 32, 20 };
-			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("shadow_player"), nullptr, &rect);
+			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("shadow_player"), nullptr, &rect);
 
 			current_animation->OnRender(renderer);
 		}

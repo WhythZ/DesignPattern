@@ -10,14 +10,12 @@ class FontWrapper
 {
 private:
 	std::string path;
-	std::unordered_map<int, TTF_Font*> font_pool;
+	std::unordered_map<int, TTF_Font*> fontPool;
 
 public:
 	FontWrapper(const std::string);
-
 	~FontWrapper();
-
-	TTF_Font* get_font(int);
+	TTF_Font* GetFont(int);
 };
 
 #endif

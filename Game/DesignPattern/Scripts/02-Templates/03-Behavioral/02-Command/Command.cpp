@@ -18,7 +18,7 @@ void Player::on_move(const SDL_Point& dir)
 	if (map->grids[new_idx.y][new_idx.x] == Map::GridType::Goal)
 	{
 		is_achieved_goal = true;
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("achieve"), 0);
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("achieve"), 0);
 	}
 }
 
@@ -96,7 +96,7 @@ void CommandPattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("maze"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("maze"), nullptr, nullptr);
 
 	player->OnRender(renderer);
 

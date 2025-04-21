@@ -113,7 +113,7 @@ namespace _SingletonPattern
 		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_RenderCopyF(renderer, texture_background, nullptr, nullptr);
-			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("apron"), nullptr, &rect_apron);
+			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("apron"), nullptr, &rect_apron);
 			player->OnRender(renderer);
 		}
 
@@ -133,7 +133,7 @@ namespace _SingletonPattern
 		Level_1(Player* player) : Scene(player)
 		{
 			rect_apron = { 255, 255, 200, 200 };
-			texture_background = ResourcesManager::instance()->find_texture("level_1");
+			texture_background = ResourcesManager::Instance()->findTexture("level_1");
 		}
 
 		~Level_1() = default;
@@ -154,7 +154,7 @@ namespace _SingletonPattern
 		Level_2(Player* player) : Scene(player)
 		{
 			rect_apron = { 500, 260, 200, 200 };
-			texture_background = ResourcesManager::instance()->find_texture("level_2");
+			texture_background = ResourcesManager::Instance()->findTexture("level_2");
 		}
 
 		~Level_2() = default;
@@ -175,7 +175,7 @@ namespace _SingletonPattern
 		Level_3(Player* player) : Scene(player)
 		{
 			rect_apron = { 265, 10, 200, 200 };
-			texture_background = ResourcesManager::instance()->find_texture("level_3");
+			texture_background = ResourcesManager::Instance()->findTexture("level_3");
 		}
 
 		~Level_3() = default;
@@ -193,7 +193,7 @@ namespace _SingletonPattern
 	class SceneManager
 	{
 	public:
-		static SceneManager* instance()
+		static SceneManager* Instance()
 		{
 			if (!manager)
 				manager = new SceneManager();

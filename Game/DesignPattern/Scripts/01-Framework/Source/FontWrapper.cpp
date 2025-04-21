@@ -7,19 +7,18 @@ FontWrapper::FontWrapper(const std::string path)
 
 FontWrapper::~FontWrapper()
 {
-	for (auto& pair : font_pool)
+	for (auto& pair : fontPool)
 		TTF_CloseFont(pair.second);
 }
 
-TTF_Font* FontWrapper::get_font(int size)
+TTF_Font* FontWrapper::GetFont(int size)
 {
-	TTF_Font* font = font_pool[size];
+	TTF_Font* font = fontPool[size];
 
 	if (!font)
 	{
 		font = TTF_OpenFont(path.c_str(), size);
-		font_pool[size] = font;
+		fontPool[size] = font;
 	}
-
 	return font;
 }

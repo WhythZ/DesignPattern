@@ -89,7 +89,7 @@ void PrototypePattern::OnUpdate(float delta)
 		case 2: prototype_chicken->set_hat(&atlas_hat_straw); break;
 		}
 		chicken_list.push_back(prototype_chicken->clone());
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("click"), 0);
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("click"), 0);
 	}
 
 	ImGui::BeginChild("chicken_result", ImGui::GetContentRegionAvail(), ImGuiChildFlags_Border);

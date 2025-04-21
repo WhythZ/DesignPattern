@@ -8,25 +8,25 @@ SceneManager* SceneManager::manager = nullptr;
 
 void Level_1::on_reach()
 {
-	SceneManager::instance()->switch_to("level_2");
+	SceneManager::Instance()->switch_to("level_2");
 }
 
 void Level_2::on_reach()
 {
-	SceneManager::instance()->switch_to("level_3");
+	SceneManager::Instance()->switch_to("level_3");
 }
 
 void Level_3::on_reach()
 {
-	SceneManager::instance()->switch_to("level_1");
+	SceneManager::Instance()->switch_to("level_1");
 }
 
 SingletonPattern::SingletonPattern(SDL_Renderer* renderer)
 {
-	SceneManager::instance()->add("level_1", new Level_1(&player));
-	SceneManager::instance()->add("level_2", new Level_2(&player));
-	SceneManager::instance()->add("level_3", new Level_3(&player));
-	SceneManager::instance()->switch_to("level_1");
+	SceneManager::Instance()->add("level_1", new Level_1(&player));
+	SceneManager::Instance()->add("level_2", new Level_2(&player));
+	SceneManager::Instance()->add("level_3", new Level_3(&player));
+	SceneManager::Instance()->switch_to("level_1");
 
 	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
@@ -38,12 +38,12 @@ SingletonPattern::~SingletonPattern()
 
 void SingletonPattern::on_input(const SDL_Event* event)
 {
-	SceneManager::instance()->on_input(event);
+	SceneManager::Instance()->on_input(event);
 }
 
 void SingletonPattern::OnUpdate(float delta)
 {
-	SceneManager::instance()->OnUpdate(delta);
+	SceneManager::Instance()->OnUpdate(delta);
 
 	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
 
@@ -57,7 +57,7 @@ void SingletonPattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	SceneManager::instance()->OnRender(renderer);
+	SceneManager::Instance()->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

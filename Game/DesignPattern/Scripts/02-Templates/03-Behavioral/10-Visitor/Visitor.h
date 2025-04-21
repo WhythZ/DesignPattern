@@ -49,7 +49,7 @@ namespace _VisitorPattern
 	class MagicBook : public Item
 	{
 	public:
-		MagicBook() : Item(1, ResourcesManager::instance()->find_texture("book")) {}
+		MagicBook() : Item(1, ResourcesManager::Instance()->findTexture("book")) {}
 		~MagicBook() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -59,7 +59,7 @@ namespace _VisitorPattern
 	class OrdinaryPotion : public Item
 	{
 	public:
-		OrdinaryPotion() : Item(2, ResourcesManager::instance()->find_texture("bottle")) {}
+		OrdinaryPotion() : Item(2, ResourcesManager::Instance()->findTexture("bottle")) {}
 		~OrdinaryPotion() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -69,7 +69,7 @@ namespace _VisitorPattern
 	class Coins : public Item
 	{
 	public:
-		Coins() : Item(3, ResourcesManager::instance()->find_texture("coins")) {}
+		Coins() : Item(3, ResourcesManager::Instance()->findTexture("coins")) {}
 		~Coins() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -79,7 +79,7 @@ namespace _VisitorPattern
 	class Scrolls : public Item
 	{
 	public:
-		Scrolls() : Item(4, ResourcesManager::instance()->find_texture("scrolls")) {}
+		Scrolls() : Item(4, ResourcesManager::Instance()->findTexture("scrolls")) {}
 		~Scrolls() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -89,7 +89,7 @@ namespace _VisitorPattern
 	class Stick : public Item
 	{
 	public:
-		Stick() : Item(5, ResourcesManager::instance()->find_texture("stick")) {}
+		Stick() : Item(5, ResourcesManager::Instance()->findTexture("stick")) {}
 		~Stick() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -99,7 +99,7 @@ namespace _VisitorPattern
 	class Stone : public Item
 	{
 	public:
-		Stone() : Item(6, ResourcesManager::instance()->find_texture("stone")) {}
+		Stone() : Item(6, ResourcesManager::Instance()->findTexture("stone")) {}
 		~Stone() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }

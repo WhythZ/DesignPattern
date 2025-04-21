@@ -63,8 +63,8 @@ void ProxyPattern::update_texture_text(SDL_Renderer* renderer)
 		(Uint8)(color_text[0] * 255), (Uint8)(color_text[1] * 255), 
 		(Uint8)(color_text[2] * 255), (Uint8)(color_text[3] * 255) 
 	};
-	SDL_Surface* surface = TTF_RenderUTF8_Blended(ResourcesManager::instance()
-		->find_font("SarasaMonoSC-Regular")->get_font(font_size), str_text.c_str(), color);
+	SDL_Surface* surface = TTF_RenderUTF8_Blended(ResourcesManager::Instance()
+		->findFont("SarasaMonoSC-Regular")->GetFont(font_size), str_text.c_str(), color);
 	if (!surface) return;
 
 	texture_text = SDL_CreateTextureFromSurface(renderer, surface);

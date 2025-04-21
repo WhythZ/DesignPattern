@@ -42,7 +42,7 @@ void ExampleManager::init(SDL_Renderer* renderer)
 	SDL_SetTextureBlendMode(texture_target, SDL_BLENDMODE_BLEND);
 
 	subject_creational.title = u8"一、创建型模式（5）";
-	SDL_Texture* texture_icon_creational = ResourcesManager::instance()->find_texture("icon-creational");
+	SDL_Texture* texture_icon_creational = ResourcesManager::Instance()->findTexture("icon-creational");
 	add_example(subject_creational, MenuItem("factory_method", texture_icon_creational, u8"1. 工厂方法模式"), new FactoryMethodPattern(renderer));
 	add_example(subject_creational, MenuItem("abstract_factory", texture_icon_creational, u8"2. 抽象工厂模式"), new AbstractFactoryPattern(renderer));
 	add_example(subject_creational, MenuItem("builder", texture_icon_creational, u8"3. 建造者模式"), new BuilderPattern(renderer));
@@ -50,7 +50,7 @@ void ExampleManager::init(SDL_Renderer* renderer)
 	add_example(subject_creational, MenuItem("singleton", texture_icon_creational, u8"5. 单例模式"), new SingletonPattern(renderer));
 
 	subject_structural.title = u8"二、结构型模式（7）";
-	SDL_Texture* texture_icon_structural = ResourcesManager::instance()->find_texture("icon-structural");
+	SDL_Texture* texture_icon_structural = ResourcesManager::Instance()->findTexture("icon-structural");
 	add_example(subject_structural, MenuItem("adapter", texture_icon_structural, u8"1. 适配器模式"), new AdapterPattern(renderer));
 	add_example(subject_structural, MenuItem("bridge", texture_icon_structural, u8"2. 桥接模式"), new BridgePattern());
 	add_example(subject_structural, MenuItem("composite", texture_icon_structural, u8"3. 组合模式"), new CompositePattern(renderer));
@@ -60,7 +60,7 @@ void ExampleManager::init(SDL_Renderer* renderer)
 	add_example(subject_structural, MenuItem("proxy", texture_icon_structural, u8"7. 代理模式"), new ProxyPattern(renderer));
 
 	subject_behavioral.title = u8"三、行为模式（11）";
-	SDL_Texture* texture_icon_behavioral = ResourcesManager::instance()->find_texture("icon-behavioral");
+	SDL_Texture* texture_icon_behavioral = ResourcesManager::Instance()->findTexture("icon-behavioral");
 	add_example(subject_behavioral, MenuItem("chain_of_responsibility", texture_icon_behavioral, u8"1. 责任链模式"), new ChainOfResponsibilityPattern());
 	add_example(subject_behavioral, MenuItem("command", texture_icon_behavioral, u8"2. 命令模式"), new CommandPattern(renderer));
 	add_example(subject_behavioral, MenuItem("iterator", texture_icon_behavioral, u8"3. 迭代器模式"), new IteratorPattern(renderer));
@@ -78,7 +78,7 @@ void ExampleManager::on_update_blank_content()
 {
 	ImGui::SetCursorPos({ 545, 665 });
 	ImGui::TextDisabled(u8"HiHi~"); ImGui::SameLine();
-	if (ImGui::ImageButton(ResourcesManager::instance()->find_texture("icon-bilibili"), { 14, 14 }))
+	if (ImGui::ImageButton(ResourcesManager::Instance()->findTexture("icon-bilibili"), { 14, 14 }))
 		ShellExecute(NULL, TEXT("open"), TEXT("https://bilibili.com"), NULL, NULL, SW_SHOWNORMAL);
 	if (ImGui::IsItemHovered())
 	{

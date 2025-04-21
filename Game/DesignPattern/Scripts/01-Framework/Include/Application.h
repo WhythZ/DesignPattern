@@ -6,7 +6,7 @@
 class Application
 {
 public:
-	static Application* instance()
+	static Application* Instance()
 	{
 		if (!application)
 			application = new Application();

@@ -32,7 +32,7 @@ int Application::run(int argc, char** argv)
 			if (event.type == SDL_QUIT)
 				is_quit = true;
 
-			ExampleManager::instance()->on_input(&event);
+			ExampleManager::Instance()->on_input(&event);
 		}
 
 		steady_clock::time_point frame_start = steady_clock::now();
@@ -42,12 +42,12 @@ int Application::run(int argc, char** argv)
 		ImGui_ImplSDL2_NewFrame();
 		ImGui::NewFrame();
 
-		ExampleManager::instance()->OnUpdate(delta);
+		ExampleManager::Instance()->OnUpdate(delta);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		ExampleManager::instance()->OnRender();
+		ExampleManager::Instance()->OnRender();
 
 		ImGui::Render();
 		ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
@@ -96,8 +96,8 @@ Application::Application()
 	ioImGui.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
 	ioImGui.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18.0f, nullptr, ioImGui.Fonts->GetGlyphRangesChineseFull());
 
-	ResourcesManager::instance()->load(renderer);
-	ExampleManager::instance()->init(renderer);
+	ResourcesManager::Instance()->Load(renderer);
+	ExampleManager::Instance()->init(renderer);
 }
 
 Application::~Application()

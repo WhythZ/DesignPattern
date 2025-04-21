@@ -18,7 +18,7 @@ namespace _CompositePattern
 		Node()
 		{
 			name = "Node";
-			texture_icon = ResourcesManager::instance()->find_texture("icon-node");
+			texture_icon = ResourcesManager::Instance()->findTexture("icon-node");
 		}
 
 		virtual ~Node()
@@ -96,7 +96,7 @@ namespace _CompositePattern
 		TextureNode() 
 		{ 
 			name = "TextureNode";
-			texture_icon = ResourcesManager::instance()->find_texture("icon-texture");
+			texture_icon = ResourcesManager::Instance()->findTexture("icon-texture");
 		}
 		~TextureNode();
 
@@ -122,7 +122,7 @@ namespace _CompositePattern
 		TextNode() 
 		{ 
 			name = "TextNode"; 
-			texture_icon = ResourcesManager::instance()->find_texture("icon-text");
+			texture_icon = ResourcesManager::Instance()->findTexture("icon-text");
 		}
 		~TextNode() = default;
 
@@ -151,7 +151,7 @@ namespace _CompositePattern
 		AudioNode()
 		{ 
 			name = "AudioNode";
-			texture_icon = ResourcesManager::instance()->find_texture("icon-audio");
+			texture_icon = ResourcesManager::Instance()->findTexture("icon-audio");
 		}
 		~AudioNode() = default;
 

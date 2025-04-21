@@ -12,12 +12,12 @@ void Button1ClickedObserver::update(int state)
 	switch (state)
 	{
 	case 1:
-		unlocked_achievement_list.push_back(Achievement(ResourcesManager::instance()->find_texture("achievement_btn_1_1")));
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("unlock"), 0);
+		unlocked_achievement_list.push_back(Achievement(ResourcesManager::Instance()->findTexture("achievement_btn_1_1")));
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("unlock"), 0);
 		break;
 	case 10:
-		unlocked_achievement_list.push_back(Achievement(ResourcesManager::instance()->find_texture("achievement_btn_1_10")));
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("unlock"), 0);
+		unlocked_achievement_list.push_back(Achievement(ResourcesManager::Instance()->findTexture("achievement_btn_1_10")));
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("unlock"), 0);
 		break;
 	default: break;
 	}
@@ -28,12 +28,12 @@ void Button2ClickedObserver::update(int state)
 	switch (state)
 	{
 	case 1:
-		unlocked_achievement_list.push_back(Achievement(ResourcesManager::instance()->find_texture("achievement_btn_2_1")));
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("unlock"), 0);
+		unlocked_achievement_list.push_back(Achievement(ResourcesManager::Instance()->findTexture("achievement_btn_2_1")));
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("unlock"), 0);
 		break;
 	case 10:
-		unlocked_achievement_list.push_back(Achievement(ResourcesManager::instance()->find_texture("achievement_btn_2_10")));
-		Mix_PlayChannel(-1, ResourcesManager::instance()->find_audio("unlock"), 0);
+		unlocked_achievement_list.push_back(Achievement(ResourcesManager::Instance()->findTexture("achievement_btn_2_10")));
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("unlock"), 0);
 		break;
 	default: break;
 	}

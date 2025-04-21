@@ -8,11 +8,11 @@ DecoratorPattern::DecoratorPattern(SDL_Renderer* renderer)
 {
 	player = new Player();
 
-	prop_list.push_back(new Prop({ 100, 100 }, ResourcesManager::instance()->find_texture("coin"), 
+	prop_list.push_back(new Prop({ 100, 100 }, ResourcesManager::Instance()->findTexture("coin"), 
 		[&]() { player = new SpeedUpDecorator(player); }));
-	prop_list.push_back(new Prop({ 620, 100 }, ResourcesManager::instance()->find_texture("favorites"),
+	prop_list.push_back(new Prop({ 620, 100 }, ResourcesManager::Instance()->findTexture("favorites"),
 		[&]() { player = new SizeGrownDecorator(player); }));
-	prop_list.push_back(new Prop({ 360, 620 }, ResourcesManager::instance()->find_texture("likes"),
+	prop_list.push_back(new Prop({ 360, 620 }, ResourcesManager::Instance()->findTexture("likes"),
 		[&]() { player = new AppearanceChangedDecorator(player); }));
 
 	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);

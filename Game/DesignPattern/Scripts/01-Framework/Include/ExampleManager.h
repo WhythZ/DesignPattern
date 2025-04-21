@@ -10,7 +10,7 @@
 class ExampleManager
 {
 public:
-	static ExampleManager* instance()
+	static ExampleManager* Instance()
 	{
 		if (!manager)
 			manager = new ExampleManager();

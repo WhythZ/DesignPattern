@@ -29,7 +29,7 @@ namespace _TemplateMethodPattern
 	public:
 		StaticItem(const std::string& texture_id)
 		{
-			texture = ResourcesManager::instance()->find_texture(texture_id);
+			texture = ResourcesManager::Instance()->findTexture(texture_id);
 		}
 
 		~StaticItem() = default;
@@ -193,7 +193,7 @@ namespace _TemplateMethodPattern
 				for (int x = 0; x < 16; x++)
 					if (grids[y][x]) grids[y][x]->OnRender(renderer);
 			}
-			SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("dungeon_background"), nullptr, nullptr);
+			SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("dungeon_background"), nullptr, nullptr);
 		}
 
 	private:
@@ -216,9 +216,9 @@ namespace _TemplateMethodPattern
 				{
 					SDL_Texture* texture_floor = nullptr;
 					if (rand() % 100 < 10)
-						texture_floor = ResourcesManager::instance()->find_texture((rand() % 2) ? "floor_2" : "floor_3");
+						texture_floor = ResourcesManager::Instance()->findTexture((rand() % 2) ? "floor_2" : "floor_3");
 					else
-						texture_floor = ResourcesManager::instance()->find_texture("floor_1");
+						texture_floor = ResourcesManager::Instance()->findTexture("floor_1");
 
 					SDL_Rect rect = { (x + 1) * 40, (y + 2) * 40, 40, 40 };
 					SDL_RenderCopy(renderer, texture_floor, nullptr, &rect);

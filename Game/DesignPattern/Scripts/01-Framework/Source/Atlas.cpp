@@ -7,7 +7,7 @@ void Atlas::Load(const char* pathTemplate, int num)
 	{
 		char path_file[256];
 		sprintf_s(path_file, pathTemplate, i + 1);
-		SDL_Texture* texture = ResourcesManager::instance()->find_texture(path_file);
+		SDL_Texture* texture = ResourcesManager::Instance()->findTexture(path_file);
 		texList.push_back(texture);
 	}
 }
