@@ -14,7 +14,7 @@ public:
 	virtual void on_enter() {}
 	virtual void on_exit() {}
 
-	virtual void on_input(const SDL_Event* event) {}
+	virtual void OnInput(const SDL_Event* event) {}
 	virtual void OnUpdate(float delta) {}
 	virtual void OnRender(SDL_Renderer* renderer) {}
 

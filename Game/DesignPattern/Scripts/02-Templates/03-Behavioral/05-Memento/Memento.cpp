@@ -15,10 +15,10 @@ MementoPattern::~MementoPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void MementoPattern::on_input(const SDL_Event* event)
+void MementoPattern::OnInput(const SDL_Event* event)
 {
-	player.on_input(event);
-	_switch.on_input(event);
+	player.OnInput(event);
+	_switch.OnInput(event);
 }
 
 void MementoPattern::OnUpdate(float delta)

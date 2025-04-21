@@ -69,9 +69,9 @@ CommandPattern::~CommandPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void CommandPattern::on_input(const SDL_Event* event)
+void CommandPattern::OnInput(const SDL_Event* event)
 {
-	player->on_input(event);
+	player->OnInput(event);
 }
 
 void CommandPattern::OnUpdate(float delta)

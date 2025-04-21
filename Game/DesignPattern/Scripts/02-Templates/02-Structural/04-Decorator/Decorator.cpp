@@ -28,9 +28,9 @@ DecoratorPattern::~DecoratorPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void DecoratorPattern::on_input(const SDL_Event* event)
+void DecoratorPattern::OnInput(const SDL_Event* event)
 {
-	player->on_input(event);
+	player->OnInput(event);
 }
 
 void DecoratorPattern::OnUpdate(float delta)

@@ -5,27 +5,20 @@
 
 class Application
 {
-public:
-	static Application* Instance()
-	{
-		if (!application)
-			application = new Application();
-
-		return application;
-	}
-
-	int run(int argc, char** argv);
-
 private:
 	static Application* application;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	bool is_quit = false;
+	bool isQuit = false;
+
+public:
+	static Application* Instance();
+
+	int Run(int argc, char** argv);
 
 private:
 	Application();
 	~Application();
-
 };
 
 #endif

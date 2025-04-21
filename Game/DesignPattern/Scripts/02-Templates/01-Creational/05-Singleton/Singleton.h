@@ -22,7 +22,7 @@ namespace _SingletonPattern
 
 		~Player() = default;
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			switch (event->type)
 			{
@@ -96,9 +96,9 @@ namespace _SingletonPattern
 
 		virtual void on_enter() {}
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
-			player->on_input(event);
+			player->OnInput(event);
 		}
 
 		void OnUpdate(float delta)
@@ -206,7 +206,7 @@ namespace _SingletonPattern
 			scene_pool[id] = scene;
 		}
 
-		void switch_to(const std::string& id)
+		void SwitchTo(const std::string& id)
 		{
 			current_scene = scene_pool[id];
 
@@ -214,11 +214,11 @@ namespace _SingletonPattern
 				current_scene->on_enter();
 		}
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			if (!current_scene) return;
 
-			current_scene->on_input(event);
+			current_scene->OnInput(event);
 		}
 
 		void OnUpdate(float delta)
@@ -253,7 +253,7 @@ public:
 	SingletonPattern(SDL_Renderer* renderer);
 	~SingletonPattern();
 
-	void on_input(const SDL_Event* event) override;
+	void OnInput(const SDL_Event* event) override;
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
 

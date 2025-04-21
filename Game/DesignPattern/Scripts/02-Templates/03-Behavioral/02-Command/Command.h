@@ -55,7 +55,7 @@ namespace _CommandPattern
 				delete cmd;
 		}
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			if (is_replaying) return;
 
@@ -140,7 +140,7 @@ public:
 	CommandPattern(SDL_Renderer* renderer);
 	~CommandPattern();
 
-	void on_input(const SDL_Event* event) override;
+	void OnInput(const SDL_Event* event) override;
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
 

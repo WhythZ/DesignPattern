@@ -15,14 +15,21 @@
 
 Application* Application::application = nullptr;
 
-int Application::run(int argc, char** argv)
+Application* Application::Instance()
+{
+	if (!application)
+		application = new Application();
+	return application;
+}
+
+int Application::Run(int argc, char** argv)
 {
 	using namespace std::chrono;
 
 	const nanoseconds frame_duration(1000000000 / 144);
 	steady_clock::time_point last_tick = steady_clock::now();
 
-	while (!is_quit)
+	while (!isQuit)
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -30,9 +37,9 @@ int Application::run(int argc, char** argv)
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 			if (event.type == SDL_QUIT)
-				is_quit = true;
+				isQuit = true;
 
-			ExampleManager::Instance()->on_input(&event);
+			ExampleManager::Instance()->OnInput(&event);
 		}
 
 		steady_clock::time_point frame_start = steady_clock::now();
@@ -97,7 +104,7 @@ Application::Application()
 	ioImGui.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18.0f, nullptr, ioImGui.Fonts->GetGlyphRangesChineseFull());
 
 	ResourcesManager::Instance()->Load(renderer);
-	ExampleManager::Instance()->init(renderer);
+	ExampleManager::Instance()->Init(renderer);
 }
 
 Application::~Application()

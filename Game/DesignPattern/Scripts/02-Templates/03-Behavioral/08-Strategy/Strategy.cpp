@@ -24,9 +24,9 @@ StrategyPattern::~StrategyPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void StrategyPattern::on_input(const SDL_Event* event)
+void StrategyPattern::OnInput(const SDL_Event* event)
 {
-	player.on_input(event);
+	player.OnInput(event);
 }
 
 void StrategyPattern::OnUpdate(float delta)

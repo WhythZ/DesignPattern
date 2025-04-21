@@ -7,7 +7,6 @@ ResourcesManager* ResourcesManager::Instance()
 {
     if (!manager)
         manager = new ResourcesManager();
-
     return manager;
 }
 

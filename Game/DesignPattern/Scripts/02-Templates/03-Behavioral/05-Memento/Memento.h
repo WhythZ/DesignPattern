@@ -34,7 +34,7 @@ namespace _MementoPattern
 
 		~Player() = default;
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			switch (event->type)
 			{
@@ -126,7 +126,7 @@ namespace _MementoPattern
 		Switch() = default;
 		~Switch() = default;
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			switch (event->type)
 			{
@@ -176,7 +176,7 @@ public:
 	MementoPattern(SDL_Renderer* renderer);
 	~MementoPattern();
 
-	void on_input(const SDL_Event* event) override;
+	void OnInput(const SDL_Event* event) override;
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
 

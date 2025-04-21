@@ -13,7 +13,7 @@ namespace _DecoratorPattern
 	{
 	public:
 		virtual ~Character() {};
-		virtual void on_input(const SDL_Event* event) {}
+		virtual void OnInput(const SDL_Event* event) {}
 		virtual void OnUpdate(float delta) {}
 		virtual void OnRender(SDL_Renderer* renderer) {}
 
@@ -44,7 +44,7 @@ namespace _DecoratorPattern
 
 		~Player() = default;
 
-		void on_input(const SDL_Event* event) override
+		void OnInput(const SDL_Event* event) override
 		{
 			switch (event->type)
 			{
@@ -105,7 +105,7 @@ namespace _DecoratorPattern
 
 		~SpeedUpDecorator() = default;
 
-		void on_input(const SDL_Event* event) override { player->on_input(event); }
+		void OnInput(const SDL_Event* event) override { player->OnInput(event); }
 
 		void OnUpdate(float delta) override
 		{
@@ -138,7 +138,7 @@ namespace _DecoratorPattern
 
 		~SizeGrownDecorator() = default;
 
-		void on_input(const SDL_Event* event) override { player->on_input(event); }
+		void OnInput(const SDL_Event* event) override { player->OnInput(event); }
 
 		void OnUpdate(float delta) override
 		{
@@ -171,7 +171,7 @@ namespace _DecoratorPattern
 
 		~AppearanceChangedDecorator() = default;
 
-		void on_input(const SDL_Event* event) override { player->on_input(event); }
+		void OnInput(const SDL_Event* event) override { player->OnInput(event); }
 
 		void OnUpdate(float delta) override
 		{
@@ -248,7 +248,7 @@ public:
 	DecoratorPattern(SDL_Renderer* renderer);
 	~DecoratorPattern();
 
-	void on_input(const SDL_Event* event) override;
+	void OnInput(const SDL_Event* event) override;
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
 

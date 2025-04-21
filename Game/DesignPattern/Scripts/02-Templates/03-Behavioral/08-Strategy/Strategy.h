@@ -61,7 +61,7 @@ namespace _StrategyPattern
 
 		~Player() = default;
 
-		void on_input(const SDL_Event* event)
+		void OnInput(const SDL_Event* event)
 		{
 			switch (event->type)
 			{
@@ -198,7 +198,7 @@ public:
 	StrategyPattern(SDL_Renderer* renderer);
 	~StrategyPattern();
 
-	void on_input(const SDL_Event* event) override;
+	void OnInput(const SDL_Event* event) override;
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
 
