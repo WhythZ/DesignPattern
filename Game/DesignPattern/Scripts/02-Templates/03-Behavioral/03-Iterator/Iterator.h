@@ -35,7 +35,7 @@ namespace _IteratorPattern
 		const std::string& get_name() const { return name; }
 		Type get_type() const { return type; } 
 		Grade get_grade() const { return grade; }
-		SDL_Texture* get_texture() const { return texture; }
+		SDL_Texture* GetTexture() const { return texture; }
 
 	protected:
 		std::string name;
@@ -147,7 +147,7 @@ namespace _IteratorPattern
 
 		virtual ~Iterator() = default;
 
-		virtual void reset() { idx = 0; }
+		virtual void Reset() { idx = 0; }
 		virtual int get_idx() const { return idx; }
 		virtual Item* next() { return cache_list[idx++]; }
 		virtual bool has_next() const { return idx < cache_list.size(); }
@@ -207,8 +207,8 @@ public:
 	IteratorPattern(SDL_Renderer* renderer);
 	~IteratorPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

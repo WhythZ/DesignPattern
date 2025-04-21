@@ -29,11 +29,11 @@ void StrategyPattern::on_input(const SDL_Event* event)
 	player.on_input(event);
 }
 
-void StrategyPattern::on_update(float delta)
+void StrategyPattern::OnUpdate(float delta)
 {
-	player.on_update(delta);
+	player.OnUpdate(delta);
 	for (Boar* boar : boar_list)
-		boar->on_update(delta);
+		boar->OnUpdate(delta);
 
 	if (ImGui::Button(is_using_follow_strategy ? u8"切换野猪为 [远离] 策略" 
 		: u8"切换野猪为 [跟随] 策略", { ImGui::GetContentRegionAvail().x, 35 }))
@@ -52,7 +52,7 @@ void StrategyPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void StrategyPattern::on_render(SDL_Renderer* renderer)
+void StrategyPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
@@ -61,8 +61,8 @@ void StrategyPattern::on_render(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("grassland"), nullptr, nullptr);
 	
 	for (Boar* boar : boar_list)
-		boar->on_render(renderer);
-	player.on_render(renderer);
+		boar->OnRender(renderer);
+	player.OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

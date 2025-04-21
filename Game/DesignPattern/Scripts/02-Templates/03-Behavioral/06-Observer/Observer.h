@@ -76,7 +76,7 @@ public:
 	ObserverPattern();
 	~ObserverPattern();
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	_ObserverPattern::Button1ClickedObserver btn_1_clicked_observer;

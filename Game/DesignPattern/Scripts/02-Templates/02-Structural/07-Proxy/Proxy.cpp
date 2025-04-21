@@ -14,7 +14,7 @@ ProxyPattern::~ProxyPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void ProxyPattern::on_update(float delta)
+void ProxyPattern::OnUpdate(float delta)
 {
 	ImGui::TextUnformatted(u8"文本："); ImGui::SameLine();
 	if (ImGui::InputText(u8"##文本", &str_text))
@@ -37,7 +37,7 @@ void ProxyPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void ProxyPattern::on_render(SDL_Renderer* renderer)
+void ProxyPattern::OnRender(SDL_Renderer* renderer)
 {
 	if (need_update)
 	{

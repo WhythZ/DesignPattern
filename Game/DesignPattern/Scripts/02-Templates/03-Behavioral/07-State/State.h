@@ -10,8 +10,8 @@ namespace _StatePattern
 	{
 	public:
 		virtual ~State() = default;
-		virtual void on_update(float delta) = 0;
-		virtual void on_render(SDL_Renderer* renderer) = 0;
+		virtual void OnUpdate(float delta) = 0;
+		virtual void OnRender(SDL_Renderer* renderer) = 0;
 
 	};
 
@@ -20,21 +20,21 @@ namespace _StatePattern
 	public:
 		AnimatedState(const char* atlas_temp, int num)
 		{
-			atlas.load(atlas_temp, num);
-			animation.add_frame(&atlas);
-			animation.set_interval(0.1f);
-			animation.set_loop(true);
+			atlas.Load(atlas_temp, num);
+			animation.AddFrame(&atlas);
+			animation.SetInterval(0.1f);
+			animation.SetLoop(true);
 		}
 
-		virtual void on_update(float delta)
+		virtual void OnUpdate(float delta)
 		{
-			animation.set_position(position);
-			animation.on_update(delta);
+			animation.SetPosition(position);
+			animation.OnUpdate(delta);
 		}
 
-		virtual void on_render(SDL_Renderer* renderer)
+		virtual void OnRender(SDL_Renderer* renderer)
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 	protected:
@@ -82,18 +82,18 @@ namespace _StatePattern
 		Player() = default;
 		~Player() = default;
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			if (!state) return;
 
-			state->on_update(delta);
+			state->OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			if (!state) return;
 
-			state->on_render(renderer);
+			state->OnRender(renderer);
 		}
 
 		void set_state(State* state)
@@ -114,8 +114,8 @@ public:
 	StatePattern(SDL_Renderer* renderer);
 	~StatePattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	int idx_state = 0;

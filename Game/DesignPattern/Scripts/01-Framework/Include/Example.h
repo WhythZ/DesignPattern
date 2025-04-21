@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#include "ResourceManager.h"
+
 class Example
 {
 public:
@@ -13,8 +15,8 @@ public:
 	virtual void on_exit() {}
 
 	virtual void on_input(const SDL_Event* event) {}
-	virtual void on_update(float delta) {}
-	virtual void on_render(SDL_Renderer* renderer) {}
+	virtual void OnUpdate(float delta) {}
+	virtual void OnRender(SDL_Renderer* renderer) {}
 
 };
 

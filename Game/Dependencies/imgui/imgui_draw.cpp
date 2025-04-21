@@ -410,7 +410,7 @@ void ImDrawList::_ResetForNewFrame()
     _ClipRectStack.resize(0);
     _TextureIdStack.resize(0);
     _Path.resize(0);
-    _Splitter.Clear();
+    _Splitter.clear();
     CmdBuffer.push_back(ImDrawCmd());
     _FringeScale = 1.0f;
 }
@@ -2166,7 +2166,7 @@ void ImDrawListSplitter::SetCurrentChannel(ImDrawList* draw_list, int idx)
 // [SECTION] ImDrawData
 //-----------------------------------------------------------------------------
 
-void ImDrawData::Clear()
+void ImDrawData::clear()
 {
     Valid = false;
     CmdListsCount = TotalIdxCount = TotalVtxCount = 0;
@@ -2393,7 +2393,7 @@ ImFontAtlas::ImFontAtlas()
 ImFontAtlas::~ImFontAtlas()
 {
     IM_ASSERT(!Locked && "Cannot modify a locked ImFontAtlas between NewFrame() and EndFrame/Render()!");
-    Clear();
+    clear();
 }
 
 void    ImFontAtlas::ClearInputData()
@@ -2439,7 +2439,7 @@ void    ImFontAtlas::ClearFonts()
     TexReady = false;
 }
 
-void    ImFontAtlas::Clear()
+void    ImFontAtlas::clear()
 {
     ClearInputData();
     ClearTexData();
@@ -2518,7 +2518,7 @@ ImFont* ImFontAtlas::AddFont(const ImFontConfig* font_cfg)
 
 // Default font TTF is compressed with stb_compress then base85 encoded (see misc/fonts/binary_to_compressed_c.cpp for encoder)
 static unsigned int stb_decompress_length(const unsigned char* input);
-static unsigned int stb_decompress(unsigned char* output, const unsigned char* input, unsigned int length);
+static unsigned int stb_decompress(unsigned char* output, const unsigned char* input, unsigned int Length);
 static const char*  GetDefaultCompressedFontDataTTFBase85();
 static unsigned int Decode85Byte(char c)                                    { return c >= '\\' ? c-36 : c-35; }
 static void         Decode85(const unsigned char* src, unsigned char* dst)
@@ -2850,11 +2850,11 @@ static bool ImFontAtlasBuildWithStbTruetype(ImFontAtlas* atlas)
         ImFontBuildSrcData& src_tmp = src_tmp_array[src_i];
         src_tmp.GlyphsList.reserve(src_tmp.GlyphsCount);
         UnpackBitVectorToFlatIndexList(&src_tmp.GlyphsSet, &src_tmp.GlyphsList);
-        src_tmp.GlyphsSet.Clear();
+        src_tmp.GlyphsSet.clear();
         IM_ASSERT(src_tmp.GlyphsList.Size == src_tmp.GlyphsCount);
     }
     for (int dst_i = 0; dst_i < dst_tmp_array.Size; dst_i++)
-        dst_tmp_array[dst_i].GlyphsSet.Clear();
+        dst_tmp_array[dst_i].GlyphsSet.clear();
     dst_tmp_array.clear();
 
     // Allocate packing character data and flag packed characters buffer as non-packed (x0=y0=x1=y1=0)
@@ -4434,22 +4434,22 @@ static unsigned int stb_decompress_length(const unsigned char *input)
 static unsigned char *stb__barrier_out_e, *stb__barrier_out_b;
 static const unsigned char *stb__barrier_in_b;
 static unsigned char *stb__dout;
-static void stb__match(const unsigned char *data, unsigned int length)
+static void stb__match(const unsigned char *data, unsigned int Length)
 {
     // INVERSE of memmove... write each byte before copying the next...
-    IM_ASSERT(stb__dout + length <= stb__barrier_out_e);
-    if (stb__dout + length > stb__barrier_out_e) { stb__dout += length; return; }
+    IM_ASSERT(stb__dout + Length <= stb__barrier_out_e);
+    if (stb__dout + Length > stb__barrier_out_e) { stb__dout += Length; return; }
     if (data < stb__barrier_out_b) { stb__dout = stb__barrier_out_e+1; return; }
-    while (length--) *stb__dout++ = *data++;
+    while (Length--) *stb__dout++ = *data++;
 }
 
-static void stb__lit(const unsigned char *data, unsigned int length)
+static void stb__lit(const unsigned char *data, unsigned int Length)
 {
-    IM_ASSERT(stb__dout + length <= stb__barrier_out_e);
-    if (stb__dout + length > stb__barrier_out_e) { stb__dout += length; return; }
+    IM_ASSERT(stb__dout + Length <= stb__barrier_out_e);
+    if (stb__dout + Length > stb__barrier_out_e) { stb__dout += Length; return; }
     if (data < stb__barrier_in_b) { stb__dout = stb__barrier_out_e+1; return; }
-    memcpy(stb__dout, data, length);
-    stb__dout += length;
+    memcpy(stb__dout, data, Length);
+    stb__dout += Length;
 }
 
 #define stb__in2(x)   ((i[x] << 8) + i[(x)+1])

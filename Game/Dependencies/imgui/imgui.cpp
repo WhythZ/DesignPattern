@@ -3743,13 +3743,13 @@ void ImGui::Shutdown()
     g.WindowsTempSortBuffer.clear();
     g.CurrentWindow = NULL;
     g.CurrentWindowStack.clear();
-    g.WindowsById.Clear();
+    g.WindowsById.clear();
     g.NavWindow = NULL;
     g.HoveredWindow = g.HoveredWindowUnderMovingWindow = NULL;
     g.ActiveIdWindow = g.ActiveIdPreviousFrameWindow = NULL;
     g.MovingWindow = NULL;
 
-    g.KeysRoutingTable.Clear();
+    g.KeysRoutingTable.clear();
 
     g.ColorStack.clear();
     g.StyleVarStack.clear();
@@ -3761,13 +3761,13 @@ void ImGui::Shutdown()
     g.CurrentViewport = g.MouseViewport = g.MouseLastHoveredViewport = NULL;
     g.Viewports.clear_delete();
 
-    g.TabBars.Clear();
+    g.TabBars.clear();
     g.CurrentTabBarStack.clear();
     g.ShrinkWidthBuffer.clear();
 
     g.ClipperTempData.clear_destruct();
 
-    g.Tables.Clear();
+    g.Tables.clear();
     g.TablesTempData.clear_destruct();
     g.DrawChannelsTempMergeBuffer.clear();
 
@@ -12353,11 +12353,11 @@ void ImGui::NavMoveRequestSubmit(ImGuiDir move_dir, ImGuiDir clip_dir, ImGuiNavM
     g.NavMoveScrollFlags = scroll_flags;
     g.NavMoveForwardToNextFrame = false;
     g.NavMoveKeyMods = (move_flags & ImGuiNavMoveFlags_FocusApi) ? 0 : g.IO.KeyMods;
-    g.NavMoveResultLocal.Clear();
-    g.NavMoveResultLocalVisible.Clear();
-    g.NavMoveResultOther.Clear();
+    g.NavMoveResultLocal.clear();
+    g.NavMoveResultLocalVisible.clear();
+    g.NavMoveResultOther.clear();
     g.NavTabbingCounter = 0;
-    g.NavTabbingResultFirst.Clear();
+    g.NavTabbingResultFirst.clear();
     NavUpdateAnyRequestFlag();
 }
 
@@ -13530,7 +13530,7 @@ void ImGui::ClearDragDrop()
 {
     ImGuiContext& g = *GImGui;
     g.DragDropActive = false;
-    g.DragDropPayload.Clear();
+    g.DragDropPayload.clear();
     g.DragDropAcceptFlags = ImGuiDragDropFlags_None;
     g.DragDropAcceptIdCurr = g.DragDropAcceptIdPrev = 0;
     g.DragDropAcceptIdCurrRectSurface = FLT_MAX;
@@ -18668,7 +18668,7 @@ void ImGui::DockBuilderRemoveNodeChildNodes(ImGuiID root_id)
 
     if (root_id == 0)
     {
-        dc->Nodes.Clear();
+        dc->Nodes.clear();
         dc->Requests.clear();
     }
     else if (has_central_node)
@@ -19542,10 +19542,10 @@ static const char* GetClipboardTextFn_DefaultImpl(void* user_data_ctx)
             if (PasteboardCopyItemFlavorData(main_clipboard, item_id, CFSTR("public.utf8-plain-text"), &cf_data) == noErr)
             {
                 g.ClipboardHandlerData.clear();
-                int length = (int)CFDataGetLength(cf_data);
-                g.ClipboardHandlerData.resize(length + 1);
-                CFDataGetBytes(cf_data, CFRangeMake(0, length), (UInt8*)g.ClipboardHandlerData.Data);
-                g.ClipboardHandlerData[length] = 0;
+                int Length = (int)CFDataGetLength(cf_data);
+                g.ClipboardHandlerData.resize(Length + 1);
+                CFDataGetBytes(cf_data, CFRangeMake(0, Length), (UInt8*)g.ClipboardHandlerData.Data);
+                g.ClipboardHandlerData[Length] = 0;
                 CFRelease(cf_data);
                 return g.ClipboardHandlerData.Data;
             }

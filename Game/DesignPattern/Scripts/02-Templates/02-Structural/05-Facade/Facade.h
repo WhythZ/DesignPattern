@@ -11,7 +11,7 @@ public:
 	FacadePattern() = default;
 	~FacadePattern() = default;
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	std::string str_text = u8"详见Framework/Application.cpp中的代码实现";

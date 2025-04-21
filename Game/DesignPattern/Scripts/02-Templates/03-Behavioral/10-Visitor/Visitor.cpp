@@ -68,7 +68,7 @@ VisitorPattern::VisitorPattern() = default;
 
 VisitorPattern::~VisitorPattern() = default;
 
-void VisitorPattern::on_update(float delta)
+void VisitorPattern::OnUpdate(float delta)
 {
 	static const ImVec2 size_dummy = { 33, 0 };
 

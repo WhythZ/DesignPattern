@@ -5,13 +5,13 @@
 
 using namespace _MediatorPattern;
 
-void User::on_update(float delta)
+void User::OnUpdate(float delta)
 {
-	animation.on_update(delta);
+	animation.OnUpdate(delta);
 
 	ImGui::Dummy({ 0, 10 });
 	ImGui::Text(u8"´óÌüÍæ¼Ò [%d]£º", id);
-	ImGui::Image(animation.get_current_texture(), { 224, 128 }, { 0, 0 }, { 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 0.75f });
+	ImGui::Image(animation.GetCurrentTexture(), { 224, 128 }, { 0, 0 }, { 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 0.75f });
 	ImGui::SameLine();
 	{
 		ImGui::BeginGroup();
@@ -48,10 +48,10 @@ MediatorPattern::~MediatorPattern()
 	delete user_3; delete user_4;
 }
 
-void MediatorPattern::on_update(float delta)
+void MediatorPattern::OnUpdate(float delta)
 {
-	user_1->on_update(delta);
-	user_2->on_update(delta);
-	user_3->on_update(delta);
-	user_4->on_update(delta);
+	user_1->OnUpdate(delta);
+	user_2->OnUpdate(delta);
+	user_3->OnUpdate(delta);
+	user_4->OnUpdate(delta);
 }

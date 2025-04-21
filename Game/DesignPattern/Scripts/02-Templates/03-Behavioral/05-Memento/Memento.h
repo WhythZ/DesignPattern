@@ -1,10 +1,10 @@
 #ifndef _MEMENTO_H_
 #define _MEMENTO_H_
 
+#include <cJSON.h>
+
 #include "Example.h"
 #include "Animation.h"
-
-#include <cJSON.h>
 
 namespace _MementoPattern
 {
@@ -14,7 +14,7 @@ namespace _MementoPattern
 		virtual ~Serializable() = default;
 
 		virtual cJSON* dump() = 0;
-		virtual void load(const cJSON* json) = 0;
+		virtual void Load(const cJSON* json) = 0;
 
 	};
 
@@ -23,11 +23,11 @@ namespace _MementoPattern
 	public:
 		Player()
 		{
-			atlas.load("player_right_%d", 5);
+			atlas.Load("player_right_%d", 5);
 
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 
 			position = { 100, 200 };
 		}
@@ -62,10 +62,10 @@ namespace _MementoPattern
 			}
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).normalize();
+			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
 			if (std::abs(direction.x) > 0.0001f)
 				is_facing_right = direction.x > 0;
 			position = position + direction * speed;
@@ -75,17 +75,17 @@ namespace _MementoPattern
 			if (position.x < 0) position.x = 0;
 			if (position.x > 384) position.x = 384;
 
-			animation.on_update(delta);
-			animation.set_position(position);
-			animation.set_flip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
+			animation.SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 30, 32, 20 };
 			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("shadow_player"), nullptr, &rect);
 
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 		cJSON* dump() override
@@ -101,7 +101,7 @@ namespace _MementoPattern
 			return json_root;
 		}
 
-		void load(const cJSON* json) override
+		void Load(const cJSON* json) override
 		{
 			cJSON* json_position = cJSON_GetObjectItem(json, "position");
 			position.x = (float)cJSON_GetObjectItem(json_position, "x")->valuedouble;
@@ -144,7 +144,7 @@ namespace _MementoPattern
 			}
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			static const SDL_FRect rect = { 215, 250, 122, 88 };
 			SDL_RenderCopyF(renderer, ResourcesManager::instance()
@@ -158,7 +158,7 @@ namespace _MementoPattern
 			return json_root;
 		}
 
-		void load(const cJSON* json) override
+		void Load(const cJSON* json) override
 		{
 			cJSON* json_position = cJSON_GetObjectItem(json, "position");
 			is_opened = cJSON_GetObjectItem(json, "opened")->valueint;
@@ -177,8 +177,8 @@ public:
 	~MementoPattern();
 
 	void on_input(const SDL_Event* event) override;
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	_MementoPattern::Player player;

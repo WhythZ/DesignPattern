@@ -11,17 +11,17 @@ PrototypePattern::PrototypePattern(SDL_Renderer* renderer)
 {
 	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 665, 590);
 
-	atlas_weapon_fork.load("weapon_fork_%d", 8);
-	atlas_weapon_plate.load("weapon_plate_%d", 8);
-	atlas_weapon_spoon.load("weapon_spoon_%d", 8);
+	atlas_weapon_fork.Load("weapon_fork_%d", 8);
+	atlas_weapon_plate.Load("weapon_plate_%d", 8);
+	atlas_weapon_spoon.Load("weapon_spoon_%d", 8);
 
-	atlas_body_brown.load("brown_chicken_%d", 8);
-	atlas_body_red.load("red_chicken_%d", 8);
-	atlas_body_white.load("white_chicken_%d", 8);
+	atlas_body_brown.Load("brown_chicken_%d", 8);
+	atlas_body_red.Load("red_chicken_%d", 8);
+	atlas_body_white.Load("white_chicken_%d", 8);
 
-	atlas_hat_crown.load("crown_%d", 8);
-	atlas_hat_green.load("green_hat_%d", 8);
-	atlas_hat_straw.load("straw_hat_%d", 8);
+	atlas_hat_crown.Load("crown_%d", 8);
+	atlas_hat_green.Load("green_hat_%d", 8);
+	atlas_hat_straw.Load("straw_hat_%d", 8);
 }
 
 PrototypePattern::~PrototypePattern()
@@ -44,10 +44,10 @@ void PrototypePattern::on_exit()
 	delete prototype_chicken; prototype_chicken = nullptr;
 }
 
-void PrototypePattern::on_update(float delta)
+void PrototypePattern::OnUpdate(float delta)
 {
 	for (Chicken* chicken : chicken_list)
-		chicken->on_update(delta);
+		chicken->OnUpdate(delta);
 
 	ImGui::BeginGroup();
 	ImGui::TextUnformatted(u8"ÎäÆ÷£º");				ImGui::SameLine();
@@ -97,14 +97,14 @@ void PrototypePattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void PrototypePattern::on_render(SDL_Renderer* renderer)
+void PrototypePattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
 	for (Chicken* chicken : chicken_list)
-		chicken->on_render(renderer);
+		chicken->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

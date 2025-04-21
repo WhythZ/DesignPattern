@@ -24,9 +24,9 @@ StatePattern::~StatePattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void StatePattern::on_update(float delta)
+void StatePattern::OnUpdate(float delta)
 {
-	player.on_update(delta);
+	player.OnUpdate(delta);
 
 	ImGui::TextUnformatted(u8"切换当前角色状态为："); ImGui::SameLine();
 	if (ImGui::Combo(u8"##切换当前角色状态为：", &idx_state, state_name_list, 4))
@@ -37,7 +37,7 @@ void StatePattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void StatePattern::on_render(SDL_Renderer* renderer)
+void StatePattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
@@ -45,7 +45,7 @@ void StatePattern::on_render(SDL_Renderer* renderer)
 
 	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("Platform"), nullptr, nullptr);
 
-	player.on_render(renderer);
+	player.OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

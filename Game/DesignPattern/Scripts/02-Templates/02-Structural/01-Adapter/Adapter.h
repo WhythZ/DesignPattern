@@ -23,21 +23,21 @@ namespace _AdapterPattern
 	class LoaderImpl
 	{
 	public:
-		virtual bool load(GameObjectList& dst, const std::string& path) = 0;
+		virtual bool Load(GameObjectList& dst, const std::string& path) = 0;
 
 	};
 
 	class JSONLoader : public LoaderImpl
 	{
 	public:
-		bool load(GameObjectList& dst, const std::string& path) override;
+		bool Load(GameObjectList& dst, const std::string& path) override;
 
 	};
 
 	class XMLLoader : public LoaderImpl
 	{
 	public:
-		bool load(GameObjectList& dst, const std::string& path) override;
+		bool Load(GameObjectList& dst, const std::string& path) override;
 
 	};
 }
@@ -48,8 +48,8 @@ public:
 	AdapterPattern(SDL_Renderer* renderer);
 	~AdapterPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

@@ -1038,7 +1038,7 @@ STBTT_DEF int stbtt_CompareUTF8toUTF16_bigendian(const char *s1, int len1, const
 // returns 1/0 whether the first string interpreted as utf8 is identical to
 // the second string interpreted as big-endian utf16... useful for strings from next func
 
-STBTT_DEF const char *stbtt_GetFontNameString(const stbtt_fontinfo *font, int *length, int platformID, int encodingID, int languageID, int nameID);
+STBTT_DEF const char *stbtt_GetFontNameString(const stbtt_fontinfo *font, int *Length, int platformID, int encodingID, int languageID, int nameID);
 // returns the string (which may be big-endian double byte, e.g. for unicode)
 // and puts the length in bytes in *length.
 //
@@ -2337,7 +2337,7 @@ STBTT_DEF int  stbtt_GetKerningTableLength(const stbtt_fontinfo *info)
 STBTT_DEF int stbtt_GetKerningTable(const stbtt_fontinfo *info, stbtt_kerningentry* table, int table_length)
 {
    stbtt_uint8 *data = info->data + info->kern;
-   int k, length;
+   int k, Length;
 
    // we only look at the first table. it must be 'horizontal' and format 0.
    if (!info->kern)
@@ -2347,18 +2347,18 @@ STBTT_DEF int stbtt_GetKerningTable(const stbtt_fontinfo *info, stbtt_kerningent
    if (ttUSHORT(data+8) != 1) // horizontal flag must be set in format
       return 0;
 
-   length = ttUSHORT(data+10);
-   if (table_length < length)
-      length = table_length;
+   Length = ttUSHORT(data+10);
+   if (table_length < Length)
+      Length = table_length;
 
-   for (k = 0; k < length; k++)
+   for (k = 0; k < Length; k++)
    {
       table[k].glyph1 = ttUSHORT(data+18+(k*6));
       table[k].glyph2 = ttUSHORT(data+20+(k*6));
       table[k].advance = ttSHORT(data+22+(k*6));
    }
 
-   return length;
+   return Length;
 }
 
 static int stbtt__GetGlyphKernInfoAdvance(const stbtt_fontinfo *info, int glyph1, int glyph2)
@@ -4827,7 +4827,7 @@ static int stbtt_CompareUTF8toUTF16_bigendian_internal(char *s1, int len1, char 
 
 // returns results in whatever encoding you request... but note that 2-byte encodings
 // will be BIG-ENDIAN... use stbtt_CompareUTF8toUTF16_bigendian() to compare
-STBTT_DEF const char *stbtt_GetFontNameString(const stbtt_fontinfo *font, int *length, int platformID, int encodingID, int languageID, int nameID)
+STBTT_DEF const char *stbtt_GetFontNameString(const stbtt_fontinfo *font, int *Length, int platformID, int encodingID, int languageID, int nameID)
 {
    stbtt_int32 i,count,stringOffset;
    stbtt_uint8 *fc = font->data;
@@ -4841,7 +4841,7 @@ STBTT_DEF const char *stbtt_GetFontNameString(const stbtt_fontinfo *font, int *l
       stbtt_uint32 loc = nm + 6 + 12 * i;
       if (platformID == ttUSHORT(fc+loc+0) && encodingID == ttUSHORT(fc+loc+2)
           && languageID == ttUSHORT(fc+loc+4) && nameID == ttUSHORT(fc+loc+6)) {
-         *length = ttUSHORT(fc+loc+8);
+         *Length = ttUSHORT(fc+loc+8);
          return (const char *) (fc+stringOffset+ttUSHORT(fc+loc+10));
       }
    }

@@ -1,7 +1,5 @@
 ﻿#include "Memento.h"
-
 #include <imgui.h>
-
 #include <fstream>
 #include <sstream>
 
@@ -23,9 +21,9 @@ void MementoPattern::on_input(const SDL_Event* event)
 	_switch.on_input(event);
 }
 
-void MementoPattern::on_update(float delta)
+void MementoPattern::OnUpdate(float delta)
 {
-	player.on_update(delta);
+	player.OnUpdate(delta);
 
 	if (ImGui::Button(u8"加载 \"Data/save.json\" 存档文件到场景", { ImGui::GetContentRegionAvail().x / 2, 35 }))
 		load_scene();
@@ -40,14 +38,14 @@ void MementoPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void MementoPattern::on_render(SDL_Renderer* renderer)
+void MementoPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
 	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("tidy_room"), nullptr, nullptr);
-	_switch.on_render(renderer); player.on_render(renderer);
+	_switch.OnRender(renderer); player.OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }
@@ -63,8 +61,8 @@ void MementoPattern::load_scene()
 	cJSON* json_root = cJSON_Parse(str_stream.str().c_str());
 	if (!json_root) return;
 
-	player.load(cJSON_GetObjectItem(json_root, "player"));
-	_switch.load(cJSON_GetObjectItem(json_root, "switch"));
+	player.Load(cJSON_GetObjectItem(json_root, "player"));
+	_switch.Load(cJSON_GetObjectItem(json_root, "switch"));
 
 	cJSON_Delete(json_root);
 }

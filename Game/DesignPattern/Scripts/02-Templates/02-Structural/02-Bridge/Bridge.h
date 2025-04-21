@@ -80,7 +80,7 @@ public:
 	BridgePattern();
 	~BridgePattern();
 
-    void on_update(float delta) override;
+    void OnUpdate(float delta) override;
 
 };
 

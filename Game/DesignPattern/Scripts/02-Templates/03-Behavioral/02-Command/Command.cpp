@@ -1,5 +1,4 @@
 ﻿#include "Command.h"
-
 #include <imgui.h>
 
 using namespace _CommandPattern;
@@ -23,7 +22,7 @@ void Player::on_move(const SDL_Point& dir)
 	}
 }
 
-void _CommandPattern::Player::reset()
+void _CommandPattern::Player::Reset()
 {
 	idx_cmd = 0;
 	idx_map_grid = { 2, 2 };
@@ -31,7 +30,7 @@ void _CommandPattern::Player::reset()
 
 void Player::replay()
 {
-	reset();
+	Reset();
 
 	is_replaying = true;
 }
@@ -75,9 +74,9 @@ void CommandPattern::on_input(const SDL_Event* event)
 	player->on_input(event);
 }
 
-void CommandPattern::on_update(float delta)
+void CommandPattern::OnUpdate(float delta)
 {
-	player->on_update(delta);
+	player->OnUpdate(delta);
 
 	ImGui::BeginDisabled(!player->can_replay());
 	if (ImGui::Button(u8"回放玩家操作", { ImGui::GetContentRegionAvail().x, 35 }))
@@ -91,7 +90,7 @@ void CommandPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void CommandPattern::on_render(SDL_Renderer* renderer)
+void CommandPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
@@ -99,7 +98,7 @@ void CommandPattern::on_render(SDL_Renderer* renderer)
 
 	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("maze"), nullptr, nullptr);
 
-	player->on_render(renderer);
+	player->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

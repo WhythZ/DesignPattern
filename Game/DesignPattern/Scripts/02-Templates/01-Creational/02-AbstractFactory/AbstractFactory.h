@@ -12,7 +12,7 @@ namespace _AbstractFactoryPattern
 	class SizeDef
 	{
 	public:
-		virtual Size get_size() = 0;
+		virtual Size GetSize() = 0;
 
 	};
 
@@ -26,7 +26,7 @@ namespace _AbstractFactoryPattern
 	class SmallSizeDef : public SizeDef
 	{
 	public:
-		Size get_size() override
+		Size GetSize() override
 		{
 			return Size::Small;
 		}
@@ -36,7 +36,7 @@ namespace _AbstractFactoryPattern
 	class MediumSizeDef : public SizeDef
 	{
 	public:
-		Size get_size() override
+		Size GetSize() override
 		{
 			return Size::Medium;
 		}
@@ -46,7 +46,7 @@ namespace _AbstractFactoryPattern
 	class LargeSizeDef : public SizeDef
 	{
 	public:
-		Size get_size() override
+		Size GetSize() override
 		{
 			return Size::Large;
 		}
@@ -268,15 +268,15 @@ namespace _AbstractFactoryPattern
 		Slime(SlimeDefFactory* factory, const Vector2& position);
 		~Slime();
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
-			animation.on_update(delta);
-			animation.set_position(position);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 	private:
@@ -293,8 +293,8 @@ public:
 	AbstractFactoryPattern(SDL_Renderer* renderer);
 	~AbstractFactoryPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

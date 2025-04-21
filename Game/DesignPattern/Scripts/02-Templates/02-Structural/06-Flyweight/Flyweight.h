@@ -11,7 +11,7 @@ public:
 	FlyweightPattern() = default;
 	~FlyweightPattern() = default;
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	std::string str_text = u8"详见下列文件中的资源管线代码实现：\n\n"

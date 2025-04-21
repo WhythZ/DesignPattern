@@ -13,11 +13,11 @@ namespace _SingletonPattern
 	public:
 		Player()
 		{
-			atlas.load("helicopter_%d", 2);
+			atlas.Load("helicopter_%d", 2);
 
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 		}
 
 		~Player() = default;
@@ -50,25 +50,25 @@ namespace _SingletonPattern
 			}
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).normalize();
+			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
 			if (std::abs(direction.x) > 0.0001f)
 				is_facing_right = direction.x > 0;
 			position = position + direction * speed;
 
-			animation.on_update(delta);
-			animation.set_position(position);
-			animation.set_flip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
+			animation.SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
-		void set_position(const Vector2& position)
+		void SetPosition(const Vector2& position)
 		{
 			this->position = position;
 		}
@@ -101,20 +101,20 @@ namespace _SingletonPattern
 			player->on_input(event);
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
-			player->on_update(delta);
+			player->OnUpdate(delta);
 
 			SDL_FPoint position_player = { player->get_posoition().x, player->get_posoition().y };
 			if (SDL_PointInFRect(&position_player, &rect_apron))
 				on_reach();
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_RenderCopyF(renderer, texture_background, nullptr, nullptr);
 			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("apron"), nullptr, &rect_apron);
-			player->on_render(renderer);
+			player->OnRender(renderer);
 		}
 
 	protected:
@@ -140,7 +140,7 @@ namespace _SingletonPattern
 
 		void on_enter() override
 		{
-			player->set_position({ 150, 618 });
+			player->SetPosition({ 150, 618 });
 		}
 
 	protected:
@@ -161,7 +161,7 @@ namespace _SingletonPattern
 
 		void on_enter() override
 		{
-			player->set_position({ 185, 284 });
+			player->SetPosition({ 185, 284 });
 		}
 
 	protected:
@@ -182,7 +182,7 @@ namespace _SingletonPattern
 
 		void on_enter() override
 		{
-			player->set_position({ 284, 618 });
+			player->SetPosition({ 284, 618 });
 		}
 
 	protected:
@@ -221,18 +221,18 @@ namespace _SingletonPattern
 			current_scene->on_input(event);
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			if (!current_scene) return;
 
-			current_scene->on_update(delta);
+			current_scene->OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			if (!current_scene) return;
 
-			current_scene->on_render(renderer);
+			current_scene->OnRender(renderer);
 		}
 
 	private:
@@ -254,8 +254,8 @@ public:
 	~SingletonPattern();
 
 	void on_input(const SDL_Event* event) override;
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	_SingletonPattern::Player player;

@@ -11,8 +11,8 @@ public:
 	ProxyPattern(SDL_Renderer* renderer);
 	~ProxyPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	int font_size = 50;

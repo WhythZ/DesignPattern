@@ -15,14 +15,14 @@ Slime::Slime(SlimeDefFactory* factory, const Vector2& position)
 {
 	this->position = position;
 
-	int idx_size = (int)factory->get_size_def()->get_size();
+	int idx_size = (int)factory->get_size_def()->GetSize();
 	int idx_attrbute = (int)factory->get_attribute_def()->get_attribute();
 
-	atlas.load(atlas_path_template_map[idx_size][idx_attrbute], 6);
+	atlas.Load(atlas_path_template_map[idx_size][idx_attrbute], 6);
 
-	animation.add_frame(&atlas);
-	animation.set_loop(true);
-	animation.set_interval(0.1f);
+	animation.AddFrame(&atlas);
+	animation.SetLoop(true);
+	animation.SetInterval(0.1f);
 }
 
 Slime::~Slime() = default;
@@ -60,22 +60,22 @@ AbstractFactoryPattern::~AbstractFactoryPattern()
 		delete slime;
 }
 
-void AbstractFactoryPattern::on_update(float delta)
+void AbstractFactoryPattern::OnUpdate(float delta)
 {
 	for (Slime* slime : slime_list)
-		slime->on_update(delta);
+		slime->OnUpdate(delta);
 
 	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
 }
 
-void AbstractFactoryPattern::on_render(SDL_Renderer* renderer)
+void AbstractFactoryPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
 	for (Slime* slime : slime_list)
-		slime->on_render(renderer);
+		slime->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

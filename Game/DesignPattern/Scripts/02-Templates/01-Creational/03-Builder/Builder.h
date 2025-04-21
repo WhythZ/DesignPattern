@@ -11,49 +11,49 @@ namespace _BuilderPattern
 	public:
 		Chicken()
 		{
-			animation_weapon.set_loop(true);
-			animation_body.set_loop(true);
-			animation_hat.set_loop(true);
+			animation_weapon.SetLoop(true);
+			animation_body.SetLoop(true);
+			animation_hat.SetLoop(true);
 
-			animation_weapon.set_interval(0.1f);
-			animation_body.set_interval(0.1f);
-			animation_hat.set_interval(0.1f);
+			animation_weapon.SetInterval(0.1f);
+			animation_body.SetInterval(0.1f);
+			animation_hat.SetInterval(0.1f);
 
 			Vector2 position = { 166, 148 };
-			animation_weapon.set_position(position);
-			animation_body.set_position(position);
-			animation_hat.set_position(position);
+			animation_weapon.SetPosition(position);
+			animation_body.SetPosition(position);
+			animation_hat.SetPosition(position);
 		}
 
 		~Chicken() = default;
 
 		void set_weapon(Atlas* atlas)
 		{
-			animation_weapon.add_frame(atlas);
+			animation_weapon.AddFrame(atlas);
 		}
 
 		void set_body(Atlas* atlas)
 		{
-			animation_body.add_frame(atlas);
+			animation_body.AddFrame(atlas);
 		}
 
 		void set_hat(Atlas* atlas)
 		{
-			animation_hat.add_frame(atlas);
+			animation_hat.AddFrame(atlas);
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
-			animation_weapon.on_update(delta);
-			animation_body.on_update(delta);
-			animation_hat.on_update(delta);
+			animation_weapon.OnUpdate(delta);
+			animation_body.OnUpdate(delta);
+			animation_hat.OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
-			animation_weapon.on_render(renderer);
-			animation_body.on_render(renderer);
-			animation_hat.on_render(renderer);
+			animation_weapon.OnRender(renderer);
+			animation_body.OnRender(renderer);
+			animation_hat.OnRender(renderer);
 		}
 
 	private:
@@ -83,20 +83,20 @@ namespace _BuilderPattern
 	public:
 		void init_weapon() override
 		{
-			atlas_weapon.clear();
-			atlas_weapon.load("weapon_fork_%d", 8);
+			atlas_weapon.Clear();
+			atlas_weapon.Load("weapon_fork_%d", 8);
 		}
 
 		void init_body() override
 		{
-			atlas_body.clear();
-			atlas_body.load("white_chicken_%d", 8);
+			atlas_body.Clear();
+			atlas_body.Load("white_chicken_%d", 8);
 		}
 
 		void init_hat() override
 		{
-			atlas_hat.clear();
-			atlas_hat.load("crown_%d", 8);
+			atlas_hat.Clear();
+			atlas_hat.Load("crown_%d", 8);
 		}
 
 		Chicken* build() override
@@ -117,20 +117,20 @@ namespace _BuilderPattern
 	public:
 		void init_weapon() override
 		{
-			atlas_weapon.clear();
-			atlas_weapon.load("weapon_plate_%d", 8);
+			atlas_weapon.Clear();
+			atlas_weapon.Load("weapon_plate_%d", 8);
 		}
 
 		void init_body() override
 		{
-			atlas_body.clear();
-			atlas_body.load("brown_chicken_%d", 8);
+			atlas_body.Clear();
+			atlas_body.Load("brown_chicken_%d", 8);
 		}
 
 		void init_hat() override
 		{
-			atlas_hat.clear();
-			atlas_hat.load("green_hat_%d", 8);
+			atlas_hat.Clear();
+			atlas_hat.Load("green_hat_%d", 8);
 		}
 
 		Chicken* build() override
@@ -163,8 +163,8 @@ public:
 	BuilderPattern(SDL_Renderer* renderer);
 	~BuilderPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

@@ -113,7 +113,7 @@ InterpreterPattern::~InterpreterPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void InterpreterPattern::on_update(float delta)
+void InterpreterPattern::OnUpdate(float delta)
 {
 	static const ImVec2 size_button = { ImGui::GetContentRegionAvail().x, 30 };
 	if (ImGui::Button(u8"Ö´ ÐÐ ½Å ±¾", size_button))

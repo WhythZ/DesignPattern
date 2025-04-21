@@ -322,5 +322,20 @@
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\11-Interpreter\Interpreter.cpp">
       <Filter>02-Templates\03-Behavioral\11-Interpreter</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\Animation.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\Atlas.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\FontWrapper.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\Timer.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\01-Framework\Source\Vector2.cpp">
+      <Filter>01-Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

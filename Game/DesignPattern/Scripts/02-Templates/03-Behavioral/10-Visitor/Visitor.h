@@ -38,7 +38,7 @@ namespace _VisitorPattern
 		virtual void accept(Visitor& visitor) = 0;
 
 		int get_id() const { return id; }
-		SDL_Texture* get_texture() const { return texture; }
+		SDL_Texture* GetTexture() const { return texture; }
 
 	private:
 		int id;
@@ -137,7 +137,7 @@ public:
 	VisitorPattern();
 	~VisitorPattern();
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	_VisitorPattern::MagicBook magic_book;
@@ -152,7 +152,7 @@ private:
 	template <typename T>
 	void on_update_item_btn(T& item)
 	{
-		ImGui::ImageButton(item.get_texture(), { 64, 64 });
+		ImGui::ImageButton(item.GetTexture(), { 64, 64 });
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 			item.accept(inspect_visitor);
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Right))

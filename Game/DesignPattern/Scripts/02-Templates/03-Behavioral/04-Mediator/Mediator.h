@@ -13,7 +13,6 @@ namespace _MediatorPattern
 	public:
 		virtual ~Mediator() = default;
 		virtual void send(const std::string& message, Colleague* colleague) = 0;
-
 	};
 
 	class Colleague
@@ -22,7 +21,7 @@ namespace _MediatorPattern
 		Colleague(Mediator* _mediator) : mediator(_mediator) {}
 		virtual ~Colleague() = default;
 
-		virtual void on_update(float delta) = 0;
+		virtual void OnUpdate(float delta) = 0;
 		virtual void receive(const std::string& message) = 0;
 
 	protected:
@@ -60,15 +59,15 @@ namespace _MediatorPattern
 			static int next_id = 0;
 			id = next_id; next_id++;
 
-			atlas.load(atlas_path, 6);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
-			animation.add_frame(&atlas);
+			atlas.Load(atlas_path, 6);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
+			animation.AddFrame(&atlas);
 		}
 
 		~User() = default;
 
-		void on_update(float delta) override;
+		void OnUpdate(float delta) override;
 
 		void receive(const std::string& message) override
 		{
@@ -97,7 +96,7 @@ public:
 	MediatorPattern();
 	~MediatorPattern();
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	_MediatorPattern::ChatRoom chat_room;

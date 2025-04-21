@@ -33,19 +33,19 @@ void Node::on_inspect()
 	ImGui::Columns(1);
 }
 
-void _CompositePattern::Node::on_update(float delta)
+void _CompositePattern::Node::OnUpdate(float delta)
 {
 	if (get_parent())
 		world_position = get_parent()->get_position() + position;
 
 	for (Node* child : child_list)
-		child->on_update(delta);
+		child->OnUpdate(delta);
 }
 
-void _CompositePattern::Node::on_render(SDL_Renderer* renderer)
+void _CompositePattern::Node::OnRender(SDL_Renderer* renderer)
 {
 	for (Node* child : child_list)
-		child->on_render(renderer);
+		child->OnRender(renderer);
 }
 
 _CompositePattern::TextureNode::~TextureNode()
@@ -87,12 +87,12 @@ void TextureNode::on_inspect()
 	ImGui::Columns(1);
 }
 
-void TextureNode::on_render(SDL_Renderer* renderer)
+void TextureNode::OnRender(SDL_Renderer* renderer)
 {
 	SDL_FRect rect = { world_position.x, world_position.y, size.x, size.y };
 	SDL_RenderCopyExF(renderer, texture, nullptr, &rect, rotation, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 
-	Node::on_render(renderer);
+	Node::OnRender(renderer);
 }
 
 void TextureNode::set_texture(SDL_Texture* texture)
@@ -156,7 +156,7 @@ void TextNode::on_inspect()
 	ImGui::Columns(1);
 }
 
-void TextNode::on_render(SDL_Renderer* renderer)
+void TextNode::OnRender(SDL_Renderer* renderer)
 {
 	if (need_update)
 	{
@@ -167,7 +167,7 @@ void TextNode::on_render(SDL_Renderer* renderer)
 	SDL_FRect rect = { world_position.x, world_position.y, size.x, size.y };
 	SDL_RenderCopyF(renderer, texture_text, nullptr, &rect);
 
-	Node::on_render(renderer);
+	Node::OnRender(renderer);
 }
 
 void _CompositePattern::TextNode::set_font_size(int font_size)
@@ -252,9 +252,9 @@ CompositePattern::~CompositePattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void CompositePattern::on_update(float delta)
+void CompositePattern::OnUpdate(float delta)
 {
-	world_tree->on_update(delta);
+	world_tree->OnUpdate(delta);
 
 	{
 		ImGui::BeginChild("tree_view", { 250, ImGui::GetContentRegionAvail().y }, 
@@ -314,13 +314,13 @@ void CompositePattern::on_update(float delta)
 	}
 }
 
-void CompositePattern::on_render(SDL_Renderer* renderer)
+void CompositePattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
-	world_tree->on_render(renderer);
+	world_tree->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }
@@ -338,7 +338,7 @@ void CompositePattern::init_world_tree()
 	{
 		Node* node_brave = new Node();
 		node_brave->set_name(u8"勇者");
-		node_brave->set_position({ 75, 125 });
+		node_brave->SetPosition({ 75, 125 });
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"动画静帧");
@@ -347,7 +347,7 @@ void CompositePattern::init_world_tree()
 
 			TextNode* node_text = new TextNode();
 			node_text->set_name(u8"你的名字");
-			node_text->set_position({ -10, 155 });
+			node_text->SetPosition({ -10, 155 });
 			node_text->set_font_size(20);
 			node_text->set_text(u8"- 芝士勇者 -");
 			node_brave->add_child(node_text);
@@ -362,7 +362,7 @@ void CompositePattern::init_world_tree()
 	{
 		Node* node_ice_sword = new Node();
 		node_ice_sword->set_name(u8"寒冰大剑");
-		node_ice_sword->set_position({ 300, 120 });
+		node_ice_sword->SetPosition({ 300, 120 });
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"冰剑");
@@ -371,7 +371,7 @@ void CompositePattern::init_world_tree()
 
 			TextNode* node_text = new TextNode();
 			node_text->set_name(u8"剑名");
-			node_text->set_position({ -40, 65 });
+			node_text->SetPosition({ -40, 65 });
 			node_text->set_font_size(15);
 			node_text->set_text(u8"稀有 • 寒冰大剑");
 			node_ice_sword->add_child(node_text);
@@ -381,7 +381,7 @@ void CompositePattern::init_world_tree()
 	{
 		Node* node_ice_sword = new Node();
 		node_ice_sword->set_name(u8"雷火剑");
-		node_ice_sword->set_position({ 300, 220 });
+		node_ice_sword->SetPosition({ 300, 220 });
 		{
 			TextureNode* node_texture = new TextureNode();
 			node_texture->set_name(u8"火剑");
@@ -390,7 +390,7 @@ void CompositePattern::init_world_tree()
 
 			TextNode* node_text = new TextNode();
 			node_text->set_name(u8"剑名");
-			node_text->set_position({ -30, 65 });
+			node_text->SetPosition({ -30, 65 });
 			node_text->set_font_size(15);
 			node_text->set_text(u8"罕见 • 雷火剑");
 			node_ice_sword->add_child(node_text);

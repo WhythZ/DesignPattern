@@ -42,12 +42,12 @@ int Application::run(int argc, char** argv)
 		ImGui_ImplSDL2_NewFrame();
 		ImGui::NewFrame();
 
-		ExampleManager::instance()->on_update(delta);
+		ExampleManager::instance()->OnUpdate(delta);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		ExampleManager::instance()->on_render();
+		ExampleManager::instance()->OnRender();
 
 		ImGui::Render();
 		ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());

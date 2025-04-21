@@ -107,7 +107,7 @@ void ExampleManager::on_input(const SDL_Event* event)
 	current_example->on_input(event);
 }
 
-void ExampleManager::on_update(float delta)
+void ExampleManager::OnUpdate(float delta)
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
 	ImGui::SetNextWindowPos(viewport->WorkPos);
@@ -135,7 +135,7 @@ void ExampleManager::on_update(float delta)
 	{
 		ImGui::BeginChild("stage", size_stage, ImGuiChildFlags_Border);
 		if (current_example)
-			current_example->on_update(delta);
+			current_example->OnUpdate(delta);
 		else
 			on_update_blank_content();
 		ImGui::EndChild();
@@ -144,11 +144,11 @@ void ExampleManager::on_update(float delta)
 	ImGui::End();
 }
 
-void ExampleManager::on_render()
+void ExampleManager::OnRender()
 {
 	if (!current_example) return;
 
-	current_example->on_render(renderer);
+	current_example->OnRender(renderer);
 }
 
 ExampleManager::ExampleManager() = default;

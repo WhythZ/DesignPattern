@@ -31,11 +31,11 @@ namespace _CommandPattern
 	public:
 		Player(Map* _map) : map(_map)
 		{
-			reset();
+			Reset();
 		
-			replay_timer.set_wait_time(0.25f);
-			replay_timer.set_one_shot(false);
-			replay_timer.set_on_timeout([&]()
+			replay_timer.SetWaitTime(0.25f);
+			replay_timer.SetOneShot(false);
+			replay_timer.SetOnTimeout([&]()
 				{
 					if (is_replaying && idx_cmd < cmd_list.size())
 					{
@@ -44,10 +44,10 @@ namespace _CommandPattern
 					}
 				});
 
-			atlas.load("Warrior_Idle_%d", 6);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
-			animation.add_frame(&atlas);
+			atlas.Load("Warrior_Idle_%d", 6);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
+			animation.AddFrame(&atlas);
 		}
 		~Player()
 		{
@@ -75,27 +75,27 @@ namespace _CommandPattern
 			}
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			Vector2 position =
 			{
 				idx_map_grid.x * 48.0f + 24.0f,
 				idx_map_grid.y * 48.0f + 24.0f - 30.0f 
 			};
-			animation.set_position(position);
-			animation.on_update(delta);
+			animation.SetPosition(position);
+			animation.OnUpdate(delta);
 
-			replay_timer.on_update(delta);
+			replay_timer.OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 		void on_move(const SDL_Point& dir);
 
-		void reset();
+		void Reset();
 		void replay();
 
 		bool can_replay() const { return is_achieved_goal; }
@@ -141,8 +141,8 @@ public:
 	~CommandPattern();
 
 	void on_input(const SDL_Event* event) override;
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	_CommandPattern::Map map;

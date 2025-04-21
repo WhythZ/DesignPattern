@@ -181,6 +181,11 @@
     <ClCompile Include="..\Dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\Dependencies\imgui\TextEditor.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Animation.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Atlas.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\FontWrapper.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Timer.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Vector2.cpp" />
     <ClCompile Include="Scripts\02-Templates\02-Structural\01-Adapter\Adapter.cpp" />
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\01-ChainOfResonsibility\ChainOfResponsibility.cpp" />
     <ClCompile Include="Scripts\02-Templates\03-Behavioral\10-Visitor\Visitor.cpp" />

@@ -41,9 +41,9 @@ void SingletonPattern::on_input(const SDL_Event* event)
 	SceneManager::instance()->on_input(event);
 }
 
-void SingletonPattern::on_update(float delta)
+void SingletonPattern::OnUpdate(float delta)
 {
-	SceneManager::instance()->on_update(delta);
+	SceneManager::instance()->OnUpdate(delta);
 
 	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
 
@@ -51,13 +51,13 @@ void SingletonPattern::on_update(float delta)
 	ImGui::TextColored({ 1.0f, 0.35f, 0.12f, 1.0f }, u8"• 使用 上/下/左/右 方向键控制直升机达到停机坪完成关卡");
 }
 
-void SingletonPattern::on_render(SDL_Renderer* renderer)
+void SingletonPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	SceneManager::instance()->on_render(renderer);
+	SceneManager::instance()->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

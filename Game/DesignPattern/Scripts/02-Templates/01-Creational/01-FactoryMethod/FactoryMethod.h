@@ -13,8 +13,8 @@ namespace _FactoryMethodPattern
 	public:
 		GameObject(const Vector2& _position) : position(_position) {}
 
-		virtual void on_update(float delta) = 0;
-		virtual void on_render(SDL_Renderer* renderer) = 0;
+		virtual void OnUpdate(float delta) = 0;
+		virtual void OnRender(SDL_Renderer* renderer) = 0;
 
 	protected:
 		Vector2 position;
@@ -26,8 +26,8 @@ namespace _FactoryMethodPattern
 	public:
 		Sword(const Vector2& _position) : GameObject(_position) {}
 
-		void on_update(float delta) override {}
-		void on_render(SDL_Renderer* renderer) override
+		void OnUpdate(float delta) override {}
+		void OnRender(SDL_Renderer* renderer) override
 		{
 			SDL_FRect rect = { position.x, position.y, 64, 64 };
 			SDL_RenderCopyF(renderer, texture, nullptr, &rect);
@@ -43,15 +43,15 @@ namespace _FactoryMethodPattern
 	public:
 		Slime(const Vector2& _position) : GameObject(_position) {}
 
-		void on_update(float delta) override
+		void OnUpdate(float delta) override
 		{
-			animation.on_update(delta);
-			animation.set_position(position);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
 		}
 
-		void on_render(SDL_Renderer* renderer) override
+		void OnRender(SDL_Renderer* renderer) override
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 	protected:
@@ -95,10 +95,10 @@ namespace _FactoryMethodPattern
 	public:
 		IceSlime(const Vector2& _position) : Slime(_position)
 		{
-			atlas.load("MegaSlimeBlue_0%d", 6);
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			atlas.Load("MegaSlimeBlue_0%d", 6);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 		}
 
 	};
@@ -108,10 +108,10 @@ namespace _FactoryMethodPattern
 	public:
 		GrassSlime(const Vector2& _position) : Slime(_position)
 		{
-			atlas.load("MegaSlimeGreen_0%d", 6);
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			atlas.Load("MegaSlimeGreen_0%d", 6);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 		}
 
 	};
@@ -121,10 +121,10 @@ namespace _FactoryMethodPattern
 	public:
 		FireSlime(const Vector2& _position) : Slime(_position)
 		{
-			atlas.load("MegaSlimeRed_0%d", 6);
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			atlas.Load("MegaSlimeRed_0%d", 6);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 		}
 
 	};
@@ -182,8 +182,8 @@ public:
 	FactoryMethodPattern(SDL_Renderer* renderer);
 	~FactoryMethodPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

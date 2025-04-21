@@ -3,7 +3,6 @@
 
 #include "Vector2.h"
 #include "Example.h"
-#include "ResourceManager.h"
 
 #include <string>
 #include <vector>
@@ -29,8 +28,8 @@ namespace _CompositePattern
 		}
 
 		virtual void on_inspect();
-		virtual void on_update(float delta);
-		virtual void on_render(SDL_Renderer* renderer);
+		virtual void OnUpdate(float delta);
+		virtual void OnRender(SDL_Renderer* renderer);
 
 		Node* get_parent() const
 		{
@@ -47,7 +46,7 @@ namespace _CompositePattern
 			return name;
 		}
 
-		void set_position(const Vector2& position)
+		void SetPosition(const Vector2& position)
 		{
 			this->position = position;
 		}
@@ -102,7 +101,7 @@ namespace _CompositePattern
 		~TextureNode();
 
 		void on_inspect() override;
-		void on_render(SDL_Renderer* renderer) override;
+		void OnRender(SDL_Renderer* renderer) override;
 
 		void set_texture(SDL_Texture* texture);
 
@@ -128,7 +127,7 @@ namespace _CompositePattern
 		~TextNode() = default;
 
 		void on_inspect() override;
-		void on_render(SDL_Renderer* renderer) override;
+		void OnRender(SDL_Renderer* renderer) override;
 
 		void set_font_size(int font_size);
 		void set_text(const std::string& text);
@@ -173,8 +172,8 @@ public:
 	CompositePattern(SDL_Renderer* renderer);
 	~CompositePattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	bool need_show_popup = false;

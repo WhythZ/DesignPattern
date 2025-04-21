@@ -505,15 +505,15 @@ static void stb_textedit_drag(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *sta
 // forward declarations
 static void stb_text_undo(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state);
 static void stb_text_redo(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state);
-static void stb_text_makeundo_delete(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state, int where, int length);
-static void stb_text_makeundo_insert(STB_TexteditState *state, int where, int length);
+static void stb_text_makeundo_delete(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state, int where, int Length);
+static void stb_text_makeundo_insert(STB_TexteditState *state, int where, int Length);
 static void stb_text_makeundo_replace(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state, int where, int old_length, int new_length);
 
 typedef struct
 {
    float x,y;    // position of n'th character
    float height; // height of line
-   int first_char, length; // first char of row, and length
+   int first_char, Length; // first char of row, and length
    int prev_first;  // first char of previous row
 } StbFindState;
 
@@ -531,7 +531,7 @@ static void stb_textedit_find_charpos(StbFindState *find, IMSTB_TEXTEDIT_STRING 
       STB_TEXTEDIT_LAYOUTROW(&r, str, 0);
       find->y = 0;
       find->first_char = 0;
-      find->length = z;
+      find->Length = z;
       find->height = r.ymax - r.ymin;
       find->x = r.x1;
       return;
@@ -557,7 +557,7 @@ static void stb_textedit_find_charpos(StbFindState *find, IMSTB_TEXTEDIT_STRING 
    }
 
    find->first_char = first = i;
-   find->length = r.num_chars;
+   find->Length = r.num_chars;
    find->height = r.ymax - r.ymin;
    find->prev_first = prev_start;
 
@@ -877,14 +877,14 @@ retry:
 
          for (j = 0; j < row_count; ++j) {
             float x, goal_x = state->has_preferred_x ? state->preferred_x : find.x;
-            int start = find.first_char + find.length;
+            int start = find.first_char + find.Length;
 
-            if (find.length == 0)
+            if (find.Length == 0)
                break;
 
             // [DEAR IMGUI]
             // going down while being on the last line shouldn't bring us to that line end
-            if (STB_TEXTEDIT_GETCHAR(str, find.first_char + find.length - 1) != STB_TEXTEDIT_NEWLINE)
+            if (STB_TEXTEDIT_GETCHAR(str, find.first_char + find.Length - 1) != STB_TEXTEDIT_NEWLINE)
                break;
 
             // now find character position down a row
@@ -911,8 +911,8 @@ retry:
                state->select_end = state->cursor;
 
             // go to next line
-            find.first_char = find.first_char + find.length;
-            find.length = row.num_chars;
+            find.first_char = find.first_char + find.Length;
+            find.Length = row.num_chars;
          }
          break;
       }
@@ -1333,17 +1333,17 @@ static void stb_text_redo(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state)
    s->redo_point++;
 }
 
-static void stb_text_makeundo_insert(STB_TexteditState *state, int where, int length)
+static void stb_text_makeundo_insert(STB_TexteditState *state, int where, int Length)
 {
-   stb_text_createundo(&state->undostate, where, 0, length);
+   stb_text_createundo(&state->undostate, where, 0, Length);
 }
 
-static void stb_text_makeundo_delete(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state, int where, int length)
+static void stb_text_makeundo_delete(IMSTB_TEXTEDIT_STRING *str, STB_TexteditState *state, int where, int Length)
 {
    int i;
-   IMSTB_TEXTEDIT_CHARTYPE *p = stb_text_createundo(&state->undostate, where, length, 0);
+   IMSTB_TEXTEDIT_CHARTYPE *p = stb_text_createundo(&state->undostate, where, Length, 0);
    if (p) {
-      for (i=0; i < length; ++i)
+      for (i=0; i < Length; ++i)
          p[i] = STB_TEXTEDIT_GETCHAR(str, where+i);
    }
 }

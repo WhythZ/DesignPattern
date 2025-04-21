@@ -26,7 +26,7 @@ void ChildWindow::handle()
 		next->handle();
 }
 
-void ChildWindow::on_update()
+void ChildWindow::OnUpdate()
 {
 	ImGui::SetCursorPos(offset);
 
@@ -42,16 +42,16 @@ void ChildWindow::on_update()
 	ImGui::PopStyleColor();
 }
 
-void ChainOfResponsibilityPattern::on_update(float delta)
+void ChainOfResponsibilityPattern::OnUpdate(float delta)
 {
 	ImGui::TextUnformatted(u8"允许鼠标点击消息冒泡："); ImGui::SameLine();
 	ImGui::Checkbox(u8"##允许鼠标点击消息冒泡", &is_bubbling);
 
 	ImGui::BeginChild("region", { ImGui::GetContentRegionAvail().x, 575 });
 
-	window_1.on_update();
-	window_2.on_update();
-	window_3.on_update();
+	window_1.OnUpdate();
+	window_2.OnUpdate();
+	window_3.OnUpdate();
 
 	ImGui::EndChild();
 

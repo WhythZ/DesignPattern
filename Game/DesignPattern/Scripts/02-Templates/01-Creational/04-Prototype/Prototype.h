@@ -18,20 +18,20 @@ namespace _PrototypePattern
 	public:
 		Chicken()
 		{
-			animation_weapon.set_loop(true);
-			animation_body.set_loop(true);
-			animation_hat.set_loop(true);
+			animation_weapon.SetLoop(true);
+			animation_body.SetLoop(true);
+			animation_hat.SetLoop(true);
 
-			animation_weapon.set_interval(0.1f);
-			animation_body.set_interval(0.1f);
-			animation_hat.set_interval(0.1f);
+			animation_weapon.SetInterval(0.1f);
+			animation_body.SetInterval(0.1f);
+			animation_hat.SetInterval(0.1f);
 
 			Vector2 position;
 			position.x = (float)(rand() % 665);
 			position.y = (float)(rand() % 590);
-			animation_weapon.set_position(position);
-			animation_body.set_position(position);
-			animation_hat.set_position(position);
+			animation_weapon.SetPosition(position);
+			animation_body.SetPosition(position);
+			animation_hat.SetPosition(position);
 		}
 
 		~Chicken() = default;
@@ -39,33 +39,33 @@ namespace _PrototypePattern
 		void set_weapon(Atlas* atlas)
 		{
 			atlas_weapon = atlas;
-			animation_weapon.add_frame(atlas);
+			animation_weapon.AddFrame(atlas);
 		}
 
 		void set_body(Atlas* atlas)
 		{
 			atlas_body = atlas;
-			animation_body.add_frame(atlas);
+			animation_body.AddFrame(atlas);
 		}
 
 		void set_hat(Atlas* atlas)
 		{
 			atlas_hat = atlas;
-			animation_hat.add_frame(atlas);
+			animation_hat.AddFrame(atlas);
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
-			animation_weapon.on_update(delta);
-			animation_body.on_update(delta);
-			animation_hat.on_update(delta);
+			animation_weapon.OnUpdate(delta);
+			animation_body.OnUpdate(delta);
+			animation_hat.OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
-			animation_weapon.on_render(renderer);
-			animation_body.on_render(renderer);
-			animation_hat.on_render(renderer);
+			animation_weapon.OnRender(renderer);
+			animation_body.OnRender(renderer);
+			animation_hat.OnRender(renderer);
 		}
 
 		Chicken* clone() const override
@@ -99,8 +99,8 @@ public:
 	void on_enter() override;
 	void on_exit() override;
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

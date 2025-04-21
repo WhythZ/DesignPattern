@@ -20,12 +20,12 @@ namespace _StrategyPattern
 	public:
 		bool need_stop(const Vector2& pos_target, const Vector2& pos_self) override
 		{
-			return (pos_target - pos_self).length() <= 150.0f;
+			return (pos_target - pos_self).Length() <= 150.0f;
 		}
 
 		Vector2 cal_direction(const Vector2& pos_target, const Vector2& pos_self) override
 		{
-			return (pos_target - pos_self).normalize();
+			return (pos_target - pos_self).Normalize();
 		}
 
 	};
@@ -35,12 +35,12 @@ namespace _StrategyPattern
 	public:
 		bool need_stop(const Vector2& pos_target, const Vector2& pos_self) override
 		{
-			return (pos_target - pos_self).length() >= 250.0f;
+			return (pos_target - pos_self).Length() >= 250.0f;
 		}
 
 		Vector2 cal_direction(const Vector2& pos_target, const Vector2& pos_self) override
 		{
-			return (pos_self - pos_target).normalize();
+			return (pos_self - pos_target).Normalize();
 		}
 
 	};
@@ -50,11 +50,11 @@ namespace _StrategyPattern
 	public:
 		Player()
 		{
-			atlas.load("player_right_%d", 5);
+			atlas.Load("player_right_%d", 5);
 
-			animation.add_frame(&atlas);
-			animation.set_loop(true);
-			animation.set_interval(0.1f);
+			animation.AddFrame(&atlas);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
 
 			position = { 360, 360 };
 		}
@@ -89,24 +89,24 @@ namespace _StrategyPattern
 			}
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).normalize();
+			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
 			if (std::abs(direction.x) > 0.0001f) is_facing_right = direction.x > 0;
 			position = position + direction * speed;
 
-			animation.on_update(delta);
-			animation.set_position(position);
-			animation.set_flip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
+			animation.SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 30, 32, 20 };
 			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("shadow_player"), nullptr, &rect);
 
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 		const Vector2& get_position() const
@@ -132,22 +132,22 @@ namespace _StrategyPattern
 			this->player = player;
 			this->position = position;
 
-			atlas_idle.load("Boar-Idle%d", 4);
-			animation_idle.add_frame(&atlas_idle);
-			animation_idle.set_loop(true);
-			animation_idle.set_interval(0.1f);
+			atlas_idle.Load("Boar-Idle%d", 4);
+			animation_idle.AddFrame(&atlas_idle);
+			animation_idle.SetLoop(true);
+			animation_idle.SetInterval(0.1f);
 
-			atlas_run.load("Boar-Run%d", 6);
-			animation_run.add_frame(&atlas_run);
-			animation_run.set_loop(true);
-			animation_run.set_interval(0.1f);
+			atlas_run.Load("Boar-Run%d", 6);
+			animation_run.AddFrame(&atlas_run);
+			animation_run.SetLoop(true);
+			animation_run.SetInterval(0.1f);
 
 			current_animation = &animation_idle;
 		}
 
 		~Boar() = default;
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			if (move_strategy->need_stop(player->get_position(), position))
 				current_animation = &animation_idle;
@@ -160,17 +160,17 @@ namespace _StrategyPattern
 				current_animation = &animation_run;
 			}
 
-			current_animation->on_update(delta);
-			current_animation->set_position(position);
-			current_animation->set_flip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_HORIZONTAL : SDL_RendererFlip::SDL_FLIP_NONE);
+			current_animation->OnUpdate(delta);
+			current_animation->SetPosition(position);
+			current_animation->SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_HORIZONTAL : SDL_RendererFlip::SDL_FLIP_NONE);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 20, 32, 20 };
 			SDL_RenderCopyF(renderer, ResourcesManager::instance()->find_texture("shadow_player"), nullptr, &rect);
 
-			current_animation->on_render(renderer);
+			current_animation->OnRender(renderer);
 		}
 
 		void set_strategy(MoveStrategy* move_strategy)
@@ -199,8 +199,8 @@ public:
 	~StrategyPattern();
 
 	void on_input(const SDL_Event* event) override;
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	_StrategyPattern::Player player;

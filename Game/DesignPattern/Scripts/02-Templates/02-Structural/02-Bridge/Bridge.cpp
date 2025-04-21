@@ -8,7 +8,7 @@ BridgePattern::BridgePattern() = default;
 
 BridgePattern::~BridgePattern() = default;
 
-void BridgePattern::on_update(float delta)
+void BridgePattern::OnUpdate(float delta)
 {
 	if (ImGui::Button(u8"创建 EasyX 图形后端的窗口", {ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y / 2}))
 	{

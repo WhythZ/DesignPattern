@@ -11,10 +11,10 @@ namespace _TemplateMethodPattern
 	public:
 		virtual ~Item() = default;
 
-		virtual void on_update(float delta) {}
-		virtual void on_render(SDL_Renderer* renderer) = 0;
+		virtual void OnUpdate(float delta) {}
+		virtual void OnRender(SDL_Renderer* renderer) = 0;
 
-		void set_position(const Vector2& position)
+		void SetPosition(const Vector2& position)
 		{
 			this->position = position;
 		}
@@ -34,7 +34,7 @@ namespace _TemplateMethodPattern
 
 		~StaticItem() = default;
 
-		void on_render(SDL_Renderer* renderer) override
+		void OnRender(SDL_Renderer* renderer) override
 		{
 			SDL_FRect rect = { position.x - 20, position.y - 20, 40, 40 };
 			SDL_RenderCopyF(renderer, texture, nullptr, &rect);
@@ -50,23 +50,23 @@ namespace _TemplateMethodPattern
 	public:
 		DynamicItem(const std::string& atlas_temp, int num)
 		{
-			atlas.load(atlas_temp.c_str(), num);
-			animation.set_loop(true);
-			animation.set_interval(0.4f / num);
-			animation.add_frame(&atlas);
+			atlas.Load(atlas_temp.c_str(), num);
+			animation.SetLoop(true);
+			animation.SetInterval(0.4f / num);
+			animation.AddFrame(&atlas);
 		}
 
 		~DynamicItem() = default;
 
-		void on_update(float delta) override
+		void OnUpdate(float delta) override
 		{
-			animation.on_update(delta);
-			animation.set_position(position);
+			animation.OnUpdate(delta);
+			animation.SetPosition(position);
 		}
 
-		void on_render(SDL_Renderer* renderer) override
+		void OnRender(SDL_Renderer* renderer) override
 		{
-			animation.on_render(renderer);
+			animation.OnRender(renderer);
 		}
 
 	private:
@@ -158,7 +158,7 @@ namespace _TemplateMethodPattern
 				(idx.x + 1) * 40.f + 20,
 				(idx.y + 2) * 40.f + 20 
 			};
-			item->set_position(position);
+			item->SetPosition(position);
 		}
 
 		const std::vector<SDL_Point>& get_empty_grids()
@@ -172,14 +172,14 @@ namespace _TemplateMethodPattern
 			return empty_grid_idx_list;
 		}
 
-		void on_update(float delta)
+		void OnUpdate(float delta)
 		{
 			for (int y = 0; y < 15; y++)
 				for (int x = 0; x < 16; x++)
-					if (grids[y][x]) grids[y][x]->on_update(delta);
+					if (grids[y][x]) grids[y][x]->OnUpdate(delta);
 		}
 
-		void on_render(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* renderer)
 		{
 			if (need_update_background)
 			{
@@ -191,7 +191,7 @@ namespace _TemplateMethodPattern
 			for (int y = 14; y >= 0; y--)
 			{
 				for (int x = 0; x < 16; x++)
-					if (grids[y][x]) grids[y][x]->on_render(renderer);
+					if (grids[y][x]) grids[y][x]->OnRender(renderer);
 			}
 			SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("dungeon_background"), nullptr, nullptr);
 		}
@@ -291,8 +291,8 @@ public:
 	TemplateMethodPattern(SDL_Renderer* renderer);
 	~TemplateMethodPattern();
 
-	void on_update(float delta) override;
-	void on_render(SDL_Renderer* renderer) override;
+	void OnUpdate(float delta) override;
+	void OnRender(SDL_Renderer* renderer) override;
 
 private:
 	SDL_Texture* texture_target = nullptr;

@@ -1,5 +1,4 @@
 #include "Adapter.h"
-#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <cJSON.h>
@@ -10,7 +9,7 @@
 
 using namespace _AdapterPattern;
 
-bool JSONLoader::load(GameObjectList& dst, const std::string& path)
+bool JSONLoader::Load(GameObjectList& dst, const std::string& path)
 {
 	std::ifstream file(path);
 	if (!file.good())
@@ -40,7 +39,7 @@ bool JSONLoader::load(GameObjectList& dst, const std::string& path)
 	return true;
 }
 
-bool _AdapterPattern::XMLLoader::load(GameObjectList& dst, const std::string& path)
+bool _AdapterPattern::XMLLoader::Load(GameObjectList& dst, const std::string& path)
 {
 	pugi::xml_document doc;
 	if (!doc.load_file(path.c_str())) return false;
@@ -72,7 +71,7 @@ AdapterPattern::~AdapterPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void AdapterPattern::on_update(float delta)
+void AdapterPattern::OnUpdate(float delta)
 {
 	if (ImGui::Button(u8"加载 \"Data/json_scene.json\" 场景文件", { ImGui::GetContentRegionAvail().x / 2, 35 }))
 	{
@@ -89,7 +88,7 @@ void AdapterPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void AdapterPattern::on_render(SDL_Renderer* renderer)
+void AdapterPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
@@ -108,7 +107,7 @@ void AdapterPattern::reload_scene(_AdapterPattern::LoaderImpl* loader, const std
 {
 	game_object_list.clear();
 
-	if (!loader->load(game_object_list, path))
+	if (!loader->Load(game_object_list, path))
 	{
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, u8"Reload Failed",
 			u8"重新加载场景文件失败，请检查文件是否存在及文件内容是否符合标准", nullptr);

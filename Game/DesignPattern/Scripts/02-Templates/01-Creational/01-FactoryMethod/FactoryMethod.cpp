@@ -28,22 +28,22 @@ FactoryMethodPattern::~FactoryMethodPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void FactoryMethodPattern::on_update(float delta)
+void FactoryMethodPattern::OnUpdate(float delta)
 {
 	for (GameObject* game_obj : game_obj_list)
-		game_obj->on_update(delta);
+		game_obj->OnUpdate(delta);
 
 	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
 }
 
-void FactoryMethodPattern::on_render(SDL_Renderer* renderer)
+void FactoryMethodPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
 	for (GameObject* game_obj : game_obj_list)
-		game_obj->on_render(renderer);
+		game_obj->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

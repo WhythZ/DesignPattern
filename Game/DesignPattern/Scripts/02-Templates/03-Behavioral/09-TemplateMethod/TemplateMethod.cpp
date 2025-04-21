@@ -151,9 +151,9 @@ TemplateMethodPattern::~TemplateMethodPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void TemplateMethodPattern::on_update(float delta)
+void TemplateMethodPattern::OnUpdate(float delta)
 {
-	map->on_update(delta);
+	map->OnUpdate(delta);
 
 	if (ImGui::ImageButton(ResourcesManager::instance()->find_texture("icon-config"), { 30, 30 }))
 		ImGui::OpenPopup("config_window");
@@ -177,13 +177,13 @@ void TemplateMethodPattern::on_update(float delta)
 	map_generator.on_inspect_config();
 }
 
-void TemplateMethodPattern::on_render(SDL_Renderer* renderer)
+void TemplateMethodPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
-	map->on_render(renderer);
+	map->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

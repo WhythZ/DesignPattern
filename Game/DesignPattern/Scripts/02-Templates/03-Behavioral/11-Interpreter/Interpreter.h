@@ -13,7 +13,7 @@ public:
 	InterpreterPattern(SDL_Renderer* renderer);
 	~InterpreterPattern();
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	TextEditor code_editor;

@@ -8,37 +8,37 @@ static int type_weapon = 0, type_body = 0, type_hat = 0;
 
 void CustomChickenBuilder::init_weapon()
 {
-	atlas_weapon.clear();
+	atlas_weapon.Clear();
 
 	switch (type_weapon)
 	{
-	case 0: atlas_weapon.load("weapon_fork_%d", 8); break;
-	case 1: atlas_weapon.load("weapon_plate_%d", 8); break;
-	case 2: atlas_weapon.load("weapon_spoon_%d", 8); break;
+	case 0: atlas_weapon.Load("weapon_fork_%d", 8); break;
+	case 1: atlas_weapon.Load("weapon_plate_%d", 8); break;
+	case 2: atlas_weapon.Load("weapon_spoon_%d", 8); break;
 	}
 }
 
 void CustomChickenBuilder::init_body()
 {
-	atlas_body.clear();
+	atlas_body.Clear();
 
 	switch (type_body)
 	{
-	case 0: atlas_body.load("brown_chicken_%d", 8); break;
-	case 1: atlas_body.load("red_chicken_%d", 8); break;
-	case 2: atlas_body.load("white_chicken_%d", 8); break;
+	case 0: atlas_body.Load("brown_chicken_%d", 8); break;
+	case 1: atlas_body.Load("red_chicken_%d", 8); break;
+	case 2: atlas_body.Load("white_chicken_%d", 8); break;
 	}
 }
 
 void CustomChickenBuilder::init_hat()
 {
-	atlas_hat.clear();
+	atlas_hat.Clear();
 
 	switch (type_hat)
 	{
-	case 0: atlas_hat.load("crown_%d", 8); break;
-	case 1: atlas_hat.load("green_hat_%d", 8); break;
-	case 2: atlas_hat.load("straw_hat_%d", 8); break;
+	case 0: atlas_hat.Load("crown_%d", 8); break;
+	case 1: atlas_hat.Load("green_hat_%d", 8); break;
+	case 2: atlas_hat.Load("straw_hat_%d", 8); break;
 	}
 }
 
@@ -65,10 +65,10 @@ BuilderPattern::~BuilderPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void BuilderPattern::on_update(float delta)
+void BuilderPattern::OnUpdate(float delta)
 {
 	if (chicken) 
-		chicken->on_update(delta);
+		chicken->OnUpdate(delta);
 
 	ImGui::BeginGroup();
 	ImGui::TextUnformatted(u8"ÎäÆ÷£º");				ImGui::SameLine();
@@ -119,7 +119,7 @@ void BuilderPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void BuilderPattern::on_render(SDL_Renderer* renderer)
+void BuilderPattern::OnRender(SDL_Renderer* renderer)
 {
 	if (!chicken) return;
 	
@@ -127,7 +127,7 @@ void BuilderPattern::on_render(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	chicken->on_render(renderer);
+	chicken->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

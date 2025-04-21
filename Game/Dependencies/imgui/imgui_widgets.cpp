@@ -6715,7 +6715,7 @@ ImGuiTypingSelectRequest* ImGui::GetTypingSelectRequest(ImGuiTypingSelectFlags f
         clear_buffer |= IsKeyPressed(ImGuiKey_Backspace) && (flags & ImGuiTypingSelectFlags_AllowBackspace) == 0;
         //if (clear_buffer) { IMGUI_DEBUG_LOG("GetTypingSelectRequest(): Clear SearchBuffer.\n"); }
         if (clear_buffer)
-            data->Clear();
+            data->clear();
     }
 
     // Append to buffer
@@ -6736,7 +6736,7 @@ ImGuiTypingSelectRequest* ImGui::GetTypingSelectRequest(ImGuiTypingSelectFlags f
         }
         if (data->SingleCharModeLock)
         {
-            data->Clear(); // Different character: clear
+            data->clear(); // Different character: clear
             buffer_len = 0;
         }
         memcpy(data->SearchBuffer + buffer_len, w_buf, w_len + 1); // Append

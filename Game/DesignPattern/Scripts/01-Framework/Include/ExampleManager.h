@@ -21,8 +21,8 @@ public:
 	void init(SDL_Renderer* renderer);
 
 	void on_input(const SDL_Event* event);
-	void on_update(float delta);
-	void on_render();
+	void OnUpdate(float delta);
+	void OnRender();
 
 private:
 	struct MenuItem

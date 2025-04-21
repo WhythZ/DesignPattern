@@ -32,7 +32,7 @@ IteratorPattern::~IteratorPattern()
 	SDL_DestroyTexture(texture_target);
 }
 
-void IteratorPattern::on_update(float delta)
+void IteratorPattern::OnUpdate(float delta)
 {
 	ImGui::Dummy({ 0, 15 });
 
@@ -70,7 +70,7 @@ void IteratorPattern::on_update(float delta)
 	ImGui::EndChild();
 }
 
-void IteratorPattern::on_render(SDL_Renderer* renderer)
+void IteratorPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
@@ -78,7 +78,7 @@ void IteratorPattern::on_render(SDL_Renderer* renderer)
 
 	SDL_RenderCopy(renderer, ResourcesManager::instance()->find_texture("backpack"), nullptr, nullptr);
 
-	current_iterator->reset();
+	current_iterator->Reset();
 	while (current_iterator->has_next())
 	{
 		int idx = current_iterator->get_idx();
@@ -90,7 +90,7 @@ void IteratorPattern::on_render(SDL_Renderer* renderer)
 			34 + (idx / 8) * 40 - 32 / 2,
 			32, 32 
 		};
-		SDL_RenderCopy(renderer, item->get_texture(), nullptr, &rect);
+		SDL_RenderCopy(renderer, item->GetTexture(), nullptr, &rect);
 	}
 
 	SDL_SetRenderTarget(renderer, nullptr);
@@ -101,7 +101,7 @@ void IteratorPattern::on_update_sample(Item* item)
 	static const char* type_name[3] = { u8"材料", u8"道具", u8"货币" };
 	static const char* grade_name[3] = { u8"平凡", u8"稀有", u8"传说" };
 
-	ImGui::Image(item->get_texture(), { 64, 64 }, { 0, 0 }, { 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 0.75f });
+	ImGui::Image(item->GetTexture(), { 64, 64 }, { 0, 0 }, { 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 0.75f });
 	ImGui::SameLine();
 	{
 		ImGui::BeginGroup();

@@ -47,7 +47,7 @@ ObserverPattern::ObserverPattern()
 
 ObserverPattern::~ObserverPattern() = default;
 
-void ObserverPattern::on_update(float delta)
+void ObserverPattern::OnUpdate(float delta)
 {
 	static const ImVec2 size_btn = { ImGui::GetContentRegionAvail().x, 35 };
 	if (ImGui::Button(u8"芝士按钮 [1] 点我解锁更多成就！", size_btn))

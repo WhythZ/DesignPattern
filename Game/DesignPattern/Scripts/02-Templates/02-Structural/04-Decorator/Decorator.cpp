@@ -33,9 +33,9 @@ void DecoratorPattern::on_input(const SDL_Event* event)
 	player->on_input(event);
 }
 
-void DecoratorPattern::on_update(float delta)
+void DecoratorPattern::OnUpdate(float delta)
 {
-	player->on_update(delta);
+	player->OnUpdate(delta);
 
 	for (Prop* prop : prop_list)
 		prop->check_collide(player);
@@ -56,16 +56,16 @@ void DecoratorPattern::on_update(float delta)
 	ImGui::TextColored({ 1.0f, 0.35f, 0.12f, 1.0f }, u8"• 使用 上/下/左/右 方向键控制飞机拾取道具获得不同属性");
 }
 
-void DecoratorPattern::on_render(SDL_Renderer* renderer)
+void DecoratorPattern::OnRender(SDL_Renderer* renderer)
 {
 	SDL_SetRenderTarget(renderer, texture_target);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
 	for (const Prop* prop : prop_list)
-		prop->on_render(renderer);
+		prop->OnRender(renderer);
 
-	player->on_render(renderer);
+	player->OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
 }

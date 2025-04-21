@@ -13,7 +13,7 @@ namespace _ChainOfResponsibilityPattern
 		virtual ~ClickHandler() = default;
 
 		virtual void handle() = 0;
-		virtual void on_update() = 0;
+		virtual void OnUpdate() = 0;
 
 		void set_next(ClickHandler* next)
 		{
@@ -33,7 +33,7 @@ namespace _ChainOfResponsibilityPattern
 		~ChildWindow() = default;
 
 		void handle() override;
-		void on_update() override;
+		void OnUpdate() override;
 
 	private:
 		int id;
@@ -50,7 +50,7 @@ public:
 	ChainOfResponsibilityPattern();
 	~ChainOfResponsibilityPattern();
 
-	void on_update(float delta) override;
+	void OnUpdate(float delta) override;
 
 private:
 	_ChainOfResponsibilityPattern::ChildWindow window_1, window_2, window_3;
