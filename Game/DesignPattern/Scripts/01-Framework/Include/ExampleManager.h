@@ -32,7 +32,7 @@ private:
 	std::string current_example_id;
 	Example* current_example = nullptr;
 
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	std::unordered_map<std::string, Example*> example_pool;
 	Subject subject_creational, subject_structural, subject_behavioral;
 

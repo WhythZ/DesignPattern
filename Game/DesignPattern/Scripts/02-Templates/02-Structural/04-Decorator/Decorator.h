@@ -51,20 +51,20 @@ namespace _DecoratorPattern
 			case SDL_KEYDOWN:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = true;		break;
-				case SDLK_DOWN:		is_move_down = true;	break;
-				case SDLK_LEFT:		is_move_left = true;	break;
-				case SDLK_RIGHT:	is_move_right = true;	break;
+				case SDLK_UP:		isMoveUp = true;		break;
+				case SDLK_DOWN:		isMoveDown = true;	break;
+				case SDLK_LEFT:		isMoveLeft = true;	break;
+				case SDLK_RIGHT:	isMoveRight = true;	break;
 				default: break;
 				}
 				break;
 			case SDL_KEYUP:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = false;		break;
-				case SDLK_DOWN:		is_move_down = false;	break;
-				case SDLK_LEFT:		is_move_left = false;	break;
-				case SDLK_RIGHT:	is_move_right = false;	break;
+				case SDLK_UP:		isMoveUp = false;		break;
+				case SDLK_DOWN:		isMoveDown = false;	break;
+				case SDLK_LEFT:		isMoveLeft = false;	break;
+				case SDLK_RIGHT:	isMoveRight = false;	break;
 				default: break;
 				}
 				break;
@@ -74,7 +74,7 @@ namespace _DecoratorPattern
 
 		void OnUpdate(float delta) override
 		{
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
+			Vector2 direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
 			position = position + direction * speed;
 		}
 
@@ -90,8 +90,8 @@ namespace _DecoratorPattern
 		}
 
 	private:
-		bool is_move_up = false, is_move_down = false;
-		bool is_move_left = false, is_move_right = false;
+		bool isMoveUp = false, isMoveDown = false;
+		bool isMoveLeft = false, isMoveRight = false;
 
 	};
 
@@ -253,7 +253,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_DecoratorPattern::Character* player = nullptr;
 	std::vector<_DecoratorPattern::Prop*> prop_list;
 

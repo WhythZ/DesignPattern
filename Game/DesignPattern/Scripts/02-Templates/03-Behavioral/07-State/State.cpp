@@ -13,7 +13,7 @@ StatePattern::StatePattern(SDL_Renderer* renderer)
 
 	player.set_state(state_list[idx_state]);
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 StatePattern::~StatePattern()
@@ -21,7 +21,7 @@ StatePattern::~StatePattern()
 	for (int i = 0; i < 4; i++)
 		delete state_list[i];
 
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void StatePattern::OnUpdate(float delta)
@@ -33,13 +33,13 @@ void StatePattern::OnUpdate(float delta)
 		player.set_state(state_list[idx_state]);
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
 void StatePattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

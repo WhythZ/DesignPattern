@@ -243,13 +243,13 @@ CompositePattern::CompositePattern(SDL_Renderer* renderer)
 {
 	init_world_tree();
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 470, 450);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 470, 450);
 }
 
 CompositePattern::~CompositePattern()
 {
 	delete world_tree;
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void CompositePattern::OnUpdate(float delta)
@@ -267,7 +267,7 @@ void CompositePattern::OnUpdate(float delta)
 		ImGui::BeginGroup();
 		{
 			ImGui::BeginChild("scene_view", { ImGui::GetContentRegionAvail().x, 455 }, ImGuiChildFlags_Border);
-			ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+			ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 			ImGui::EndChild();
 		}
 		{
@@ -316,7 +316,7 @@ void CompositePattern::OnUpdate(float delta)
 
 void CompositePattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
@@ -373,7 +373,7 @@ void CompositePattern::init_world_tree()
 			node_text->set_name(u8"剑名");
 			node_text->SetPosition({ -40, 65 });
 			node_text->set_font_size(15);
-			node_text->set_text(u8"稀有 • 寒冰大剑");
+			node_text->set_text(u8"稀有 寒冰大剑");
 			node_ice_sword->add_child(node_text);
 		}
 		world_tree->add_child(node_ice_sword);
@@ -392,7 +392,7 @@ void CompositePattern::init_world_tree()
 			node_text->set_name(u8"剑名");
 			node_text->SetPosition({ -30, 65 });
 			node_text->set_font_size(15);
-			node_text->set_text(u8"罕见 • 雷火剑");
+			node_text->set_text(u8"罕见 雷火剑");
 			node_ice_sword->add_child(node_text);
 		}
 		world_tree->add_child(node_ice_sword);

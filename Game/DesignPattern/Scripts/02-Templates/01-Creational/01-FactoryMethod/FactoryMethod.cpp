@@ -17,7 +17,7 @@ FactoryMethodPattern::FactoryMethodPattern(SDL_Renderer* renderer)
 	game_obj_list.push_back(slime_factory.create(Attribute::Grass,	{ 425, 340 }));
 	game_obj_list.push_back(slime_factory.create(Attribute::Fire,	{ 425, 540 }));
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 FactoryMethodPattern::~FactoryMethodPattern()
@@ -25,7 +25,7 @@ FactoryMethodPattern::~FactoryMethodPattern()
 	for (GameObject* game_obj : game_obj_list)
 		delete game_obj;
 
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void FactoryMethodPattern::OnUpdate(float delta)
@@ -33,12 +33,12 @@ void FactoryMethodPattern::OnUpdate(float delta)
 	for (GameObject* game_obj : game_obj_list)
 		game_obj->OnUpdate(delta);
 
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 }
 
 void FactoryMethodPattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

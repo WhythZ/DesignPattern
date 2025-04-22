@@ -52,7 +52,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_AdapterPattern::XMLLoader xml_loader;
 	_AdapterPattern::JSONLoader json_loader;
 	_AdapterPattern::GameObjectList game_object_list;

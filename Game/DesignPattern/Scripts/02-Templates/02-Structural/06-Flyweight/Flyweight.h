@@ -15,7 +15,7 @@ public:
 
 private:
 	std::string str_text = u8"详见下列文件中的资源管线代码实现：\n\n"
-		u8"• Framework/Atlas.h \n• Framework/Animation.h\n• Framework/ResourcesManager.cpp";
+		u8"Framework/Atlas.h \nFramework/Animation.h\nFramework/ResourcesManager.cpp";
 };
 
 #endif

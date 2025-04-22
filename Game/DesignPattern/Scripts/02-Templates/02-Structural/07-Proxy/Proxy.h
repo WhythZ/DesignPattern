@@ -19,7 +19,7 @@ private:
 	bool need_update = true;
 	SDL_Rect rect_text = { 0 };
 	SDL_Texture* texture_text = nullptr;
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	std::string str_text = "Hello World !";
 	float color_text[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 

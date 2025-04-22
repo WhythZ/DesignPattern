@@ -122,7 +122,7 @@ private:
 	_StatePattern::Player player;
 	const char* state_name_list[4];
 	_StatePattern::State* state_list[4];
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 
 };
 

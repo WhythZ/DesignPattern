@@ -18,7 +18,7 @@ public:
 private:
 	TextEditor code_editor;
 	ImFont* font_code = nullptr;
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 
 };
 

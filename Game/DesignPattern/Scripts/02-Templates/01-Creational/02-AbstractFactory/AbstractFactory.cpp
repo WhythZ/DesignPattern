@@ -49,12 +49,12 @@ AbstractFactoryPattern::AbstractFactoryPattern(SDL_Renderer* renderer)
 	slime_list.push_back(new Slime(&large_grass_slime_def_factory,	{ 500, 300 }));
 	slime_list.push_back(new Slime(&large_fire_slime_def_factory,	{ 500, 500 }));
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 AbstractFactoryPattern::~AbstractFactoryPattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 
 	for (Slime* slime : slime_list)
 		delete slime;
@@ -65,12 +65,12 @@ void AbstractFactoryPattern::OnUpdate(float delta)
 	for (Slime* slime : slime_list)
 		slime->OnUpdate(delta);
 
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 }
 
 void AbstractFactoryPattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

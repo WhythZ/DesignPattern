@@ -21,7 +21,7 @@ IteratorPattern::IteratorPattern(SDL_Renderer* renderer)
 
 	current_iterator = new RandomIterator(item_list);
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 360, 190);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 360, 190);
 }
 
 IteratorPattern::~IteratorPattern()
@@ -29,7 +29,7 @@ IteratorPattern::~IteratorPattern()
 	for (Item* item : item_list)
 		delete item;
 
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void IteratorPattern::OnUpdate(float delta)
@@ -66,13 +66,13 @@ void IteratorPattern::OnUpdate(float delta)
 	ImGui::Dummy({ 0, 50 });
 
 	ImGui::BeginChild("backpack", ImGui::GetContentRegionAvail());
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
 void IteratorPattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 

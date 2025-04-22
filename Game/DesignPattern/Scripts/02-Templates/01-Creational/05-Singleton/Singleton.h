@@ -29,20 +29,20 @@ namespace _SingletonPattern
 			case SDL_KEYDOWN:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = true;		break;
-				case SDLK_DOWN:		is_move_down = true;	break;
-				case SDLK_LEFT:		is_move_left = true;	break;
-				case SDLK_RIGHT:	is_move_right = true;	break;
+				case SDLK_UP:		isMoveUp = true;		break;
+				case SDLK_DOWN:		isMoveDown = true;	break;
+				case SDLK_LEFT:		isMoveLeft = true;	break;
+				case SDLK_RIGHT:	isMoveRight = true;	break;
 				default: break;
 				}
 				break;
 			case SDL_KEYUP:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = false;		break;
-				case SDLK_DOWN:		is_move_down = false;	break;
-				case SDLK_LEFT:		is_move_left = false;	break;
-				case SDLK_RIGHT:	is_move_right = false;	break;
+				case SDLK_UP:		isMoveUp = false;		break;
+				case SDLK_DOWN:		isMoveDown = false;	break;
+				case SDLK_LEFT:		isMoveLeft = false;	break;
+				case SDLK_RIGHT:	isMoveRight = false;	break;
 				default: break;
 				}
 				break;
@@ -53,14 +53,14 @@ namespace _SingletonPattern
 		void OnUpdate(float delta)
 		{
 			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
+			Vector2 direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
 			if (std::abs(direction.x) > 0.0001f)
-				is_facing_right = direction.x > 0;
+				isFacingRight = direction.x > 0;
 			position = position + direction * speed;
 
 			animation.OnUpdate(delta);
 			animation.SetPosition(position);
-			animation.SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+			animation.SetFlip(isFacingRight ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
 		void OnRender(SDL_Renderer* renderer)
@@ -82,9 +82,9 @@ namespace _SingletonPattern
 		Atlas atlas;
 		Vector2 position;
 		Animation animation;
-		bool is_facing_right = true;
-		bool is_move_up = false, is_move_down = false;
-		bool is_move_left = false, is_move_right = false;
+		bool isFacingRight = true;
+		bool isMoveUp = false, isMoveDown = false;
+		bool isMoveLeft = false, isMoveRight = false;
 
 	};
 
@@ -259,7 +259,7 @@ public:
 
 private:
 	_SingletonPattern::Player player;
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 
 };
 

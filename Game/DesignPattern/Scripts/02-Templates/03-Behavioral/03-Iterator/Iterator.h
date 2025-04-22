@@ -211,7 +211,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_IteratorPattern::ItemList item_list;
 	_IteratorPattern::Iterator* current_iterator = nullptr;
 

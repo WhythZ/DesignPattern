@@ -146,7 +146,7 @@ public:
 
 private:
 	_CommandPattern::Map map;
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_CommandPattern::Player* player = nullptr;
 
 };

@@ -57,12 +57,12 @@ BuilderPattern::BuilderPattern(SDL_Renderer* renderer)
 {
 	delete chicken;
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 332, 296);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 332, 296);
 }
 
 BuilderPattern::~BuilderPattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void BuilderPattern::OnUpdate(float delta)
@@ -115,7 +115,7 @@ void BuilderPattern::OnUpdate(float delta)
 	ImGui::EndGroup();
 
 	ImGui::BeginChild("chicken_result", ImGui::GetContentRegionAvail(), ImGuiChildFlags_Border);
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
@@ -123,7 +123,7 @@ void BuilderPattern::OnRender(SDL_Renderer* renderer)
 {
 	if (!chicken) return;
 	
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

@@ -167,7 +167,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_BuilderPattern::Chicken* chicken = nullptr;
 	_BuilderPattern::CustomChickenBuilder custom_chicken_builder;
 	_BuilderPattern::ElizabethChickenBuilder elizabeth_chicken_builder;

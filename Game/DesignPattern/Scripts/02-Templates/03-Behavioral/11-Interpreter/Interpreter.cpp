@@ -57,7 +57,7 @@ InterpreterPattern::InterpreterPattern(SDL_Renderer* renderer)
 {
 	g_renderer = renderer;
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 370, 370);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 370, 370);
 
 	ImGuiIO& ioImGui = ImGui::GetIO();
 	font_code = ioImGui.Fonts->AddFontFromFileTTF(R"(resources\SarasaMonoSC-Regular.ttf)", 18.0f, nullptr, ioImGui.Fonts->GetGlyphRangesChineseSimplifiedCommon());
@@ -110,7 +110,7 @@ test_print()
 
 InterpreterPattern::~InterpreterPattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void InterpreterPattern::OnUpdate(float delta)
@@ -132,7 +132,7 @@ void InterpreterPattern::OnUpdate(float delta)
 
 		str_buffer_print = u8"【开始执行】\n==============\n";
 
-		SDL_SetRenderTarget(g_renderer, texture_target);
+		SDL_SetRenderTarget(g_renderer, textureTarget);
 		SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
 		SDL_RenderClear(g_renderer);
 
@@ -160,7 +160,7 @@ void InterpreterPattern::OnUpdate(float delta)
 			ImGui::TextUnformatted(u8"绘图内容：");
 			static const ImVec2 size_paint_result = { ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().x };
 			ImGui::BeginChild("paint_result", size_paint_result, ImGuiChildFlags_Border);
-			ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+			ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 			ImGui::EndChild();
 		}
 		ImGui::TextUnformatted(u8"控制台输出：");

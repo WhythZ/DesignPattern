@@ -177,7 +177,7 @@ public:
 
 private:
 	bool need_show_popup = false;
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_CompositePattern::Node* world_tree = nullptr;
 	_CompositePattern::Node* node_selected = nullptr;
 

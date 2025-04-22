@@ -10,43 +10,48 @@ namespace _StrategyPattern
 	{
 	public:
 		virtual ~MoveStrategy() = default;
-		virtual bool need_stop(const Vector2& pos_target, const Vector2& pos_self) = 0;
-		virtual Vector2 cal_direction(const Vector2& pos_target, const Vector2& pos_self) = 0;
-
+		virtual bool need_stop(const Vector2&, const Vector2&) = 0;
+		virtual Vector2 cal_direction(const Vector2&, const Vector2&) = 0;
 	};
 
 	class FollowStrategy : public MoveStrategy
 	{
 	public:
-		bool need_stop(const Vector2& pos_target, const Vector2& pos_self) override
+		bool need_stop(const Vector2& posTarget, const Vector2& posSelf) override
 		{
-			return (pos_target - pos_self).Length() <= 150.0f;
+			return (posTarget - posSelf).Length() <= 150.0f;
 		}
 
-		Vector2 cal_direction(const Vector2& pos_target, const Vector2& pos_self) override
+		Vector2 cal_direction(const Vector2& posTarget, const Vector2& posSelf) override
 		{
-			return (pos_target - pos_self).Normalize();
+			return (posTarget - posSelf).Normalize();
 		}
-
 	};
 
 	class StayAwayStrategy : public MoveStrategy
 	{
 	public:
-		bool need_stop(const Vector2& pos_target, const Vector2& pos_self) override
+		bool need_stop(const Vector2& posTarget, const Vector2& posSelf) override
 		{
-			return (pos_target - pos_self).Length() >= 250.0f;
+			return (posTarget - posSelf).Length() >= 250.0f;
 		}
 
-		Vector2 cal_direction(const Vector2& pos_target, const Vector2& pos_self) override
+		Vector2 cal_direction(const Vector2& posTarget, const Vector2& posSelf) override
 		{
-			return (pos_self - pos_target).Normalize();
+			return (posSelf - posTarget).Normalize();
 		}
-
 	};
 
 	class Player
 	{
+	private:
+		Atlas atlas;
+		Vector2 position;
+		Animation animation;
+		bool isFacingRight = true;
+		bool isMoveUp = false, isMoveDown = false;
+		bool isMoveLeft = false, isMoveRight = false;
+
 	public:
 		Player()
 		{
@@ -68,20 +73,20 @@ namespace _StrategyPattern
 			case SDL_KEYDOWN:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = true;		break;
-				case SDLK_DOWN:		is_move_down = true;	break;
-				case SDLK_LEFT:		is_move_left = true;	break;
-				case SDLK_RIGHT:	is_move_right = true;	break;
+				case SDLK_UP:		isMoveUp = true;		break;
+				case SDLK_DOWN:		isMoveDown = true;	break;
+				case SDLK_LEFT:		isMoveLeft = true;	break;
+				case SDLK_RIGHT:	isMoveRight = true;	break;
 				default: break;
 				}
 				break;
 			case SDL_KEYUP:
 				switch (event->key.keysym.sym)
 				{
-				case SDLK_UP:		is_move_up = false;		break;
-				case SDLK_DOWN:		is_move_down = false;	break;
-				case SDLK_LEFT:		is_move_left = false;	break;
-				case SDLK_RIGHT:	is_move_right = false;	break;
+				case SDLK_UP:		isMoveUp = false;		break;
+				case SDLK_DOWN:		isMoveDown = false;	break;
+				case SDLK_LEFT:		isMoveLeft = false;	break;
+				case SDLK_RIGHT:	isMoveRight = false;	break;
 				default: break;
 				}
 				break;
@@ -92,13 +97,13 @@ namespace _StrategyPattern
 		void OnUpdate(float delta)
 		{
 			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(is_move_right - is_move_left), (float)(is_move_down - is_move_up)).Normalize();
-			if (std::abs(direction.x) > 0.0001f) is_facing_right = direction.x > 0;
+			Vector2 direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
+			if (std::abs(direction.x) > 0.0001f) isFacingRight = direction.x > 0;
 			position = position + direction * speed;
 
 			animation.OnUpdate(delta);
 			animation.SetPosition(position);
-			animation.SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+			animation.SetFlip(isFacingRight ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
 		void OnRender(SDL_Renderer* renderer)
@@ -113,56 +118,57 @@ namespace _StrategyPattern
 		{
 			return position;
 		}
-
-	private:
-		Atlas atlas;
-		Vector2 position;
-		Animation animation;
-		bool is_facing_right = true;
-		bool is_move_up = false, is_move_down = false;
-		bool is_move_left = false, is_move_right = false;
-
 	};
 
 	class Boar
 	{
+	private:
+		Vector2 position;
+		Player* player = nullptr;
+		MoveStrategy* moveStrategy = nullptr;
+
+		bool isFacingRight = true;
+		Atlas atlasIdle, atlasRun;
+		Animation animationIdle, animationRun;
+		Animation* currentAnimation = nullptr;
+
 	public:
 		Boar(Player* player, Vector2 position)
 		{
 			this->player = player;
 			this->position = position;
 
-			atlas_idle.Load("Boar-Idle%d", 4);
-			animation_idle.AddFrame(&atlas_idle);
-			animation_idle.SetLoop(true);
-			animation_idle.SetInterval(0.1f);
+			atlasIdle.Load("Boar-Idle%d", 4);
+			animationIdle.AddFrame(&atlasIdle);
+			animationIdle.SetLoop(true);
+			animationIdle.SetInterval(0.1f);
 
-			atlas_run.Load("Boar-Run%d", 6);
-			animation_run.AddFrame(&atlas_run);
-			animation_run.SetLoop(true);
-			animation_run.SetInterval(0.1f);
+			atlasRun.Load("Boar-Run%d", 6);
+			animationRun.AddFrame(&atlasRun);
+			animationRun.SetLoop(true);
+			animationRun.SetInterval(0.1f);
 
-			current_animation = &animation_idle;
+			currentAnimation = &animationIdle;
 		}
 
 		~Boar() = default;
 
 		void OnUpdate(float delta)
 		{
-			if (move_strategy->need_stop(player->get_position(), position))
-				current_animation = &animation_idle;
+			if (moveStrategy->need_stop(player->get_position(), position))
+				currentAnimation = &animationIdle;
 			else
 			{
 				static const float speed = 1.0f;
-				const Vector2 move_dir = move_strategy->cal_direction(player->get_position(), position);
-				if (std::abs(move_dir.x) > 0.0001f) is_facing_right = move_dir.x > 0;
+				const Vector2 move_dir = moveStrategy->cal_direction(player->get_position(), position);
+				if (std::abs(move_dir.x) > 0.0001f) isFacingRight = move_dir.x > 0;
 				position = position + move_dir * speed;
-				current_animation = &animation_run;
+				currentAnimation = &animationRun;
 			}
 
-			current_animation->OnUpdate(delta);
-			current_animation->SetPosition(position);
-			current_animation->SetFlip(is_facing_right ? SDL_RendererFlip::SDL_FLIP_HORIZONTAL : SDL_RendererFlip::SDL_FLIP_NONE);
+			currentAnimation->OnUpdate(delta);
+			currentAnimation->SetPosition(position);
+			currentAnimation->SetFlip(isFacingRight ? SDL_RendererFlip::SDL_FLIP_HORIZONTAL : SDL_RendererFlip::SDL_FLIP_NONE);
 		}
 
 		void OnRender(SDL_Renderer* renderer)
@@ -170,47 +176,37 @@ namespace _StrategyPattern
 			SDL_FRect rect = { position.x - 16, position.y + 20, 32, 20 };
 			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("shadow_player"), nullptr, &rect);
 
-			current_animation->OnRender(renderer);
+			currentAnimation->OnRender(renderer);
 		}
 
-		void set_strategy(MoveStrategy* move_strategy)
+		void set_strategy(MoveStrategy* moveStrategy)
 		{
-			this->move_strategy = move_strategy;
+			this->moveStrategy = moveStrategy;
 		}
-
-	private:
-		Vector2 position;
-		Player* player = nullptr;
-		MoveStrategy* move_strategy = nullptr;
-
-		bool is_facing_right = true;
-		Atlas atlas_idle, atlas_run;
-		Animation animation_idle, animation_run;
-		Animation* current_animation = nullptr;
-
 	};
-
 }
 
 class StrategyPattern : public Example
 {
+private:
+	//玩家操控的对象
+	_StrategyPattern::Player player;
+	SDL_Texture* textureTarget = nullptr;
+	//采取不同策略对待玩家的野猪们
+	std::vector<_StrategyPattern::Boar*> boarList;
+
+	//野猪们的不同策略
+	bool isUsingFollowStrategy = true;
+	_StrategyPattern::FollowStrategy followStrategy;
+	_StrategyPattern::StayAwayStrategy stayAwayStrategy;
+
 public:
-	StrategyPattern(SDL_Renderer* renderer);
+	StrategyPattern(SDL_Renderer*);
 	~StrategyPattern();
 
-	void OnInput(const SDL_Event* event) override;
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
-private:
-	_StrategyPattern::Player player;
-	SDL_Texture* texture_target = nullptr;
-	std::vector<_StrategyPattern::Boar*> boar_list;
-
-	bool is_using_follow_strategy = true;
-	_StrategyPattern::FollowStrategy follow_strategy;
-	_StrategyPattern::StayAwayStrategy stay_away_strategy;
-
+	void OnInput(const SDL_Event*) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif

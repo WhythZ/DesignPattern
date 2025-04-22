@@ -297,7 +297,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	std::vector<_AbstractFactoryPattern::Slime*> slime_list;
 
 };

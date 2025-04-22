@@ -295,7 +295,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	_TemplateMethodPattern::Map* map = nullptr;
 	_TemplateMethodPattern::CustomizedMapGen map_generator;
 

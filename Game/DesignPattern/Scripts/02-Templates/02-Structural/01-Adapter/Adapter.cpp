@@ -63,12 +63,12 @@ bool _AdapterPattern::XMLLoader::Load(GameObjectList& dst, const std::string& pa
 
 AdapterPattern::AdapterPattern(SDL_Renderer* renderer)
 {
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 768, 768);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 768, 768);
 }
 
 AdapterPattern::~AdapterPattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void AdapterPattern::OnUpdate(float delta)
@@ -84,13 +84,13 @@ void AdapterPattern::OnUpdate(float delta)
 	}
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
 void AdapterPattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

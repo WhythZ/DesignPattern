@@ -6,12 +6,12 @@
 
 ProxyPattern::ProxyPattern(SDL_Renderer* renderer)
 {
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 664, 548);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 664, 548);
 }
 
 ProxyPattern::~ProxyPattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void ProxyPattern::OnUpdate(float delta)
@@ -33,7 +33,7 @@ void ProxyPattern::OnUpdate(float delta)
 	ImGui::Dummy({ 0, 5 });
 
 	ImGui::BeginChild("render_result", ImGui::GetContentRegionAvail(), ImGuiChildFlags_Border);
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
@@ -45,7 +45,7 @@ void ProxyPattern::OnRender(SDL_Renderer* renderer)
 		need_update = false;
 	}
 
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 51, 76, 76, 255);
 	SDL_RenderClear(renderer);
 

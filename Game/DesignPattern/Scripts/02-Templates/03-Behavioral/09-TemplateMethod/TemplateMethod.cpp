@@ -141,14 +141,14 @@ TemplateMethodPattern::TemplateMethodPattern(SDL_Renderer* renderer)
 {
 	map = map_generator.generate();
 
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 TemplateMethodPattern::~TemplateMethodPattern()
 {
 	delete map;
 
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void TemplateMethodPattern::OnUpdate(float delta)
@@ -171,7 +171,7 @@ void TemplateMethodPattern::OnUpdate(float delta)
 	}
 
 	ImGui::BeginChild("map", ImGui::GetContentRegionAvail());
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 
 	map_generator.on_inspect_config();
@@ -179,7 +179,7 @@ void TemplateMethodPattern::OnUpdate(float delta)
 
 void TemplateMethodPattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 

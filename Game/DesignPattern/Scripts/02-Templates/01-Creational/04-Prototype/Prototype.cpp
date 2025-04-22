@@ -9,7 +9,7 @@ static int type_weapon = 0, type_body = 0, type_hat = 0;
 
 PrototypePattern::PrototypePattern(SDL_Renderer* renderer)
 {
-	texture_target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 665, 590);
+	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 665, 590);
 
 	atlas_weapon_fork.Load("weapon_fork_%d", 8);
 	atlas_weapon_plate.Load("weapon_plate_%d", 8);
@@ -26,7 +26,7 @@ PrototypePattern::PrototypePattern(SDL_Renderer* renderer)
 
 PrototypePattern::~PrototypePattern()
 {
-	SDL_DestroyTexture(texture_target);
+	SDL_DestroyTexture(textureTarget);
 }
 
 void PrototypePattern::on_enter()
@@ -93,13 +93,13 @@ void PrototypePattern::OnUpdate(float delta)
 	}
 
 	ImGui::BeginChild("chicken_result", ImGui::GetContentRegionAvail(), ImGuiChildFlags_Border);
-	ImGui::Image(texture_target, ImGui::GetContentRegionAvail());
+	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
 void PrototypePattern::OnRender(SDL_Renderer* renderer)
 {
-	SDL_SetRenderTarget(renderer, texture_target);
+	SDL_SetRenderTarget(renderer, textureTarget);
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 

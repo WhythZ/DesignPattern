@@ -103,7 +103,7 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	SDL_Texture* texture_target = nullptr;
+	SDL_Texture* textureTarget = nullptr;
 	std::vector<_PrototypePattern::Chicken*> chicken_list;
 	_PrototypePattern::Chicken* prototype_chicken = nullptr;
 	Atlas atlas_weapon_fork, atlas_weapon_plate, atlas_weapon_spoon;

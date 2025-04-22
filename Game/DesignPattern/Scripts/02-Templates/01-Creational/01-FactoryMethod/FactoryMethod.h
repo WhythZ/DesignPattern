@@ -6,23 +6,31 @@
 
 namespace _FactoryMethodPattern
 {
-	enum class Attribute { Ice, Grass, Fire };
+	//剑的不同属性
+	enum class Attribute
+	{
+		Ice,
+		Grass,
+		Fire
+	};
 
 	class GameObject
 	{
-	public:
-		GameObject(const Vector2& _position) : position(_position) {}
-
-		virtual void OnUpdate(float delta) = 0;
-		virtual void OnRender(SDL_Renderer* renderer) = 0;
-
 	protected:
 		Vector2 position;
 
+	public:
+		GameObject(const Vector2& _position) : position(_position) {}
+
+		virtual void OnUpdate(float) = 0;
+		virtual void OnRender(SDL_Renderer*) = 0;
 	};
 
 	class Sword : public GameObject
 	{
+	protected:
+		SDL_Texture* texture = nullptr;
+
 	public:
 		Sword(const Vector2& _position) : GameObject(_position) {}
 
@@ -32,14 +40,14 @@ namespace _FactoryMethodPattern
 			SDL_FRect rect = { position.x, position.y, 64, 64 };
 			SDL_RenderCopyF(renderer, texture, nullptr, &rect);
 		}
-
-	protected:
-		SDL_Texture* texture = nullptr;
-
 	};
 
 	class Slime : public GameObject
 	{
+	protected:
+		Atlas atlas;
+		Animation animation;
+
 	public:
 		Slime(const Vector2& _position) : GameObject(_position) {}
 
@@ -53,11 +61,6 @@ namespace _FactoryMethodPattern
 		{
 			animation.OnRender(renderer);
 		}
-
-	protected:
-		Atlas atlas;
-		Animation animation;
-
 	};
 
 	class IceSword : public Sword
@@ -67,7 +70,6 @@ namespace _FactoryMethodPattern
 		{
 			texture = ResourcesManager::Instance()->findTexture("BlueSword");
 		}
-
 	};
 
 	class GrassSword : public Sword
@@ -77,7 +79,6 @@ namespace _FactoryMethodPattern
 		{
 			texture = ResourcesManager::Instance()->findTexture("GreenSword");
 		}
-
 	};
 
 	class FireSword : public Sword
@@ -87,7 +88,6 @@ namespace _FactoryMethodPattern
 		{
 			texture = ResourcesManager::Instance()->findTexture("RedSword");
 		}
-
 	};
 
 	class IceSlime : public Slime
@@ -100,7 +100,6 @@ namespace _FactoryMethodPattern
 			animation.SetLoop(true);
 			animation.SetInterval(0.1f);
 		}
-
 	};
 
 	class GrassSlime : public Slime
@@ -113,7 +112,6 @@ namespace _FactoryMethodPattern
 			animation.SetLoop(true);
 			animation.SetInterval(0.1f);
 		}
-
 	};
 
 	class FireSlime : public Slime
@@ -126,7 +124,6 @@ namespace _FactoryMethodPattern
 			animation.SetLoop(true);
 			animation.SetInterval(0.1f);
 		}
-
 	};
 
 	class SwordFactory
@@ -178,17 +175,16 @@ namespace _FactoryMethodPattern
 
 class FactoryMethodPattern : public Example
 {
+private:
+	SDL_Texture* textureTarget = nullptr;
+	std::vector<_FactoryMethodPattern::GameObject*> game_obj_list;
+
 public:
 	FactoryMethodPattern(SDL_Renderer* renderer);
 	~FactoryMethodPattern();
 
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;
-
-private:
-	SDL_Texture* texture_target = nullptr;
-	std::vector<_FactoryMethodPattern::GameObject*> game_obj_list;
-
 };
 
 #endif
