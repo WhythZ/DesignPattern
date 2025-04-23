@@ -7,12 +7,7 @@
 namespace _FactoryMethodPattern
 {
 	//剑的不同属性
-	enum class Attribute
-	{
-		Ice,
-		Grass,
-		Fire
-	};
+	enum class Attribute { Ice, Grass, Fire };
 
 	class GameObject
 	{
@@ -34,11 +29,11 @@ namespace _FactoryMethodPattern
 	public:
 		Sword(const Vector2& _position) : GameObject(_position) {}
 
-		void OnUpdate(float delta) override {}
-		void OnRender(SDL_Renderer* renderer) override
+		void OnUpdate(float _delta) override {}
+		void OnRender(SDL_Renderer* _renderer) override
 		{
-			SDL_FRect rect = { position.x, position.y, 64, 64 };
-			SDL_RenderCopyF(renderer, texture, nullptr, &rect);
+			SDL_FRect _rect = { position.x, position.y, 64, 64 };
+			SDL_RenderCopyF(_renderer, texture, nullptr, &_rect);
 		}
 	};
 
@@ -51,15 +46,15 @@ namespace _FactoryMethodPattern
 	public:
 		Slime(const Vector2& _position) : GameObject(_position) {}
 
-		void OnUpdate(float delta) override
+		void OnUpdate(float _delta) override
 		{
-			animation.OnUpdate(delta);
+			animation.OnUpdate(_delta);
 			animation.SetPosition(position);
 		}
 
-		void OnRender(SDL_Renderer* renderer) override
+		void OnRender(SDL_Renderer* _renderer) override
 		{
-			animation.OnRender(renderer);
+			animation.OnRender(_renderer);
 		}
 	};
 
@@ -129,18 +124,18 @@ namespace _FactoryMethodPattern
 	class SwordFactory
 	{
 	public:
-		Sword* create(Attribute attribute, const Vector2& position)
+		Sword* create(Attribute _attribute, const Vector2& _position)
 		{
-			switch (attribute)
+			switch (_attribute)
 			{
 			case _FactoryMethodPattern::Attribute::Ice:
-				return new IceSword(position);
+				return new IceSword(_position);
 				break;
 			case _FactoryMethodPattern::Attribute::Grass:
-				return new GrassSword(position);
+				return new GrassSword(_position);
 				break;
 			case _FactoryMethodPattern::Attribute::Fire:
-				return new FireSword(position);
+				return new FireSword(_position);
 				break;
 			default:
 				return nullptr;
@@ -152,18 +147,18 @@ namespace _FactoryMethodPattern
 	class SlimeFactory
 	{
 	public:
-		Slime* create(Attribute attribute, const Vector2& position)
+		Slime* create(Attribute _attribute, const Vector2& _position)
 		{
-			switch (attribute)
+			switch (_attribute)
 			{
 			case _FactoryMethodPattern::Attribute::Ice:
-				return new IceSlime(position);
+				return new IceSlime(_position);
 				break;
 			case _FactoryMethodPattern::Attribute::Grass:
-				return new GrassSlime(position);
+				return new GrassSlime(_position);
 				break;
 			case _FactoryMethodPattern::Attribute::Fire:
-				return new FireSlime(position);
+				return new FireSlime(_position);
 				break;
 			default:
 				return nullptr;

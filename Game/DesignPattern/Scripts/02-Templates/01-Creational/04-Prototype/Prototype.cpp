@@ -5,23 +5,23 @@
 
 using namespace _PrototypePattern;
 
-static int type_weapon = 0, type_body = 0, type_hat = 0;
+static int typeWeapon = 0, typeBody = 0, typeHat = 0;
 
-PrototypePattern::PrototypePattern(SDL_Renderer* renderer)
+PrototypePattern::PrototypePattern(SDL_Renderer* _renderer)
 {
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 665, 590);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 665, 590);
 
-	atlas_weapon_fork.Load("weapon_fork_%d", 8);
-	atlas_weapon_plate.Load("weapon_plate_%d", 8);
-	atlas_weapon_spoon.Load("weapon_spoon_%d", 8);
+	atlasWeaponFork.Load("weapon_fork_%d", 8);
+	atlasWeaponPlate.Load("weapon_plate_%d", 8);
+	atlasWeaponSpoon.Load("weapon_spoon_%d", 8);
 
-	atlas_body_brown.Load("brown_chicken_%d", 8);
-	atlas_body_red.Load("red_chicken_%d", 8);
-	atlas_body_white.Load("white_chicken_%d", 8);
+	atlasBodyBrown.Load("brown_chicken_%d", 8);
+	atlasBodyRed.Load("red_chicken_%d", 8);
+	atlasBodyWhite.Load("white_chicken_%d", 8);
 
-	atlas_hat_crown.Load("crown_%d", 8);
-	atlas_hat_green.Load("green_hat_%d", 8);
-	atlas_hat_straw.Load("straw_hat_%d", 8);
+	atlasHatCrown.Load("crown_%d", 8);
+	atlasHatGreen.Load("green_hat_%d", 8);
+	atlasHatStraw.Load("straw_hat_%d", 8);
 }
 
 PrototypePattern::~PrototypePattern()
@@ -32,63 +32,63 @@ PrototypePattern::~PrototypePattern()
 void PrototypePattern::OnEnter()
 {
 	srand((unsigned int)time(NULL));
-	prototype_chicken = new Chicken();
+	prototypeChicken = new Chicken();
 }
 
 void PrototypePattern::OnExit()
 {
-	for (Chicken* chicken : chicken_list)
-		delete chicken;
-	chicken_list.clear();
+	for (Chicken* _chicken : chickenList)
+		delete _chicken;
+	chickenList.clear();
 
-	delete prototype_chicken; prototype_chicken = nullptr;
+	delete prototypeChicken; prototypeChicken = nullptr;
 }
 
-void PrototypePattern::OnUpdate(float delta)
+void PrototypePattern::OnUpdate(float _delta)
 {
-	for (Chicken* chicken : chicken_list)
-		chicken->OnUpdate(delta);
+	for (Chicken* _chicken : chickenList)
+		_chicken->OnUpdate(_delta);
 
 	ImGui::BeginGroup();
 	ImGui::TextUnformatted(u8"武器：");				ImGui::SameLine();
-	ImGui::RadioButton(u8"叉子", &type_weapon, 0);	ImGui::SameLine();
-	ImGui::RadioButton(u8"盘子", &type_weapon, 1);	ImGui::SameLine();
-	ImGui::RadioButton(u8"汤匙", &type_weapon, 2);
+	ImGui::RadioButton(u8"叉子", &typeWeapon, 0);	ImGui::SameLine();
+	ImGui::RadioButton(u8"盘子", &typeWeapon, 1);	ImGui::SameLine();
+	ImGui::RadioButton(u8"汤匙", &typeWeapon, 2);
 
 	ImGui::TextUnformatted(u8"身体：");				ImGui::SameLine();
-	ImGui::RadioButton(u8"棕色", &type_body, 0);		ImGui::SameLine();
-	ImGui::RadioButton(u8"红色", &type_body, 1);		ImGui::SameLine();
-	ImGui::RadioButton(u8"白色", &type_body, 2);	
+	ImGui::RadioButton(u8"棕色", &typeBody, 0);		ImGui::SameLine();
+	ImGui::RadioButton(u8"红色", &typeBody, 1);		ImGui::SameLine();
+	ImGui::RadioButton(u8"白色", &typeBody, 2);	
 
 	ImGui::TextUnformatted(u8"帽子：");				ImGui::SameLine();
-	ImGui::RadioButton(u8"皇冠", &type_hat, 0);		ImGui::SameLine();
-	ImGui::RadioButton(u8"绿帽", &type_hat, 1);		ImGui::SameLine();
-	ImGui::RadioButton(u8"草帽", &type_hat, 2);
+	ImGui::RadioButton(u8"皇冠", &typeHat, 0);		ImGui::SameLine();
+	ImGui::RadioButton(u8"绿帽", &typeHat, 1);		ImGui::SameLine();
+	ImGui::RadioButton(u8"草帽", &typeHat, 2);
 	ImGui::EndGroup();
 
 	ImGui::SameLine();
 
 	if (ImGui::Button(u8"将当前属性的鸡生成到世界中", { ImGui::GetContentRegionAvail().x, 80 }))
 	{
-		switch (type_weapon)
+		switch (typeWeapon)
 		{
-		case 0: prototype_chicken->set_weapon(&atlas_weapon_fork); break;
-		case 1: prototype_chicken->set_weapon(&atlas_weapon_plate); break;
-		case 2: prototype_chicken->set_weapon(&atlas_weapon_fork); break;
+		case 0: prototypeChicken->SetWeapon(&atlasWeaponFork); break;
+		case 1: prototypeChicken->SetWeapon(&atlasWeaponPlate); break;
+		case 2: prototypeChicken->SetWeapon(&atlasWeaponFork); break;
 		}
-		switch (type_body)
+		switch (typeBody)
 		{
-		case 0: prototype_chicken->set_body(&atlas_body_brown); break;
-		case 1: prototype_chicken->set_body(&atlas_body_red); break;
-		case 2: prototype_chicken->set_body(&atlas_body_white); break;
+		case 0: prototypeChicken->SetBody(&atlasBodyBrown); break;
+		case 1: prototypeChicken->SetBody(&atlasBodyRed); break;
+		case 2: prototypeChicken->SetBody(&atlasBodyWhite); break;
 		}
-		switch (type_hat)
+		switch (typeHat)
 		{
-		case 0: prototype_chicken->set_hat(&atlas_hat_crown); break;
-		case 1: prototype_chicken->set_hat(&atlas_hat_green); break;
-		case 2: prototype_chicken->set_hat(&atlas_hat_straw); break;
+		case 0: prototypeChicken->SetHat(&atlasHatCrown); break;
+		case 1: prototypeChicken->SetHat(&atlasHatGreen); break;
+		case 2: prototypeChicken->SetHat(&atlasHatStraw); break;
 		}
-		chicken_list.push_back(prototype_chicken->clone());
+		chickenList.push_back(prototypeChicken->Clone());
 		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("click"), 0);
 	}
 
@@ -97,14 +97,14 @@ void PrototypePattern::OnUpdate(float delta)
 	ImGui::EndChild();
 }
 
-void PrototypePattern::OnRender(SDL_Renderer* renderer)
+void PrototypePattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 15, 15, 15, 255);
+	SDL_RenderClear(_renderer);
 
-	for (Chicken* chicken : chicken_list)
-		chicken->OnRender(renderer);
+	for (Chicken* _chicken : chickenList)
+		_chicken->OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }

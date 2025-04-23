@@ -6,26 +6,26 @@ using namespace _SingletonPattern;
 
 SceneManager* SceneManager::manager = nullptr;
 
-void Level_1::on_reach()
+void Level01::OnReach()
 {
 	SceneManager::Instance()->SwitchTo("level_2");
 }
 
-void Level_2::on_reach()
+void Level02::OnReach()
 {
 	SceneManager::Instance()->SwitchTo("level_3");
 }
 
-void Level_3::on_reach()
+void Level03::OnReach()
 {
 	SceneManager::Instance()->SwitchTo("level_1");
 }
 
 SingletonPattern::SingletonPattern(SDL_Renderer* renderer)
 {
-	SceneManager::Instance()->add("level_1", new Level_1(&player));
-	SceneManager::Instance()->add("level_2", new Level_2(&player));
-	SceneManager::Instance()->add("level_3", new Level_3(&player));
+	SceneManager::Instance()->Add("level_1", new Level01(&player));
+	SceneManager::Instance()->Add("level_2", new Level02(&player));
+	SceneManager::Instance()->Add("level_3", new Level03(&player));
 	SceneManager::Instance()->SwitchTo("level_1");
 
 	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);

@@ -10,6 +10,14 @@ namespace _SingletonPattern
 {
 	class Player
 	{
+	private:
+		Atlas atlas;
+		Vector2 position;
+		Animation animation;
+		bool isFacingRight = true;
+		bool isMoveUp = false, isMoveDown = false;
+		bool isMoveLeft = false, isMoveRight = false;
+
 	public:
 		Player()
 		{
@@ -22,26 +30,26 @@ namespace _SingletonPattern
 
 		~Player() = default;
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			switch (event->type)
+			switch (_event->type)
 			{
 			case SDL_KEYDOWN:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
 				case SDLK_UP:		isMoveUp = true;		break;
-				case SDLK_DOWN:		isMoveDown = true;	break;
-				case SDLK_LEFT:		isMoveLeft = true;	break;
-				case SDLK_RIGHT:	isMoveRight = true;	break;
+				case SDLK_DOWN:		isMoveDown = true;		break;
+				case SDLK_LEFT:		isMoveLeft = true;		break;
+				case SDLK_RIGHT:	isMoveRight = true;		break;
 				default: break;
 				}
 				break;
 			case SDL_KEYUP:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
 				case SDLK_UP:		isMoveUp = false;		break;
-				case SDLK_DOWN:		isMoveDown = false;	break;
-				case SDLK_LEFT:		isMoveLeft = false;	break;
+				case SDLK_DOWN:		isMoveDown = false;		break;
+				case SDLK_LEFT:		isMoveLeft = false;		break;
 				case SDLK_RIGHT:	isMoveRight = false;	break;
 				default: break;
 				}
@@ -50,93 +58,83 @@ namespace _SingletonPattern
 			}
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
-			if (std::abs(direction.x) > 0.0001f)
-				isFacingRight = direction.x > 0;
-			position = position + direction * speed;
+			static const float _speed = 2.0f;
+			Vector2 _direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
+			if (std::abs(_direction.x) > 0.0001f)
+				isFacingRight = _direction.x > 0;
+			position = position + _direction * _speed;
 
-			animation.OnUpdate(delta);
+			animation.OnUpdate(_delta);
 			animation.SetPosition(position);
 			animation.SetFlip(isFacingRight ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			animation.OnRender(renderer);
+			animation.OnRender(_renderer);
 		}
 
-		void SetPosition(const Vector2& position)
+		void SetPosition(const Vector2& _position)
 		{
-			this->position = position;
+			this->position = _position;
 		}
 
-		const Vector2& get_posoition() const
+		const Vector2& GetPosoition() const
 		{
 			return position;
 		}
-
-	private:
-		Atlas atlas;
-		Vector2 position;
-		Animation animation;
-		bool isFacingRight = true;
-		bool isMoveUp = false, isMoveDown = false;
-		bool isMoveLeft = false, isMoveRight = false;
-
 	};
 
 	class Scene
 	{
+	protected:
+		Player* player = nullptr;
+		SDL_FRect rectApron = { 0 };
+		SDL_Texture* textureBackground = nullptr;
+
 	public:
 		Scene(Player* _player) : player(_player) {}
 		~Scene() = default;
 
 		virtual void OnEnter() {}
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			player->OnInput(event);
+			player->OnInput(_event);
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			player->OnUpdate(delta);
+			player->OnUpdate(_delta);
 
-			SDL_FPoint position_player = { player->get_posoition().x, player->get_posoition().y };
-			if (SDL_PointInFRect(&position_player, &rect_apron))
-				on_reach();
+			SDL_FPoint _positionPlayer = { player->GetPosoition().x, player->GetPosoition().y };
+			if (SDL_PointInFRect(&_positionPlayer, &rectApron))
+				OnReach();
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			SDL_RenderCopyF(renderer, texture_background, nullptr, nullptr);
-			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("apron"), nullptr, &rect_apron);
-			player->OnRender(renderer);
+			SDL_RenderCopyF(_renderer, textureBackground, nullptr, nullptr);
+			SDL_RenderCopyF(_renderer, ResourcesManager::Instance()->findTexture("apron"), nullptr, &rectApron);
+			player->OnRender(_renderer);
 		}
 
 	protected:
-		Player* player = nullptr;
-		SDL_FRect rect_apron = { 0 };
-		SDL_Texture* texture_background = nullptr;
-
-	protected:
-		virtual void on_reach() = 0;
-
+		virtual void OnReach() = 0;
 	};
 
-	class Level_1 : public Scene
+	class Level01 : public Scene
 	{
 	public:
-		Level_1(Player* player) : Scene(player)
+		Level01(Player* _player) : Scene(_player)
 		{
-			rect_apron = { 255, 255, 200, 200 };
-			texture_background = ResourcesManager::Instance()->findTexture("level_1");
+			rectApron = { 255, 255, 200, 200 };
+			textureBackground = ResourcesManager::Instance()->findTexture("level_1");
 		}
 
-		~Level_1() = default;
+		~Level01() = default;
 
 		void OnEnter() override
 		{
@@ -144,20 +142,19 @@ namespace _SingletonPattern
 		}
 
 	protected:
-		void on_reach() override;
-
+		void OnReach() override;
 	};
 
-	class Level_2 : public Scene
+	class Level02 : public Scene
 	{
 	public:
-		Level_2(Player* player) : Scene(player)
+		Level02(Player* _player) : Scene(_player)
 		{
-			rect_apron = { 500, 260, 200, 200 };
-			texture_background = ResourcesManager::Instance()->findTexture("level_2");
+			rectApron = { 500, 260, 200, 200 };
+			textureBackground = ResourcesManager::Instance()->findTexture("level_2");
 		}
 
-		~Level_2() = default;
+		~Level02() = default;
 
 		void OnEnter() override
 		{
@@ -165,20 +162,19 @@ namespace _SingletonPattern
 		}
 
 	protected:
-		void on_reach() override;
-
+		void OnReach() override;
 	};
 
-	class Level_3 : public Scene
+	class Level03 : public Scene
 	{
 	public:
-		Level_3(Player* player) : Scene(player)
+		Level03(Player* _player) : Scene(_player)
 		{
-			rect_apron = { 265, 10, 200, 200 };
-			texture_background = ResourcesManager::Instance()->findTexture("level_3");
+			rectApron = { 265, 10, 200, 200 };
+			textureBackground = ResourcesManager::Instance()->findTexture("level_3");
 		}
 
-		~Level_3() = default;
+		~Level03() = default;
 
 		void OnEnter() override
 		{
@@ -186,81 +182,77 @@ namespace _SingletonPattern
 		}
 
 	protected:
-		void on_reach() override;
-
+		void OnReach() override;
 	};
 
 	class SceneManager
 	{
+	private:
+		static SceneManager* manager;
+		Scene* currentScene = nullptr;
+		std::unordered_map<std::string, Scene*> scenePool;
+
 	public:
 		static SceneManager* Instance()
 		{
 			if (!manager)
 				manager = new SceneManager();
-
 			return manager;
 		}
 
-		void add(const std::string& id, Scene* scene)
+		void Add(const std::string& _id, Scene* _scene)
 		{
-			scene_pool[id] = scene;
+			scenePool[_id] = _scene;
 		}
 
-		void SwitchTo(const std::string& id)
+		void SwitchTo(const std::string& _id)
 		{
-			current_scene = scene_pool[id];
+			currentScene = scenePool[_id];
 
-			if (current_scene) 
-				current_scene->OnEnter();
+			if (currentScene) 
+				currentScene->OnEnter();
 		}
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			if (!current_scene) return;
+			if (!currentScene) return;
 
-			current_scene->OnInput(event);
+			currentScene->OnInput(_event);
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			if (!current_scene) return;
+			if (!currentScene) return;
 
-			current_scene->OnUpdate(delta);
+			currentScene->OnUpdate(_delta);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			if (!current_scene) return;
+			if (!currentScene) return;
 
-			current_scene->OnRender(renderer);
+			currentScene->OnRender(_renderer);
 		}
-
-	private:
-		static SceneManager* manager;
-		Scene* current_scene = nullptr;
-		std::unordered_map<std::string, Scene*> scene_pool;
 
 	private:
 		SceneManager() = default;
 		~SceneManager() = default;
-
 	};
 }
 
 class SingletonPattern : public Example
 {
-public:
-	SingletonPattern(SDL_Renderer* renderer);
-	~SingletonPattern();
-
-	void OnInput(const SDL_Event* event) override;
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	_SingletonPattern::Player player;
 	SDL_Texture* textureTarget = nullptr;
 
+public:
+	SingletonPattern(SDL_Renderer*);
+	~SingletonPattern();
+
+	void OnInput(const SDL_Event*) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif

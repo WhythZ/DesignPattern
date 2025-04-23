@@ -54,7 +54,7 @@ void ExampleManager::Init(SDL_Renderer* _renderer)
 	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 	SDL_SetTextureBlendMode(textureTarget, SDL_BLENDMODE_BLEND);
 
-	subjectCreational.title = u8"一、创建型模式（5）";
+	subjectCreational.title = u8"一、创建型模式";
 	SDL_Texture* _textureIconCreational = ResourcesManager::Instance()->findTexture("icon-creational");
 	AddExample(subjectCreational, MenuItem("factory_method", _textureIconCreational, u8"01-工厂方法模式"), new FactoryMethodPattern(_renderer));
 	AddExample(subjectCreational, MenuItem("abstract_factory", _textureIconCreational, u8"02-抽象工厂模式"), new AbstractFactoryPattern(_renderer));
@@ -62,7 +62,7 @@ void ExampleManager::Init(SDL_Renderer* _renderer)
 	AddExample(subjectCreational, MenuItem("prototype", _textureIconCreational, u8"04-原型模式"), new PrototypePattern(_renderer));
 	AddExample(subjectCreational, MenuItem("singleton", _textureIconCreational, u8"05-单例模式"), new SingletonPattern(_renderer));
 
-	subjectStructural.title = u8"二、结构型模式（7）";
+	subjectStructural.title = u8"二、结构型模式";
 	SDL_Texture* _textureIconStructural = ResourcesManager::Instance()->findTexture("icon-structural");
 	AddExample(subjectStructural, MenuItem("adapter", _textureIconStructural, u8"01-适配器模式"), new AdapterPattern(_renderer));
 	AddExample(subjectStructural, MenuItem("bridge", _textureIconStructural, u8"02-桥接模式"), new BridgePattern());
@@ -72,7 +72,7 @@ void ExampleManager::Init(SDL_Renderer* _renderer)
 	AddExample(subjectStructural, MenuItem("flyweight", _textureIconStructural, u8"06-享元模式"), new FlyweightPattern());
 	AddExample(subjectStructural, MenuItem("proxy", _textureIconStructural, u8"07-代理模式"), new ProxyPattern(_renderer));
 
-	subjectBehavioral.title = u8"三、行为模式（11）";
+	subjectBehavioral.title = u8"三、行为模式";
 	SDL_Texture* _textureIconBehavioral = ResourcesManager::Instance()->findTexture("icon-behavioral");
 	AddExample(subjectBehavioral, MenuItem("chain_of_responsibility", _textureIconBehavioral, u8"01-责任链模式"), new ChainOfResponsibilityPattern());
 	AddExample(subjectBehavioral, MenuItem("command", _textureIconBehavioral, u8"02-命令模式"), new CommandPattern(_renderer));

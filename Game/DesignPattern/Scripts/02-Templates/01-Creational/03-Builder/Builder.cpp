@@ -4,60 +4,60 @@
 
 using namespace _BuilderPattern;
 
-static int type_weapon = 0, type_body = 0, type_hat = 0;
+static int typeWeapon = 0, typeBody = 0, typeHat = 0;
 
-void CustomChickenBuilder::init_weapon()
+void CustomChickenBuilder::InitWeapon()
 {
-	atlas_weapon.Clear();
+	atlasWeapon.Clear();
 
-	switch (type_weapon)
+	switch (typeWeapon)
 	{
-	case 0: atlas_weapon.Load("weapon_fork_%d", 8); break;
-	case 1: atlas_weapon.Load("weapon_plate_%d", 8); break;
-	case 2: atlas_weapon.Load("weapon_spoon_%d", 8); break;
+	case 0: atlasWeapon.Load("weapon_fork_%d", 8); break;
+	case 1: atlasWeapon.Load("weapon_plate_%d", 8); break;
+	case 2: atlasWeapon.Load("weapon_spoon_%d", 8); break;
 	}
 }
 
-void CustomChickenBuilder::init_body()
+void CustomChickenBuilder::InitBody()
 {
-	atlas_body.Clear();
+	atlasBody.Clear();
 
-	switch (type_body)
+	switch (typeBody)
 	{
-	case 0: atlas_body.Load("brown_chicken_%d", 8); break;
-	case 1: atlas_body.Load("red_chicken_%d", 8); break;
-	case 2: atlas_body.Load("white_chicken_%d", 8); break;
+	case 0: atlasBody.Load("brown_chicken_%d", 8); break;
+	case 1: atlasBody.Load("red_chicken_%d", 8); break;
+	case 2: atlasBody.Load("white_chicken_%d", 8); break;
 	}
 }
 
-void CustomChickenBuilder::init_hat()
+void CustomChickenBuilder::InitHat()
 {
-	atlas_hat.Clear();
+	atlasHat.Clear();
 
-	switch (type_hat)
+	switch (typeHat)
 	{
-	case 0: atlas_hat.Load("crown_%d", 8); break;
-	case 1: atlas_hat.Load("green_hat_%d", 8); break;
-	case 2: atlas_hat.Load("straw_hat_%d", 8); break;
+	case 0: atlasHat.Load("crown_%d", 8); break;
+	case 1: atlasHat.Load("green_hat_%d", 8); break;
+	case 2: atlasHat.Load("straw_hat_%d", 8); break;
 	}
 }
 
-Chicken* CustomChickenBuilder::build()
+Chicken* CustomChickenBuilder::Build()
 {
-	Chicken* chicken = new Chicken();
+	Chicken* _chicken = new Chicken();
 
-	chicken->set_weapon(&atlas_weapon);
-	chicken->set_body(&atlas_body);
-	chicken->set_hat(&atlas_hat);
+	_chicken->SetWeapon(&atlasWeapon);
+	_chicken->SetBody(&atlasBody);
+	_chicken->SetHat(&atlasHat);
 
-	return chicken;
+	return _chicken;
 }
 
-BuilderPattern::BuilderPattern(SDL_Renderer* renderer)
+BuilderPattern::BuilderPattern(SDL_Renderer* _renderer)
 {
 	delete chicken;
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 332, 296);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 332, 296);
 }
 
 BuilderPattern::~BuilderPattern()
@@ -65,26 +65,26 @@ BuilderPattern::~BuilderPattern()
 	SDL_DestroyTexture(textureTarget);
 }
 
-void BuilderPattern::OnUpdate(float delta)
+void BuilderPattern::OnUpdate(float _delta)
 {
 	if (chicken) 
-		chicken->OnUpdate(delta);
+		chicken->OnUpdate(_delta);
 
 	ImGui::BeginGroup();
 	ImGui::TextUnformatted(u8"ÎäÆ÷£º");				ImGui::SameLine();
-	ImGui::RadioButton(u8"²æ×Ó", &type_weapon, 0);	ImGui::SameLine();
-	ImGui::RadioButton(u8"ÅÌ×Ó", &type_weapon, 1);	ImGui::SameLine();
-	ImGui::RadioButton(u8"ÌÀ³×", &type_weapon, 2);
+	ImGui::RadioButton(u8"²æ×Ó", &typeWeapon, 0);	ImGui::SameLine();
+	ImGui::RadioButton(u8"ÅÌ×Ó", &typeWeapon, 1);	ImGui::SameLine();
+	ImGui::RadioButton(u8"ÌÀ³×", &typeWeapon, 2);
 
 	ImGui::TextUnformatted(u8"ÉíÌå£º");				ImGui::SameLine();
-	ImGui::RadioButton(u8"×ØÉ«", &type_body, 0);		ImGui::SameLine();
-	ImGui::RadioButton(u8"ºìÉ«", &type_body, 1);		ImGui::SameLine();
-	ImGui::RadioButton(u8"°×É«", &type_body, 2);	
+	ImGui::RadioButton(u8"×ØÉ«", &typeBody, 0);		ImGui::SameLine();
+	ImGui::RadioButton(u8"ºìÉ«", &typeBody, 1);		ImGui::SameLine();
+	ImGui::RadioButton(u8"°×É«", &typeBody, 2);	
 
 	ImGui::TextUnformatted(u8"Ã±×Ó£º");				ImGui::SameLine();
-	ImGui::RadioButton(u8"»Ê¹Ú", &type_hat, 0);		ImGui::SameLine();
-	ImGui::RadioButton(u8"ÂÌÃ±", &type_hat, 1);		ImGui::SameLine();
-	ImGui::RadioButton(u8"²İÃ±", &type_hat, 2);
+	ImGui::RadioButton(u8"»Ê¹Ú", &typeHat, 0);		ImGui::SameLine();
+	ImGui::RadioButton(u8"ÂÌÃ±", &typeHat, 1);		ImGui::SameLine();
+	ImGui::RadioButton(u8"²İÃ±", &typeHat, 2);
 	ImGui::EndGroup();
 
 	ImGui::SameLine();
@@ -92,25 +92,25 @@ void BuilderPattern::OnUpdate(float delta)
 	ImGui::BeginGroup();
 	if (ImGui::Button(u8"Éú³ÉÒÁÀöÉ¯°×¼¦", {ImGui::GetContentRegionAvail().x / 2, 35}))
 	{
-		elizabeth_chicken_builder.init_weapon();
-		elizabeth_chicken_builder.init_body();
-		elizabeth_chicken_builder.init_hat();
-		delete chicken; chicken = elizabeth_chicken_builder.build();
+		elizabethChickenBuilder.InitWeapon();
+		elizabethChickenBuilder.InitBody();
+		elizabethChickenBuilder.InitHat();
+		delete chicken; chicken = elizabethChickenBuilder.Build();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button(u8"Éú³ÉÂÌÃ±Ë±Ö¸¼¦", { ImGui::GetContentRegionAvail().x, 35 }))
 	{
-		green_hat_original_recipe_chicken_builder.init_weapon();
-		green_hat_original_recipe_chicken_builder.init_body();
-		green_hat_original_recipe_chicken_builder.init_hat();
-		delete chicken; chicken = green_hat_original_recipe_chicken_builder.build();
+		greenHatOriginalRecipeChickenBuilder.InitWeapon();
+		greenHatOriginalRecipeChickenBuilder.InitBody();
+		greenHatOriginalRecipeChickenBuilder.InitHat();
+		delete chicken; chicken = greenHatOriginalRecipeChickenBuilder.Build();
 	}
 	if (ImGui::Button(u8"µã»÷Éú³ÉÄã×Ô¶¨ÒåµÄ¼¦°É£¡", { ImGui::GetContentRegionAvail().x, 40 }))
 	{
-		custom_chicken_builder.init_weapon();
-		custom_chicken_builder.init_body();
-		custom_chicken_builder.init_hat();
-		delete chicken; chicken = custom_chicken_builder.build();
+		customChickenBuilder.InitWeapon();
+		customChickenBuilder.InitBody();
+		customChickenBuilder.InitHat();
+		delete chicken; chicken = customChickenBuilder.Build();
 	}
 	ImGui::EndGroup();
 
@@ -119,15 +119,15 @@ void BuilderPattern::OnUpdate(float delta)
 	ImGui::EndChild();
 }
 
-void BuilderPattern::OnRender(SDL_Renderer* renderer)
+void BuilderPattern::OnRender(SDL_Renderer* _renderer)
 {
 	if (!chicken) return;
 	
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 15, 15, 15, 255);
+	SDL_RenderClear(_renderer);
 
-	chicken->OnRender(renderer);
+	chicken->OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }

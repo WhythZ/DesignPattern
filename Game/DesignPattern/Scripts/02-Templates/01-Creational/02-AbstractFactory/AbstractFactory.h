@@ -13,14 +13,12 @@ namespace _AbstractFactoryPattern
 	{
 	public:
 		virtual Size GetSize() = 0;
-
 	};
 
 	class AttributeDef
 	{
 	public:
-		virtual Attribute get_attribute() = 0;
-
+		virtual Attribute GetAttribute() = 0;
 	};
 
 	class SmallSizeDef : public SizeDef
@@ -30,7 +28,6 @@ namespace _AbstractFactoryPattern
 		{
 			return Size::Small;
 		}
-
 	};
 
 	class MediumSizeDef : public SizeDef
@@ -40,7 +37,6 @@ namespace _AbstractFactoryPattern
 		{
 			return Size::Medium;
 		}
-
 	};
 
 	class LargeSizeDef : public SizeDef
@@ -50,256 +46,240 @@ namespace _AbstractFactoryPattern
 		{
 			return Size::Large;
 		}
-
 	};
 
 	class IceAttributeDef : public AttributeDef
 	{
 	public:
-		Attribute get_attribute() override
+		Attribute GetAttribute() override
 		{
 			return Attribute::Ice;
 		}
-
 	};
 
 	class GrassAttributeDef : public AttributeDef
 	{
 	public:
-		Attribute get_attribute() override
+		Attribute GetAttribute() override
 		{
 			return Attribute::Grass;
 		}
-
 	};
 
 	class FireAttributeDef : public AttributeDef
 	{
 	public:
-		Attribute get_attribute() override
+		Attribute GetAttribute() override
 		{
 			return Attribute::Fire;
 		}
-
 	};
 
 	class SlimeDefFactory
 	{
 	public:
-		virtual SizeDef* get_size_def() = 0;
-		virtual AttributeDef* get_attribute_def() = 0;
-
+		virtual SizeDef* GetSizeDef() = 0;
+		virtual AttributeDef* GetAttributeDef() = 0;
 	};
 
 	class SmallIceSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &small_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &ice_attribute_def;
-		}
-
 	private:
-		SmallSizeDef small_size_def;
-		IceAttributeDef ice_attribute_def;
+		SmallSizeDef smallSizeDef;
+		IceAttributeDef iceAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &smallSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &iceAttributeDef;
+		}
 	};
 
 	class MediumIceSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &medium_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &ice_attribute_def;
-		}
-
 	private:
-		MediumSizeDef medium_size_def;
-		IceAttributeDef ice_attribute_def;
+		MediumSizeDef mediumSizeDef;
+		IceAttributeDef iceAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &mediumSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &iceAttributeDef;
+		}
 	};
 
 	class LargeIceSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &large_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &ice_attribute_def;
-		}
-
 	private:
-		LargeSizeDef large_size_def;
-		IceAttributeDef ice_attribute_def;
+		LargeSizeDef largeSizeDef;
+		IceAttributeDef iceAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &largeSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &iceAttributeDef;
+		}
 	};
 
 	class SmallGrassSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &small_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &grass_attribute_def;
-		}
-
 	private:
-		SmallSizeDef small_size_def;
-		GrassAttributeDef grass_attribute_def;
+		SmallSizeDef smallSizeDef;
+		GrassAttributeDef grassAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &smallSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &grassAttributeDef;
+		}
 	};
 
 	class MediumGrassSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &medium_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &grass_attribute_def;
-		}
-
 	private:
-		MediumSizeDef medium_size_def;
-		GrassAttributeDef grass_attribute_def;
+		MediumSizeDef mediumSizeDef;
+		GrassAttributeDef grassAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &mediumSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &grassAttributeDef;
+		}
 	};
 
 	class LargeGrassSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &large_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &grass_attribute_def;
-		}
-
 	private:
-		LargeSizeDef large_size_def;
-		GrassAttributeDef grass_attribute_def;
+		LargeSizeDef largeSizeDef;
+		GrassAttributeDef grassAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &largeSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &grassAttributeDef;
+		}
 	};
 
 	class SmallFireSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &small_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &fire_attribute_def;
-		}
-
 	private:
-		SmallSizeDef small_size_def;
-		FireAttributeDef fire_attribute_def;
+		SmallSizeDef smallSizeDef;
+		FireAttributeDef fireAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &smallSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &fireAttributeDef;
+		}
 	};
 
 	class MediumFireSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &medium_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &fire_attribute_def;
-		}
-
 	private:
-		MediumSizeDef medium_size_def;
-		FireAttributeDef fire_attribute_def;
+		MediumSizeDef mediumSizeDef;
+		FireAttributeDef fireAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &mediumSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &fireAttributeDef;
+		}
 	};
 
 	class LargeFireSlimeDefFactory : public SlimeDefFactory
 	{
-	public:
-		SizeDef* get_size_def() override
-		{
-			return &large_size_def;
-		}
-
-		AttributeDef* get_attribute_def() override
-		{
-			return &fire_attribute_def;
-		}
-
 	private:
-		LargeSizeDef large_size_def;
-		FireAttributeDef fire_attribute_def;
+		LargeSizeDef largeSizeDef;
+		FireAttributeDef fireAttributeDef;
 
+	public:
+		SizeDef* GetSizeDef() override
+		{
+			return &largeSizeDef;
+		}
+
+		AttributeDef* GetAttributeDef() override
+		{
+			return &fireAttributeDef;
+		}
 	};
 
 	class Slime
 	{
-	public:
-		Slime(SlimeDefFactory* factory, const Vector2& position);
-		~Slime();
-
-		void OnUpdate(float delta)
-		{
-			animation.OnUpdate(delta);
-			animation.SetPosition(position);
-		}
-
-		void OnRender(SDL_Renderer* renderer)
-		{
-			animation.OnRender(renderer);
-		}
-
 	private:
 		Atlas atlas;
 		Vector2 position;
 		Animation animation;
 
+	public:
+		Slime(SlimeDefFactory*, const Vector2&);
+		~Slime() = default;
+
+		void OnUpdate(float _delta)
+		{
+			animation.OnUpdate(_delta);
+			animation.SetPosition(position);
+		}
+
+		void OnRender(SDL_Renderer* _renderer)
+		{
+			animation.OnRender(_renderer);
+		}
 	};
 }
 
 class AbstractFactoryPattern : public Example
 {
-public:
-	AbstractFactoryPattern(SDL_Renderer* renderer);
-	~AbstractFactoryPattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	SDL_Texture* textureTarget = nullptr;
-	std::vector<_AbstractFactoryPattern::Slime*> slime_list;
+	std::vector<_AbstractFactoryPattern::Slime*> slimeList;
 
+public:
+	AbstractFactoryPattern(SDL_Renderer*);
+	~AbstractFactoryPattern();
+
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif
