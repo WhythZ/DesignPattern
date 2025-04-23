@@ -28,21 +28,20 @@ namespace _IteratorPattern
 			Legendary
 		};
 
-	public:
-		Item() = default;
-		virtual ~Item() = default;
-
-		const std::string& GetName() const { return name; }
-		Type get_type() const { return type; } 
-		Grade get_grade() const { return grade; }
-		SDL_Texture* GetTexture() const { return texture; }
-
 	protected:
 		std::string name;
 		Type type = Type::Materials;
 		Grade grade = Grade::Ordinary;
 		SDL_Texture* texture = nullptr;
 
+	public:
+		Item() = default;
+		virtual ~Item() = default;
+
+		const std::string& GetName() const { return name; }
+		Type GetType() const { return type; } 
+		Grade GetGrade() const { return grade; }
+		SDL_Texture* GetTexture() const { return texture; }
 	};
 
 	class MagicBook : public Item
@@ -55,9 +54,7 @@ namespace _IteratorPattern
 			grade = Grade::Legendary;
 			texture = ResourcesManager::Instance()->FindTexture("book");
 		}
-
 		~MagicBook() = default;
-
 	};
 
 	class OrdinaryPotion : public Item
@@ -70,9 +67,7 @@ namespace _IteratorPattern
 			grade = Grade::Ordinary;
 			texture = ResourcesManager::Instance()->FindTexture("bottle");
 		}
-
 		~OrdinaryPotion() = default;
-
 	};
 
 	class Coins : public Item
@@ -85,9 +80,7 @@ namespace _IteratorPattern
 			grade = Grade::Rare;
 			texture = ResourcesManager::Instance()->FindTexture("coins");
 		}
-
 		~Coins() = default;
-
 	};
 
 	class Scrolls : public Item
@@ -100,9 +93,7 @@ namespace _IteratorPattern
 			grade = Grade::Rare;
 			texture = ResourcesManager::Instance()->FindTexture("scrolls");
 		}
-
 		~Scrolls() = default;
-
 	};
 
 	class Stick : public Item
@@ -115,9 +106,7 @@ namespace _IteratorPattern
 			grade = Grade::Ordinary;
 			texture = ResourcesManager::Instance()->FindTexture("stick");
 		}
-
 		~Stick() = default;
-
 	};
 
 	class Stone : public Item
@@ -130,101 +119,92 @@ namespace _IteratorPattern
 			grade = Grade::Ordinary;
 			texture = ResourcesManager::Instance()->FindTexture("stone");
 		}
-
 		~Stone() = default;
-
 	};
 
 	using ItemList = std::vector<Item*>;
 
 	class Iterator
 	{
-	public:
-		Iterator(const ItemList& target_list)
-		{
-			cache_list = ItemList(target_list);
-		}
+	protected:
+		int idx = 0;
+		ItemList cacheList;
 
+	public:
+		Iterator(const ItemList& _targetList)
+		{
+			cacheList = ItemList(_targetList);
+		}
 		virtual ~Iterator() = default;
 
 		virtual void Reset() { idx = 0; }
-		virtual int get_idx() const { return idx; }
-		virtual Item* next() { return cache_list[idx++]; }
-		virtual bool has_next() const { return idx < cache_list.size(); }
-
-	protected:
-		int idx = 0;
-		ItemList cache_list;
-
+		virtual int GetIdx() const { return idx; }
+		virtual Item* Next() { return cacheList[idx++]; }
+		virtual bool HasNext() const { return idx < cacheList.size(); }
 	};
 
 	class RandomIterator : public Iterator
 	{
 	public:
-		RandomIterator(const ItemList& target_list) : Iterator(target_list)
+		RandomIterator(const ItemList& _targetList) : Iterator(_targetList)
 		{
-			std::shuffle(cache_list.begin(), cache_list.end(), std::mt19937(std::random_device()()));
+			std::shuffle(cacheList.begin(), cacheList.end(), std::mt19937(std::random_device()()));
 		}
-
 		~RandomIterator() = default;
-
 	};
 
 	class TypeSortIterator : public Iterator
 	{
 	public:
-		TypeSortIterator(const ItemList& target_list) : Iterator(target_list)
+		TypeSortIterator(const ItemList& _targetList) : Iterator(_targetList)
 		{
-			std::sort(cache_list.begin(), cache_list.end(), [](const Item* item_1, const Item* item_2)
+			std::sort(cacheList.begin(), cacheList.end(), [](const Item* item01, const Item* item02)
 				{
-					return item_1->get_type() < item_2->get_type();
-				});
+					return item01->GetType() < item02->GetType();
+				}
+			);
 		}
-
 		~TypeSortIterator() = default;
-
 	};
 
 	class GradeSortIterator : public Iterator
 	{
 	public:
-		GradeSortIterator(const ItemList& target_list) : Iterator(target_list)
+		GradeSortIterator(const ItemList& _targetList) : Iterator(_targetList)
 		{
-			std::sort(cache_list.begin(), cache_list.end(), [](const Item* item_1, const Item* item_2)
+			std::sort(cacheList.begin(), cacheList.end(), [](const Item* item01, const Item* item02)
 				{
-					return item_1->get_grade() < item_2->get_grade();
-				});
+					return item01->GetGrade() < item02->GetGrade();
+				}
+			);
 		}
-
 		~GradeSortIterator() = default;
-
 	};
 }
 
 class IteratorPattern : public Example
 {
-public:
-	IteratorPattern(SDL_Renderer* renderer);
-	~IteratorPattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	SDL_Texture* textureTarget = nullptr;
 	_IteratorPattern::ItemList itemList;
-	_IteratorPattern::Iterator* current_iterator = nullptr;
+	_IteratorPattern::Iterator* currentIterator = nullptr;
 
-	_IteratorPattern::MagicBook sample_magic_book;
-	_IteratorPattern::OrdinaryPotion sample_ordinary_potion;
-	_IteratorPattern::Coins sample_coins;
-	_IteratorPattern::Scrolls sample_scrolls;
-	_IteratorPattern::Stick sample_stick;
-	_IteratorPattern::Stone sample_stone;
+	_IteratorPattern::MagicBook sampleMagicBook;
+	_IteratorPattern::OrdinaryPotion sampleOrdinaryPotion;
+	_IteratorPattern::Coins sampleCoins;
+	_IteratorPattern::Scrolls sampleScrolls;
+	_IteratorPattern::Stick sampleStick;
+	_IteratorPattern::Stone sampleStone;
+
+public:
+	IteratorPattern(SDL_Renderer*);
+	~IteratorPattern();
+
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 
 private:
-	void on_update_sample(_IteratorPattern::Item* item);
-
+	void OnUpdateSample(_IteratorPattern::Item*);
 };
 
 #endif
