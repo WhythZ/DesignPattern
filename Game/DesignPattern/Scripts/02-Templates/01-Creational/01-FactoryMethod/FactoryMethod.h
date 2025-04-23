@@ -63,7 +63,7 @@ namespace _FactoryMethodPattern
 	public:
 		IceSword(const Vector2& _position) : Sword(_position)
 		{
-			texture = ResourcesManager::Instance()->findTexture("BlueSword");
+			texture = ResourcesManager::Instance()->FindTexture("BlueSword");
 		}
 	};
 
@@ -72,7 +72,7 @@ namespace _FactoryMethodPattern
 	public:
 		GrassSword(const Vector2& _position) : Sword(_position)
 		{
-			texture = ResourcesManager::Instance()->findTexture("GreenSword");
+			texture = ResourcesManager::Instance()->FindTexture("GreenSword");
 		}
 	};
 
@@ -81,7 +81,7 @@ namespace _FactoryMethodPattern
 	public:
 		FireSword(const Vector2& _position) : Sword(_position)
 		{
-			texture = ResourcesManager::Instance()->findTexture("RedSword");
+			texture = ResourcesManager::Instance()->FindTexture("RedSword");
 		}
 	};
 

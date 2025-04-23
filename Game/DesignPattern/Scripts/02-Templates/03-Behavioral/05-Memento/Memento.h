@@ -83,7 +83,7 @@ namespace _MementoPattern
 		void OnRender(SDL_Renderer* renderer)
 		{
 			SDL_FRect rect = { position.x - 16, position.y + 30, 32, 20 };
-			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->findTexture("shadow_player"), nullptr, &rect);
+			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->FindTexture("shadow_player"), nullptr, &rect);
 
 			animation.OnRender(renderer);
 		}
@@ -135,7 +135,7 @@ namespace _MementoPattern
 				{
 				case SDLK_SPACE: 
 					is_opened = !is_opened; 
-					Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio("switch"), 0);
+					Mix_PlayChannel(-1, ResourcesManager::Instance()->FindAudio("switch"), 0);
 					break;
 				default: break;
 				}
@@ -148,7 +148,7 @@ namespace _MementoPattern
 		{
 			static const SDL_FRect rect = { 215, 250, 122, 88 };
 			SDL_RenderCopyF(renderer, ResourcesManager::Instance()
-				->findTexture(is_opened ? "bar_opened" : "bar_closed"), nullptr, &rect);
+				->FindTexture(is_opened ? "bar_opened" : "bar_closed"), nullptr, &rect);
 		}
 
 		cJSON* dump() override

@@ -117,7 +117,7 @@ namespace _SingletonPattern
 		void OnRender(SDL_Renderer* _renderer)
 		{
 			SDL_RenderCopyF(_renderer, textureBackground, nullptr, nullptr);
-			SDL_RenderCopyF(_renderer, ResourcesManager::Instance()->findTexture("apron"), nullptr, &rectApron);
+			SDL_RenderCopyF(_renderer, ResourcesManager::Instance()->FindTexture("apron"), nullptr, &rectApron);
 			player->OnRender(_renderer);
 		}
 
@@ -131,7 +131,7 @@ namespace _SingletonPattern
 		Level01(Player* _player) : Scene(_player)
 		{
 			rectApron = { 255, 255, 200, 200 };
-			textureBackground = ResourcesManager::Instance()->findTexture("level_1");
+			textureBackground = ResourcesManager::Instance()->FindTexture("level_1");
 		}
 
 		~Level01() = default;
@@ -151,7 +151,7 @@ namespace _SingletonPattern
 		Level02(Player* _player) : Scene(_player)
 		{
 			rectApron = { 500, 260, 200, 200 };
-			textureBackground = ResourcesManager::Instance()->findTexture("level_2");
+			textureBackground = ResourcesManager::Instance()->FindTexture("level_2");
 		}
 
 		~Level02() = default;
@@ -171,7 +171,7 @@ namespace _SingletonPattern
 		Level03(Player* _player) : Scene(_player)
 		{
 			rectApron = { 265, 10, 200, 200 };
-			textureBackground = ResourcesManager::Instance()->findTexture("level_3");
+			textureBackground = ResourcesManager::Instance()->FindTexture("level_3");
 		}
 
 		~Level03() = default;

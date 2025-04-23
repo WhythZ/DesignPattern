@@ -32,7 +32,7 @@ bool JSONLoader::Load(GameObjectList& _dst, const std::string& _path)
 			cJSON_GetObjectItem(_jsonRect, "x")->valueint, cJSON_GetObjectItem(_jsonRect, "y")->valueint,
 			cJSON_GetObjectItem(_jsonRect, "w")->valueint, cJSON_GetObjectItem(_jsonRect, "h")->valueint,
 		};
-		_dst.emplace_back(ResourcesManager::Instance()->findTexture(_jsonTexture->valuestring), rect, _jsonRotation->valuedouble);
+		_dst.emplace_back(ResourcesManager::Instance()->FindTexture(_jsonTexture->valuestring), rect, _jsonRotation->valuedouble);
 	}
 
 	cJSON_Delete(_jsonRoot);
@@ -49,7 +49,7 @@ bool _AdapterPattern::XMLLoader::Load(GameObjectList& _dst, const std::string& _
 	{
 		const pugi::xml_node& _xmlRect = _xmlGameObject.child("Rect");
 		double _rotation = _xmlGameObject.attribute("rotation").as_double();
-		SDL_Texture* _texture = ResourcesManager::Instance()->findTexture(_xmlGameObject.attribute("texture").as_string());
+		SDL_Texture* _texture = ResourcesManager::Instance()->FindTexture(_xmlGameObject.attribute("texture").as_string());
 		SDL_Rect _rect =
 		{
 			_xmlRect.attribute("x").as_int(), _xmlRect.attribute("y").as_int(),

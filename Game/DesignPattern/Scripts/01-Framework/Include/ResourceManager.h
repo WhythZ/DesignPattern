@@ -32,13 +32,13 @@ public:
 
 	void Load(SDL_Renderer*);
 
-	FontWrapper* findFont(const std::string&);
-	Mix_Chunk* findAudio(const std::string&);
-	SDL_Texture* findTexture(const std::string&);
+	FontWrapper* FindFont(const std::string&);
+	Mix_Chunk* FindAudio(const std::string&);
+	SDL_Texture* FindTexture(const std::string&);
 
-	const ResIDList& getFontResIDList() const;
-	const ResIDList& getAudioResIDList() const;
-	const ResIDList& getTextureResIDList() const;
+	const ResIDList& GetFontResIDList() const;
+	const ResIDList& GetAudioResIDList() const;
+	const ResIDList& GetTextureResIDList() const;
 
 private:
 	ResourcesManager();

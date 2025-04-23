@@ -53,7 +53,7 @@ namespace _IteratorPattern
 			name = u8"¸½Ä§Êé";
 			type = Type::Props;
 			grade = Grade::Legendary;
-			texture = ResourcesManager::Instance()->findTexture("book");
+			texture = ResourcesManager::Instance()->FindTexture("book");
 		}
 
 		~MagicBook() = default;
@@ -68,7 +68,7 @@ namespace _IteratorPattern
 			name = u8"Ë®Æ¿";
 			type = Type::Props;
 			grade = Grade::Ordinary;
-			texture = ResourcesManager::Instance()->findTexture("bottle");
+			texture = ResourcesManager::Instance()->FindTexture("bottle");
 		}
 
 		~OrdinaryPotion() = default;
@@ -83,7 +83,7 @@ namespace _IteratorPattern
 			name = u8"½ð±Ò";
 			type = Type::Money;
 			grade = Grade::Rare;
-			texture = ResourcesManager::Instance()->findTexture("coins");
+			texture = ResourcesManager::Instance()->FindTexture("coins");
 		}
 
 		~Coins() = default;
@@ -98,7 +98,7 @@ namespace _IteratorPattern
 			name = u8"ÑòÆ¤¾í";
 			type = Type::Props;
 			grade = Grade::Rare;
-			texture = ResourcesManager::Instance()->findTexture("scrolls");
+			texture = ResourcesManager::Instance()->FindTexture("scrolls");
 		}
 
 		~Scrolls() = default;
@@ -113,7 +113,7 @@ namespace _IteratorPattern
 			name = u8"Ä¾¹÷";
 			type = Type::Materials;
 			grade = Grade::Ordinary;
-			texture = ResourcesManager::Instance()->findTexture("stick");
+			texture = ResourcesManager::Instance()->FindTexture("stick");
 		}
 
 		~Stick() = default;
@@ -128,7 +128,7 @@ namespace _IteratorPattern
 			name = u8"Ê¯Í·";
 			type = Type::Materials;
 			grade = Grade::Ordinary;
-			texture = ResourcesManager::Instance()->findTexture("stone");
+			texture = ResourcesManager::Instance()->FindTexture("stone");
 		}
 
 		~Stone() = default;

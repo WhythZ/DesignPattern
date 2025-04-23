@@ -43,7 +43,7 @@ void StatePattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("Platform"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("Platform"), nullptr, nullptr);
 
 	player.OnRender(renderer);
 

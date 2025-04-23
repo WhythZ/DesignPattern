@@ -76,7 +76,7 @@ void IteratorPattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("backpack"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("backpack"), nullptr, nullptr);
 
 	current_iterator->Reset();
 	while (current_iterator->has_next())

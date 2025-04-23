@@ -49,7 +49,7 @@ namespace _VisitorPattern
 	class MagicBook : public Item
 	{
 	public:
-		MagicBook() : Item(1, ResourcesManager::Instance()->findTexture("book")) {}
+		MagicBook() : Item(1, ResourcesManager::Instance()->FindTexture("book")) {}
 		~MagicBook() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -59,7 +59,7 @@ namespace _VisitorPattern
 	class OrdinaryPotion : public Item
 	{
 	public:
-		OrdinaryPotion() : Item(2, ResourcesManager::Instance()->findTexture("bottle")) {}
+		OrdinaryPotion() : Item(2, ResourcesManager::Instance()->FindTexture("bottle")) {}
 		~OrdinaryPotion() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -69,7 +69,7 @@ namespace _VisitorPattern
 	class Coins : public Item
 	{
 	public:
-		Coins() : Item(3, ResourcesManager::Instance()->findTexture("coins")) {}
+		Coins() : Item(3, ResourcesManager::Instance()->FindTexture("coins")) {}
 		~Coins() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -79,7 +79,7 @@ namespace _VisitorPattern
 	class Scrolls : public Item
 	{
 	public:
-		Scrolls() : Item(4, ResourcesManager::Instance()->findTexture("scrolls")) {}
+		Scrolls() : Item(4, ResourcesManager::Instance()->FindTexture("scrolls")) {}
 		~Scrolls() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -89,7 +89,7 @@ namespace _VisitorPattern
 	class Stick : public Item
 	{
 	public:
-		Stick() : Item(5, ResourcesManager::Instance()->findTexture("stick")) {}
+		Stick() : Item(5, ResourcesManager::Instance()->FindTexture("stick")) {}
 		~Stick() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }
@@ -99,7 +99,7 @@ namespace _VisitorPattern
 	class Stone : public Item
 	{
 	public:
-		Stone() : Item(6, ResourcesManager::Instance()->findTexture("stone")) {}
+		Stone() : Item(6, ResourcesManager::Instance()->FindTexture("stone")) {}
 		~Stone() = default;
 
 		void accept(Visitor& visitor) override { visitor.visit(*this); }

@@ -66,32 +66,32 @@ void ResourcesManager::Load(SDL_Renderer* _renderer)
     }
 }
 
-FontWrapper* ResourcesManager::findFont(const std::string& _id)
+FontWrapper* ResourcesManager::FindFont(const std::string& _id)
 {
     return fontPool[_id];
 }
 
-Mix_Chunk* ResourcesManager::findAudio(const std::string& _id)
+Mix_Chunk* ResourcesManager::FindAudio(const std::string& _id)
 {
     return audioPool[_id];
 }
 
-SDL_Texture* ResourcesManager::findTexture(const std::string& _id)
+SDL_Texture* ResourcesManager::FindTexture(const std::string& _id)
 {
     return texturePool[_id];
 }
 
-const ResourcesManager::ResIDList& ResourcesManager::getFontResIDList() const
+const ResourcesManager::ResIDList& ResourcesManager::GetFontResIDList() const
 {
     return fontResIDList;
 }
 
-const ResourcesManager::ResIDList& ResourcesManager::getAudioResIDList() const
+const ResourcesManager::ResIDList& ResourcesManager::GetAudioResIDList() const
 {
     return audioResIDList;
 }
 
-const ResourcesManager::ResIDList& ResourcesManager::getTextureResIDList() const
+const ResourcesManager::ResIDList& ResourcesManager::GetTextureResIDList() const
 {
     return textureResIDList;
 }

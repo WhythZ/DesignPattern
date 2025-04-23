@@ -45,7 +45,7 @@ void MementoPattern::OnRender(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->findTexture("tidy_room"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("tidy_room"), nullptr, nullptr);
 	_switch.OnRender(renderer); player.OnRender(renderer);
 
 	SDL_SetRenderTarget(renderer, nullptr);
