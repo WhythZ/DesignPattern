@@ -11,54 +11,50 @@ namespace _ObserverPattern
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void update(int state) = 0;
-		
+		virtual void Update(int) = 0;
 	};
 
 	class Subject
 	{
-	public:
-		virtual ~Subject() = default;
-		virtual void attach(Observer* observer)
-		{
-			observer_list.push_back(observer);
-		}
-
-		virtual void notify()
-		{
-			for (Observer* observer : observer_list)
-				observer->update(state);
-		}
-		
 	protected:
 		int state = 0;
-		std::vector<Observer*> observer_list;
+		std::vector<Observer*> observerList;
 
+	public:
+		virtual ~Subject() = default;
+
+		virtual void Attach(Observer* _observer)
+		{
+			observerList.push_back(_observer);
+		}
+
+		virtual void Notify()
+		{
+			for (Observer* _observer : observerList)
+				_observer->Update(state);
+		}
 	};
 
 	class ButtonClicked : public Subject
 	{
 	public:
-		void accumulate()
+		void Accumulate()
 		{
 			state++;
-			notify();
+			Notify();
 		}
-
 	};
 
 	class Button1ClickedObserver : public Observer
 	{
 	public:
-		void update(int state) override;
-
+		void Update(int) override;
 	};
 
 	class Button2ClickedObserver : public Observer
 	{
 	public:
-		void update(int state) override;
-
+		void Update(int) override;
 	};
 
 	struct Achievement
@@ -72,17 +68,16 @@ namespace _ObserverPattern
 
 class ObserverPattern : public Example
 {
+private:
+	_ObserverPattern::Button1ClickedObserver button01ClickedObserver;
+	_ObserverPattern::Button2ClickedObserver button02ClickedObserver;
+	_ObserverPattern::ButtonClicked button01ClickedSubject, button02ClickedSubject;
+
 public:
 	ObserverPattern();
-	~ObserverPattern();
+	~ObserverPattern() = default;
 
-	void OnUpdate(float delta) override;
-
-private:
-	_ObserverPattern::Button1ClickedObserver btn_1_clicked_observer;
-	_ObserverPattern::Button2ClickedObserver btn_2_clicked_observer;
-	_ObserverPattern::ButtonClicked button_1_clicked_subject, button_2_clicked_subject;
-
+	void OnUpdate(float) override;
 };
 
 #endif
