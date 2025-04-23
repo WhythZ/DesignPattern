@@ -1,24 +1,24 @@
 #include "FontWrapper.h"
 
-FontWrapper::FontWrapper(const std::string path)
+FontWrapper::FontWrapper(const std::string _path)
 {
-	this->path = path;
+	this->path = _path;
 }
 
 FontWrapper::~FontWrapper()
 {
-	for (auto& pair : fontPool)
-		TTF_CloseFont(pair.second);
+	for (auto& _pair : fontPool)
+		TTF_CloseFont(_pair.second);
 }
 
-TTF_Font* FontWrapper::GetFont(int size)
+TTF_Font* FontWrapper::GetFont(int _size)
 {
-	TTF_Font* font = fontPool[size];
+	TTF_Font* _font = fontPool[_size];
 
-	if (!font)
+	if (!_font)
 	{
-		font = TTF_OpenFont(path.c_str(), size);
-		fontPool[size] = font;
+		_font = TTF_OpenFont(path.c_str(), _size);
+		fontPool[_size] = _font;
 	}
-	return font;
+	return _font;
 }

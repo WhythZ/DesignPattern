@@ -1,14 +1,14 @@
 #include "Atlas.h"
 #include "ResourceManager.h"
 
-void Atlas::Load(const char* pathTemplate, int num)
+void Atlas::Load(const char* _pathTemplate, int _num)
 {
-	for (int i = 0; i < num; i++)
+	for (int i = 0; i < _num; i++)
 	{
-		char path_file[256];
-		sprintf_s(path_file, pathTemplate, i + 1);
-		SDL_Texture* texture = ResourcesManager::Instance()->findTexture(path_file);
-		texList.push_back(texture);
+		char _pathFile[256];
+		sprintf_s(_pathFile, _pathTemplate, i + 1);
+		SDL_Texture* _texture = ResourcesManager::Instance()->findTexture(_pathFile);
+		texList.push_back(_texture);
 	}
 }
 
@@ -17,16 +17,16 @@ void Atlas::Clear()
 	texList.clear();
 }
 
-void Atlas::AddTexture(SDL_Texture* texture)
+void Atlas::AddTexture(SDL_Texture* _texture)
 {
-	texList.push_back(texture);
+	texList.push_back(_texture);
 }
 
-SDL_Texture* Atlas::GetTexture(int idx) const
+SDL_Texture* Atlas::GetTexture(int _idx) const
 {
-	if (idx < 0 || idx >= texList.size())
+	if (_idx < 0 || _idx >= texList.size())
 		return nullptr;
-	return texList[idx];
+	return texList[_idx];
 }
 
 int Atlas::GetSize() const

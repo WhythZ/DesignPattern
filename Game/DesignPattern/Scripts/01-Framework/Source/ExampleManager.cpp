@@ -40,90 +40,89 @@ ExampleManager* ExampleManager::Instance()
 
 ExampleManager::~ExampleManager()
 {
-	if (current_example)
-		current_example->on_exit();
+	if (currentExample)
+		currentExample->OnExit();
 
-	for (auto& pair : example_pool)
-		delete pair.second;
+	for (auto& _pair : examplePool)
+		delete _pair.second;
 }
 
-void ExampleManager::Init(SDL_Renderer* renderer)
+void ExampleManager::Init(SDL_Renderer* _renderer)
 {
-	this->renderer = renderer;
+	renderer = _renderer;
 
-	textureTarget = SDL_CreateTexture(renderer,
-		SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 	SDL_SetTextureBlendMode(textureTarget, SDL_BLENDMODE_BLEND);
 
-	subject_creational.title = u8"一、创建型模式（5）";
-	SDL_Texture* texture_icon_creational = ResourcesManager::Instance()->findTexture("icon-creational");
-	AddExample(subject_creational, MenuItem("factory_method", texture_icon_creational, u8"01-工厂方法模式"), new FactoryMethodPattern(renderer));
-	AddExample(subject_creational, MenuItem("abstract_factory", texture_icon_creational, u8"02-抽象工厂模式"), new AbstractFactoryPattern(renderer));
-	AddExample(subject_creational, MenuItem("builder", texture_icon_creational, u8"03-建造者模式"), new BuilderPattern(renderer));
-	AddExample(subject_creational, MenuItem("prototype", texture_icon_creational, u8"04-原型模式"), new PrototypePattern(renderer));
-	AddExample(subject_creational, MenuItem("singleton", texture_icon_creational, u8"05-单例模式"), new SingletonPattern(renderer));
+	subjectCreational.title = u8"一、创建型模式（5）";
+	SDL_Texture* _textureIconCreational = ResourcesManager::Instance()->findTexture("icon-creational");
+	AddExample(subjectCreational, MenuItem("factory_method", _textureIconCreational, u8"01-工厂方法模式"), new FactoryMethodPattern(_renderer));
+	AddExample(subjectCreational, MenuItem("abstract_factory", _textureIconCreational, u8"02-抽象工厂模式"), new AbstractFactoryPattern(_renderer));
+	AddExample(subjectCreational, MenuItem("builder", _textureIconCreational, u8"03-建造者模式"), new BuilderPattern(_renderer));
+	AddExample(subjectCreational, MenuItem("prototype", _textureIconCreational, u8"04-原型模式"), new PrototypePattern(_renderer));
+	AddExample(subjectCreational, MenuItem("singleton", _textureIconCreational, u8"05-单例模式"), new SingletonPattern(_renderer));
 
-	subject_structural.title = u8"二、结构型模式（7）";
-	SDL_Texture* texture_icon_structural = ResourcesManager::Instance()->findTexture("icon-structural");
-	AddExample(subject_structural, MenuItem("adapter", texture_icon_structural, u8"01-适配器模式"), new AdapterPattern(renderer));
-	AddExample(subject_structural, MenuItem("bridge", texture_icon_structural, u8"02-桥接模式"), new BridgePattern());
-	AddExample(subject_structural, MenuItem("composite", texture_icon_structural, u8"03-组合模式"), new CompositePattern(renderer));
-	AddExample(subject_structural, MenuItem("decorator", texture_icon_structural, u8"04-装饰器模式"), new DecoratorPattern(renderer));
-	AddExample(subject_structural, MenuItem("facade", texture_icon_structural, u8"05-外观模式"), new FacadePattern());
-	AddExample(subject_structural, MenuItem("flyweight", texture_icon_structural, u8"06-享元模式"), new FlyweightPattern());
-	AddExample(subject_structural, MenuItem("proxy", texture_icon_structural, u8"07-代理模式"), new ProxyPattern(renderer));
+	subjectStructural.title = u8"二、结构型模式（7）";
+	SDL_Texture* _textureIconStructural = ResourcesManager::Instance()->findTexture("icon-structural");
+	AddExample(subjectStructural, MenuItem("adapter", _textureIconStructural, u8"01-适配器模式"), new AdapterPattern(_renderer));
+	AddExample(subjectStructural, MenuItem("bridge", _textureIconStructural, u8"02-桥接模式"), new BridgePattern());
+	AddExample(subjectStructural, MenuItem("composite", _textureIconStructural, u8"03-组合模式"), new CompositePattern(_renderer));
+	AddExample(subjectStructural, MenuItem("decorator", _textureIconStructural, u8"04-装饰器模式"), new DecoratorPattern(_renderer));
+	AddExample(subjectStructural, MenuItem("facade", _textureIconStructural, u8"05-外观模式"), new FacadePattern());
+	AddExample(subjectStructural, MenuItem("flyweight", _textureIconStructural, u8"06-享元模式"), new FlyweightPattern());
+	AddExample(subjectStructural, MenuItem("proxy", _textureIconStructural, u8"07-代理模式"), new ProxyPattern(_renderer));
 
-	subject_behavioral.title = u8"三、行为模式（11）";
-	SDL_Texture* texture_icon_behavioral = ResourcesManager::Instance()->findTexture("icon-behavioral");
-	AddExample(subject_behavioral, MenuItem("chain_of_responsibility", texture_icon_behavioral, u8"01-责任链模式"), new ChainOfResponsibilityPattern());
-	AddExample(subject_behavioral, MenuItem("command", texture_icon_behavioral, u8"02-命令模式"), new CommandPattern(renderer));
-	AddExample(subject_behavioral, MenuItem("iterator", texture_icon_behavioral, u8"03-迭代器模式"), new IteratorPattern(renderer));
-	AddExample(subject_behavioral, MenuItem("mediator", texture_icon_behavioral, u8"04-中介者模式"), new MediatorPattern());
-	AddExample(subject_behavioral, MenuItem("memento", texture_icon_behavioral, u8"05-备忘录模式"), new MementoPattern(renderer));
-	AddExample(subject_behavioral, MenuItem("observer", texture_icon_behavioral, u8"06-观察者模式"), new ObserverPattern());
-	AddExample(subject_behavioral, MenuItem("state", texture_icon_behavioral, u8"07-状态模式"), new StatePattern(renderer));
-	AddExample(subject_behavioral, MenuItem("strategy", texture_icon_behavioral, u8"08-策略模式"), new StrategyPattern(renderer));
-	AddExample(subject_behavioral, MenuItem("template_method", texture_icon_behavioral, u8"09-模板方法模式"), new TemplateMethodPattern(renderer));
-	AddExample(subject_behavioral, MenuItem("visitor", texture_icon_behavioral, u8"10-访问者模式"), new VisitorPattern());
-	AddExample(subject_behavioral, MenuItem("interpreter", texture_icon_behavioral, u8"11-解释器模式"), new InterpreterPattern(renderer));
+	subjectBehavioral.title = u8"三、行为模式（11）";
+	SDL_Texture* _textureIconBehavioral = ResourcesManager::Instance()->findTexture("icon-behavioral");
+	AddExample(subjectBehavioral, MenuItem("chain_of_responsibility", _textureIconBehavioral, u8"01-责任链模式"), new ChainOfResponsibilityPattern());
+	AddExample(subjectBehavioral, MenuItem("command", _textureIconBehavioral, u8"02-命令模式"), new CommandPattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("iterator", _textureIconBehavioral, u8"03-迭代器模式"), new IteratorPattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("mediator", _textureIconBehavioral, u8"04-中介者模式"), new MediatorPattern());
+	AddExample(subjectBehavioral, MenuItem("memento", _textureIconBehavioral, u8"05-备忘录模式"), new MementoPattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("observer", _textureIconBehavioral, u8"06-观察者模式"), new ObserverPattern());
+	AddExample(subjectBehavioral, MenuItem("state", _textureIconBehavioral, u8"07-状态模式"), new StatePattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("strategy", _textureIconBehavioral, u8"08-策略模式"), new StrategyPattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("template_method", _textureIconBehavioral, u8"09-模板方法模式"), new TemplateMethodPattern(_renderer));
+	AddExample(subjectBehavioral, MenuItem("visitor", _textureIconBehavioral, u8"10-访问者模式"), new VisitorPattern());
+	AddExample(subjectBehavioral, MenuItem("interpreter", _textureIconBehavioral, u8"11-解释器模式"), new InterpreterPattern(_renderer));
 }
 
-void ExampleManager::OnInput(const SDL_Event* event)
+void ExampleManager::OnInput(const SDL_Event* _event)
 {
-	if (!current_example) return;
+	if (!currentExample) return;
 
-	current_example->OnInput(event);
+	currentExample->OnInput(_event);
 }
 
-void ExampleManager::OnUpdate(float delta)
+void ExampleManager::OnUpdate(float _delta)
 {
-	ImGuiViewport* viewport = ImGui::GetMainViewport();
-	ImGui::SetNextWindowPos(viewport->WorkPos);
-	ImGui::SetNextWindowSize(viewport->WorkSize);
-	ImGui::SetNextWindowViewport(viewport->ID);
+	ImGuiViewport* _viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(_viewport->WorkPos);
+	ImGui::SetNextWindowSize(_viewport->WorkSize);
+	ImGui::SetNextWindowViewport(_viewport->ID);
 
-	static const ImGuiWindowFlags flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar
+	static const ImGuiWindowFlags _flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar
 		| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
 		| ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoSavedSettings;
 
-	ImGui::Begin("main_window", nullptr, flags);
+	ImGui::Begin("main_window", nullptr, _flags);
 
-	static const ImVec2 size_menu = { 180, ImGui::GetContentRegionAvail().y };
+	static const ImVec2 _menuSize = { 180, ImGui::GetContentRegionAvail().y };
 	{
-		ImGui::BeginChild("menu", size_menu, ImGuiChildFlags_Border);
-		OnUpdateSubject(subject_creational);
-		OnUpdateSubject(subject_structural);
-		OnUpdateSubject(subject_behavioral);
+		ImGui::BeginChild("menu", _menuSize, ImGuiChildFlags_Border);
+		OnUpdateSubject(subjectCreational);
+		OnUpdateSubject(subjectStructural);
+		OnUpdateSubject(subjectBehavioral);
 		ImGui::EndChild();
 	}
 
 	ImGui::SameLine();
 
-	static const ImVec2 size_stage = ImGui::GetContentRegionAvail();
+	static const ImVec2 _stageSize = ImGui::GetContentRegionAvail();
 	{
-		ImGui::BeginChild("stage", size_stage, ImGuiChildFlags_Border);
-		if (current_example)
-			current_example->OnUpdate(delta);
+		ImGui::BeginChild("stage", _stageSize, ImGuiChildFlags_Border);
+		if (currentExample)
+			currentExample->OnUpdate(_delta);
 		else
 			OnUpdateBlankContent();
 		ImGui::EndChild();
@@ -134,9 +133,9 @@ void ExampleManager::OnUpdate(float delta)
 
 void ExampleManager::OnRender()
 {
-	if (!current_example) return;
+	if (!currentExample) return;
 
-	current_example->OnRender(renderer);
+	currentExample->OnRender(renderer);
 }
 
 void ExampleManager::OnUpdateBlankContent()
@@ -153,39 +152,39 @@ void ExampleManager::OnUpdateBlankContent()
 	}
 }
 
-void ExampleManager::OnUpdateSubject(const Subject& subject)
+void ExampleManager::OnUpdateSubject(const Subject& _subject)
 {
-	if (ImGui::CollapsingHeader(subject.title.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader(_subject.title.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		for (const MenuItem& menu_item : subject.item_list)
+		for (const MenuItem& _menuItem : _subject.itemList)
 		{
-			static const ImVec2 size_icon = 
+			static const ImVec2 _iconSize = 
 			{ 
 				ImGui::GetTextLineHeightWithSpacing(), 
 				ImGui::GetTextLineHeightWithSpacing() 
 			};
 
-			ImGui::Image(menu_item.icon, size_icon); ImGui::SameLine();
-			if (ImGui::Selectable(menu_item.title.c_str(), current_example_id == menu_item.id))
-				SwitchTo(menu_item.id);
+			ImGui::Image(_menuItem.icon, _iconSize); ImGui::SameLine();
+			if (ImGui::Selectable(_menuItem.title.c_str(), currentExampleID == _menuItem.id))
+				SwitchTo(_menuItem.id);
 		}
 	}
 }
 
-void ExampleManager::SwitchTo(const std::string& id)
+void ExampleManager::SwitchTo(const std::string& _id)
 {
-	if (current_example)
-		current_example->on_exit();
+	if (currentExample)
+		currentExample->OnExit();
 
-	current_example_id = id;
-	current_example = example_pool[id];
+	currentExampleID = _id;
+	currentExample = examplePool[_id];
 
-	if (current_example)
-		current_example->on_enter();
+	if (currentExample)
+		currentExample->OnEnter();
 }
 
-void ExampleManager::AddExample(Subject& subject, const MenuItem& menu_item, Example* example)
+void ExampleManager::AddExample(Subject& _subject, const MenuItem& _menuItem, Example* _example)
 {
-	subject.item_list.emplace_back(menu_item);
-	example_pool[menu_item.id] = example;
+	_subject.itemList.emplace_back(_menuItem);
+	examplePool[_menuItem.id] = _example;
 }

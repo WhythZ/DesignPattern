@@ -94,7 +94,7 @@ namespace _SingletonPattern
 		Scene(Player* _player) : player(_player) {}
 		~Scene() = default;
 
-		virtual void on_enter() {}
+		virtual void OnEnter() {}
 
 		void OnInput(const SDL_Event* event)
 		{
@@ -138,7 +138,7 @@ namespace _SingletonPattern
 
 		~Level_1() = default;
 
-		void on_enter() override
+		void OnEnter() override
 		{
 			player->SetPosition({ 150, 618 });
 		}
@@ -159,7 +159,7 @@ namespace _SingletonPattern
 
 		~Level_2() = default;
 
-		void on_enter() override
+		void OnEnter() override
 		{
 			player->SetPosition({ 185, 284 });
 		}
@@ -180,7 +180,7 @@ namespace _SingletonPattern
 
 		~Level_3() = default;
 
-		void on_enter() override
+		void OnEnter() override
 		{
 			player->SetPosition({ 284, 618 });
 		}
@@ -211,7 +211,7 @@ namespace _SingletonPattern
 			current_scene = scene_pool[id];
 
 			if (current_scene) 
-				current_scene->on_enter();
+				current_scene->OnEnter();
 		}
 
 		void OnInput(const SDL_Event* event)

@@ -22,54 +22,6 @@ Application* Application::Instance()
 	return application;
 }
 
-int Application::Run(int argc, char** argv)
-{
-	using namespace std::chrono;
-
-	const nanoseconds frame_duration(1000000000 / 144);
-	steady_clock::time_point last_tick = steady_clock::now();
-
-	while (!isQuit)
-	{
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-		{
-			ImGui_ImplSDL2_ProcessEvent(&event);
-
-			if (event.type == SDL_QUIT)
-				isQuit = true;
-
-			ExampleManager::Instance()->OnInput(&event);
-		}
-
-		steady_clock::time_point frame_start = steady_clock::now();
-		float delta = duration<float>(frame_start - last_tick).count();
-
-		ImGui_ImplSDLRenderer_NewFrame();
-		ImGui_ImplSDL2_NewFrame();
-		ImGui::NewFrame();
-
-		ExampleManager::Instance()->OnUpdate(delta);
-
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
-
-		ExampleManager::Instance()->OnRender();
-
-		ImGui::Render();
-		ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
-
-		SDL_RenderPresent(renderer);
-
-		last_tick = frame_start;
-		nanoseconds sleep_duration = frame_duration - (steady_clock::now() - frame_start);
-		if (sleep_duration > nanoseconds(0))
-			std::this_thread::sleep_for(sleep_duration);
-	}
-
-	return 0;
-}
-
 Application::Application()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -92,16 +44,16 @@ Application::Application()
 	ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer_Init(renderer);
 
-	ImGuiStyle& style = ImGui::GetStyle();
-	style.WindowRounding = 0.0f;
-	style.FrameBorderSize = 1.0f;
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
-	style.FrameRounding = 2.0f;
-	style.FrameBorderSize = 1.0f;
+	ImGuiStyle& _style = ImGui::GetStyle();
+	_style.WindowRounding = 0.0f;
+	_style.FrameBorderSize = 1.0f;
+	_style.Colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
+	_style.FrameRounding = 2.0f;
+	_style.FrameBorderSize = 1.0f;
 
-	ImGuiIO& ioImGui = ImGui::GetIO();
-	ioImGui.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
-	ioImGui.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18.0f, nullptr, ioImGui.Fonts->GetGlyphRangesChineseFull());
+	ImGuiIO& _ioImGui = ImGui::GetIO();
+	_ioImGui.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
+	_ioImGui.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\msyh.ttc)", 18.0f, nullptr, _ioImGui.Fonts->GetGlyphRangesChineseFull());
 
 	ResourcesManager::Instance()->Load(renderer);
 	ExampleManager::Instance()->Init(renderer);
@@ -120,4 +72,52 @@ Application::~Application()
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
+}
+
+int Application::Run(int _argc, char** _argv)
+{
+	using namespace std::chrono;
+
+	const nanoseconds _frameDuration(1000000000 / 144);
+	steady_clock::time_point _lastTick = steady_clock::now();
+
+	while (!isQuit)
+	{
+		SDL_Event _event;
+		while (SDL_PollEvent(&_event))
+		{
+			ImGui_ImplSDL2_ProcessEvent(&_event);
+
+			if (_event.type == SDL_QUIT)
+				isQuit = true;
+
+			ExampleManager::Instance()->OnInput(&_event);
+		}
+
+		steady_clock::time_point _frameStart = steady_clock::now();
+		float _delta = duration<float>(_frameStart - _lastTick).count();
+
+		ImGui_ImplSDLRenderer_NewFrame();
+		ImGui_ImplSDL2_NewFrame();
+		ImGui::NewFrame();
+
+		ExampleManager::Instance()->OnUpdate(_delta);
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+
+		ExampleManager::Instance()->OnRender();
+
+		ImGui::Render();
+		ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+
+		SDL_RenderPresent(renderer);
+
+		_lastTick = _frameStart;
+		nanoseconds _sleepDuration = _frameDuration - (steady_clock::now() - _frameStart);
+		if (_sleepDuration > nanoseconds(0))
+			std::this_thread::sleep_for(_sleepDuration);
+	}
+
+	return 0;
 }

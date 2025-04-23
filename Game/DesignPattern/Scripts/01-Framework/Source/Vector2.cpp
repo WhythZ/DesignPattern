@@ -1,61 +1,61 @@
 #include "Vector2.h"
 #include <cmath>
 
-Vector2::Vector2(float x, float y): x(x), y(y) {}
+Vector2::Vector2(float _x, float _y): x(_x), y(_y) {}
 
-Vector2 Vector2::operator+(const Vector2& vec) const
+Vector2 Vector2::operator+(const Vector2& _vec) const
 {
-	return Vector2(x + vec.x, y + vec.y);
+	return Vector2(x + _vec.x, y + _vec.y);
 }
 
-void Vector2::operator+=(const Vector2& vec)
+void Vector2::operator+=(const Vector2& _vec)
 {
-	x += vec.x, y += vec.y;
+	x += _vec.x, y += _vec.y;
 }
 
-Vector2 Vector2::operator-(const Vector2& vec) const
+Vector2 Vector2::operator-(const Vector2& _vec) const
 {
-	return Vector2(x - vec.x, y - vec.y);
+	return Vector2(x - _vec.x, y - _vec.y);
 }
 
-void Vector2::operator-=(const Vector2& vec)
+void Vector2::operator-=(const Vector2& _vec)
 {
-	x -= vec.x, y -= vec.y;
+	x -= _vec.x, y -= _vec.y;
 }
 
-float Vector2::operator*(const Vector2& vec) const
+float Vector2::operator*(const Vector2& _vec) const
 {
-	return x * vec.x + y * vec.y;
+	return x * _vec.x + y * _vec.y;
 }
 
-Vector2 Vector2::operator*(float val) const
+Vector2 Vector2::operator*(float _val) const
 {
-	return Vector2(x * val, y * val);
+	return Vector2(x * _val, y * _val);
 }
 
-void Vector2::operator*=(float val)
+void Vector2::operator*=(float _val)
 {
-	x *= val, y *= val;
+	x *= _val, y *= _val;
 }
 
-Vector2 Vector2::operator/(float val) const
+Vector2 Vector2::operator/(float _val) const
 {
-	return Vector2(x / val, y / val);
+	return Vector2(x / _val, y / _val);
 }
 
-void Vector2::operator/=(float val)
+void Vector2::operator/=(float _val)
 {
-	x /= val, y /= val;
+	x /= _val, y /= _val;
 }
 
 Vector2 Vector2::Normalize()
 {
-	float len = Length();
+	float _len = Length();
 
-	if (len == 0)
+	if (_len == 0)
 		return Vector2(0, 0);
 
-	return Vector2(x / len, y / len);
+	return Vector2(x / _len, y / _len);
 }
 
 float Vector2::Length() const

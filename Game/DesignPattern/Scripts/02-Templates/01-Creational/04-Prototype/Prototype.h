@@ -96,8 +96,8 @@ public:
 	PrototypePattern(SDL_Renderer* renderer);
 	~PrototypePattern();
 
-	void on_enter() override;
-	void on_exit() override;
+	void OnEnter() override;
+	void OnExit() override;
 
 	void OnUpdate(float delta) override;
 	void OnRender(SDL_Renderer* renderer) override;

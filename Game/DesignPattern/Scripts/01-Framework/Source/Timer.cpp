@@ -1,30 +1,30 @@
 #include "Timer.h"
 
-void Timer::SetWaitTime(float val)
+void Timer::SetWaitTime(float _val)
 {
-	waitTime = val;
+	waitTime = _val;
 }
 
-void Timer::SetOneShot(bool flag)
+void Timer::SetOneShot(bool _flag)
 {
-	oneShot = flag;
+	oneShot = _flag;
 }
 
-void Timer::SetOnTimeout(std::function<void()> onTimeout)
+void Timer::SetOnTimeout(std::function<void()> _onTimeout)
 {
-	this->onTimeout = onTimeout;
+	onTimeout = _onTimeout;
 }
 
-void Timer::OnUpdate(float delta)
+void Timer::OnUpdate(float _delta)
 {
 	if (paused) return;
 
-	passTime += delta;
+	passTime += _delta;
 	if (passTime >= waitTime)
 	{
-		bool can_shot = (!oneShot || (oneShot && !shotted));
+		bool _canShot = (!oneShot || (oneShot && !shotted));
 		shotted = true;
-		if (can_shot && onTimeout)
+		if (_canShot && onTimeout)
 			onTimeout();
 		passTime -= waitTime;
 	}

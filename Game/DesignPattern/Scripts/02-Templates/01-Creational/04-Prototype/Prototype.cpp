@@ -29,13 +29,13 @@ PrototypePattern::~PrototypePattern()
 	SDL_DestroyTexture(textureTarget);
 }
 
-void PrototypePattern::on_enter()
+void PrototypePattern::OnEnter()
 {
 	srand((unsigned int)time(NULL));
 	prototype_chicken = new Chicken();
 }
 
-void PrototypePattern::on_exit()
+void PrototypePattern::OnExit()
 {
 	for (Chicken* chicken : chicken_list)
 		delete chicken;

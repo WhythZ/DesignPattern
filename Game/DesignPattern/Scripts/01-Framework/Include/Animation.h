@@ -19,7 +19,7 @@ private:
 		SDL_Texture* texture = nullptr;
 
 		Frame() = default;
-		Frame(SDL_Texture* texture, const SDL_Rect& rectSrc): texture(texture), rectSrc(rectSrc) {}
+		Frame(SDL_Texture* _texture, const SDL_Rect& _rectSrc): texture(_texture), rectSrc(_rectSrc) {}
 		~Frame() = default;
 	};
 

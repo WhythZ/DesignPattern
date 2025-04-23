@@ -7,26 +7,26 @@ using namespace _IteratorPattern;
 IteratorPattern::IteratorPattern(SDL_Renderer* renderer)
 {
 	for (int i = 0; i < 2; i++)
-		item_list.push_back(new MagicBook());
+		itemList.push_back(new MagicBook());
 	for (int i = 0; i < 4; i++)
-		item_list.push_back(new OrdinaryPotion());
+		itemList.push_back(new OrdinaryPotion());
 	for (int i = 0; i < 5; i++)
-		item_list.push_back(new Coins());
+		itemList.push_back(new Coins());
 	for (int i = 0; i < 2; i++)
-		item_list.push_back(new Scrolls());
+		itemList.push_back(new Scrolls());
 	for (int i = 0; i < 6; i++)
-		item_list.push_back(new Stick());
+		itemList.push_back(new Stick());
 	for (int i = 0; i < 8; i++)
-		item_list.push_back(new Stone());
+		itemList.push_back(new Stone());
 
-	current_iterator = new RandomIterator(item_list);
+	current_iterator = new RandomIterator(itemList);
 
 	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 360, 190);
 }
 
 IteratorPattern::~IteratorPattern()
 {
-	for (Item* item : item_list)
+	for (Item* item : itemList)
 		delete item;
 
 	SDL_DestroyTexture(textureTarget);
@@ -48,19 +48,19 @@ void IteratorPattern::OnUpdate(float delta)
 	if (ImGui::Button(u8"随机排序", { ImGui::GetContentRegionAvail().x / 3.0f, 35 }))
 	{
 		delete current_iterator;
-		current_iterator = new RandomIterator(item_list);
+		current_iterator = new RandomIterator(itemList);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button(u8"按类型排序", { ImGui::GetContentRegionAvail().x / 2.0f, 35 }))
 	{
 		delete current_iterator;
-		current_iterator = new TypeSortIterator(item_list);
+		current_iterator = new TypeSortIterator(itemList);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button(u8"按品质排序", { ImGui::GetContentRegionAvail().x, 35 }))
 	{
 		delete current_iterator;
-		current_iterator = new GradeSortIterator(item_list);
+		current_iterator = new GradeSortIterator(itemList);
 	}
 
 	ImGui::Dummy({ 0, 50 });

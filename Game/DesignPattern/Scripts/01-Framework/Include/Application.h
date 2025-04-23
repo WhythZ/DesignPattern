@@ -14,7 +14,7 @@ private:
 public:
 	static Application* Instance();
 
-	int Run(int argc, char** argv);
+	int Run(int, char**);
 
 private:
 	Application();

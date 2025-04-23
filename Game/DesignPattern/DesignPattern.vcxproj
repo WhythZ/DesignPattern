@@ -183,6 +183,7 @@
     <ClCompile Include="..\Dependencies\imgui\TextEditor.cpp" />
     <ClCompile Include="Scripts\01-Framework\Source\Animation.cpp" />
     <ClCompile Include="Scripts\01-Framework\Source\Atlas.cpp" />
+    <ClCompile Include="Scripts\01-Framework\Source\Example.cpp" />
     <ClCompile Include="Scripts\01-Framework\Source\FontWrapper.cpp" />
     <ClCompile Include="Scripts\01-Framework\Source\Timer.cpp" />
     <ClCompile Include="Scripts\01-Framework\Source\Vector2.cpp" />

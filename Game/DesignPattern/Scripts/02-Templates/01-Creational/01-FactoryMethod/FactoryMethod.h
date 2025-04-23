@@ -177,14 +177,14 @@ class FactoryMethodPattern : public Example
 {
 private:
 	SDL_Texture* textureTarget = nullptr;
-	std::vector<_FactoryMethodPattern::GameObject*> game_obj_list;
+	std::vector<_FactoryMethodPattern::GameObject*> gameObjectList;
 
 public:
-	FactoryMethodPattern(SDL_Renderer* renderer);
+	FactoryMethodPattern(SDL_Renderer*);
 	~FactoryMethodPattern();
 
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif

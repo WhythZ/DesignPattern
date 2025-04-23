@@ -8,16 +8,15 @@
 class Example
 {
 public:
-	Example() {}
+	Example() = default;
 	virtual ~Example() = default;
 
-	virtual void on_enter() {}
-	virtual void on_exit() {}
+	virtual void OnEnter();
+	virtual void OnExit();
 
-	virtual void OnInput(const SDL_Event* event) {}
-	virtual void OnUpdate(float delta) {}
-	virtual void OnRender(SDL_Renderer* renderer) {}
-
+	virtual void OnInput(const SDL_Event*);
+	virtual void OnUpdate(float);
+	virtual void OnRender(SDL_Renderer*);
 };
 
 #endif

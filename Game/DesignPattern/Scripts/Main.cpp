@@ -4,7 +4,7 @@
 
 #pragma comment(linker, "/subsystem:windows /entry:mainCRTStartup")
 
-int main(int argc, char** argv)
+int main(int _argc, char** _argv)
 {
-	return Application::Instance()->Run(argc, argv);
+	return Application::Instance()->Run(_argc, _argv);
 }

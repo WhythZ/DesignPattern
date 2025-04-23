@@ -212,7 +212,7 @@ public:
 
 private:
 	SDL_Texture* textureTarget = nullptr;
-	_IteratorPattern::ItemList item_list;
+	_IteratorPattern::ItemList itemList;
 	_IteratorPattern::Iterator* current_iterator = nullptr;
 
 	_IteratorPattern::MagicBook sample_magic_book;

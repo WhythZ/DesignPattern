@@ -16,25 +16,26 @@ private:
 		SDL_Texture* icon = nullptr;
 		std::string title;
 
-		MenuItem(const std::string& id, SDL_Texture* icon, const std::string& title): id(id), icon(icon), title(title) {}
+		MenuItem(const std::string& _id, SDL_Texture* _icon, const std::string& _title)
+			: id(_id), icon(_icon), title(_title) {}
 	};
 
 	struct Subject
 	{
 		std::string title;
-		std::vector<MenuItem> item_list;
+		std::vector<MenuItem> itemList;
 	};
 
 private:
 	static ExampleManager* manager;
 	SDL_Renderer* renderer = nullptr;
 
-	std::string current_example_id;
-	Example* current_example = nullptr;
+	std::string currentExampleID;
+	Example* currentExample = nullptr;
 
 	SDL_Texture* textureTarget = nullptr;
-	std::unordered_map<std::string, Example*> example_pool;
-	Subject subject_creational, subject_structural, subject_behavioral;
+	std::unordered_map<std::string, Example*> examplePool;
+	Subject subjectCreational, subjectStructural, subjectBehavioral;
 
 public:
 	static ExampleManager* Instance();
