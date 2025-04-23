@@ -5,42 +5,42 @@
 
 using namespace _BridgePattern;
 
-void EasyXImpl::init_window(int width, int height)
+void EasyXImpl::InitTheWindow(int _width, int _height)
 {
-    initgraph(width, height, EW_NOCLOSE);
-    SetWindowText(GetHWnd(), _T("Window Created By [EasyX] £¨°´ Esc ÍË³ö´°¿Ú£©"));
+    initgraph(_width, _height, EW_NOCLOSE);
+    SetWindowText(GetHWnd(), _T("Window Created By EasyX (Press Esc Quit)"));
 }
 
-void* EasyXImpl::load_image(const std::string& path)
+void* EasyXImpl::LoadTheImage(const std::string& _path)
 {
     static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> convert;
 
-    IMAGE* img = new IMAGE();
-    loadimage(img, convert.from_bytes(path).c_str());
+    IMAGE* _image = new IMAGE();
+    loadimage(_image, convert.from_bytes(_path).c_str());
 
-    return img;
+    return _image;
 }
 
-void EasyXImpl::show_image(void* image, int x, int y)
+void EasyXImpl::ShowTheImage(void* _image, int _x, int _y)
 {
-    IMAGE* img = static_cast<IMAGE*>(image);
+    IMAGE* _img = static_cast<IMAGE*>(_image);
 
-    putimage(x, y, img);
+    putimage(_x, _y, _img);
 }
 
-bool EasyXImpl::need_quit()
+bool EasyXImpl::NeedQuit()
 {
-    ExMessage msg;
-    while (peekmessage(&msg))
+    ExMessage _message;
+    while (peekmessage(&_message))
     {
-        if (msg.message == WM_KEYDOWN && msg.vkcode == VK_ESCAPE)
+        if (_message.message == WM_KEYDOWN && _message.vkcode == VK_ESCAPE)
             return true;
     }
 
     return false;
 }
 
-void EasyXImpl::quit_window()
+void EasyXImpl::QuitTheWindow()
 {
     closegraph();
 }

@@ -4,29 +4,25 @@
 
 using namespace _BridgePattern;
 
-BridgePattern::BridgePattern() = default;
-
-BridgePattern::~BridgePattern() = default;
-
-void BridgePattern::OnUpdate(float delta)
+void BridgePattern::OnUpdate(float _delta)
 {
 	if (ImGui::Button(u8"创建 EasyX 图形后端的窗口", {ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y / 2}))
 	{
-		EasyXImpl easyx_impl;
-		Window window(&easyx_impl);
+		EasyXImpl _easyxImpl;
+		Window window(&_easyxImpl);
 
 		window.create(1280, 720);
-		window.load_image("resources/splash.png");
+		window.LoadTheImage("Resources/splash.png");
 		window.run();
 	}
 
 	if (ImGui::Button(u8"创建 Raylib 图形后端的窗口", ImGui::GetContentRegionAvail()))
 	{
-		RaylibImpl raylib_impl;
-		Window window(&raylib_impl);
+		RaylibImpl _raylibImpl;
+		Window window(&_raylibImpl);
 
 		window.create(1280, 720);
-		window.load_image("resources/splash.png");
+		window.LoadTheImage("Resources/splash.png");
 		window.run();
 	}
 }

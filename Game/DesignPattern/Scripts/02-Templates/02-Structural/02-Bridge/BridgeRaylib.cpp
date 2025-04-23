@@ -4,31 +4,31 @@
 
 using namespace _BridgePattern;
 
-void RaylibImpl::init_window(int width, int height)
+void RaylibImpl::InitTheWindow(int _width, int _height)
 {
-    InitWindow(width, height, "Window Created By [Raylib]");
+    InitWindow(_width, _height, "Window Created By Raylib");
 }
 
-void* RaylibImpl::load_image(const std::string& path)
+void* RaylibImpl::LoadTheImage(const std::string& _path)
 {
-    Texture2D* texture = new Texture2D(LoadTexture(path.c_str()));
+    Texture2D* _texture = new Texture2D(LoadTexture(_path.c_str()));
 
-    return texture;
+    return _texture;
 }
 
-void RaylibImpl::show_image(void* image, int x, int y)
+void RaylibImpl::ShowTheImage(void* _image, int _x, int _y)
 {
     BeginDrawing();
-    DrawTexture(*(Texture2D*)image, x, y, { 255, 255, 255, 255 });
+    DrawTexture(*(Texture2D*)_image, _x, _y, { 255, 255, 255, 255 });
     EndDrawing();
 }
 
-bool RaylibImpl::need_quit()
+bool RaylibImpl::NeedQuit()
 {
     return WindowShouldClose();
 }
 
-void RaylibImpl::quit_window()
+void RaylibImpl::QuitTheWindow()
 {
     CloseWindow();
 }
