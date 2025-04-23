@@ -9,74 +9,74 @@
 // Lua官方资料合集：https://lua.org/docs.html
 // Lua5.4参考手册：https://lua.org/manual/5.4/
 
-static std::string str_buffer_print;
-static SDL_Renderer* g_renderer = nullptr;
+static std::string strBufferPrint;
+static SDL_Renderer* gRenderer = nullptr;
 
-static int api_print(lua_State* lua_state)
+static int APIPrint(lua_State* _luaState)
 {
-	str_buffer_print += luaL_checkstring(lua_state, 1);
-	str_buffer_print += "\n";
+	strBufferPrint += luaL_checkstring(_luaState, 1);
+	strBufferPrint += "\n";
 
 	return 0;
 }
 
-static int api_set_draw_color(lua_State* lua_state)
+static int APISetDrawColor(lua_State* _luaState)
 {
-	SDL_SetRenderDrawBlendMode(g_renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(g_renderer, (Uint8)luaL_checkinteger(lua_state, 1), (Uint8)luaL_checkinteger(lua_state, 2), 
-		(Uint8)luaL_checkinteger(lua_state, 3), (Uint8)luaL_checkinteger(lua_state, 4));
+	SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(gRenderer, (Uint8)luaL_checkinteger(_luaState, 1), (Uint8)luaL_checkinteger(_luaState, 2), 
+		(Uint8)luaL_checkinteger(_luaState, 3), (Uint8)luaL_checkinteger(_luaState, 4));
 
 	return 0;
 }
 
-static int api_draw_circle(lua_State* lua_state)
+static int APIDrawCircle(lua_State* _luaState)
 {
-	SDL_Color color_painter;
-	SDL_GetRenderDrawColor(g_renderer, &(color_painter.r), &(color_painter.g), &(color_painter.b), &(color_painter.a));
-	filledCircleRGBA(g_renderer, (Sint16)luaL_checkinteger(lua_state, 1), (Sint16)luaL_checkinteger(lua_state, 2), 
-		(Sint16)luaL_checkinteger(lua_state, 3), color_painter.r, color_painter.g, color_painter.b, color_painter.a);
+	SDL_Color _colorPainter;
+	SDL_GetRenderDrawColor(gRenderer, &(_colorPainter.r), &(_colorPainter.g), &(_colorPainter.b), &(_colorPainter.a));
+	filledCircleRGBA(gRenderer, (Sint16)luaL_checkinteger(_luaState, 1), (Sint16)luaL_checkinteger(_luaState, 2), 
+		(Sint16)luaL_checkinteger(_luaState, 3), _colorPainter.r, _colorPainter.g, _colorPainter.b, _colorPainter.a);
 
 	return 0;
 }
 
-static int api_draw_rectangle(lua_State* lua_state)
+static int APIDrawRectangle(lua_State* _luaState)
 {
-	SDL_Rect rect =
+	SDL_Rect _rect =
 	{
-		(int)luaL_checkinteger(lua_state, 1),
-		(int)luaL_checkinteger(lua_state, 2),
-		(int)luaL_checkinteger(lua_state, 3),
-		(int)luaL_checkinteger(lua_state, 4)
+		(int)luaL_checkinteger(_luaState, 1),
+		(int)luaL_checkinteger(_luaState, 2),
+		(int)luaL_checkinteger(_luaState, 3),
+		(int)luaL_checkinteger(_luaState, 4)
 	};
-	SDL_RenderFillRect(g_renderer, &rect);
+	SDL_RenderFillRect(gRenderer, &_rect);
 
 	return 0;
 }
 
-InterpreterPattern::InterpreterPattern(SDL_Renderer* renderer)
+InterpreterPattern::InterpreterPattern(SDL_Renderer* _renderer)
 {
-	g_renderer = renderer;
+	gRenderer = _renderer;
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 370, 370);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 370, 370);
 
-	ImGuiIO& ioImGui = ImGui::GetIO();
-	font_code = ioImGui.Fonts->AddFontFromFileTTF(R"(resources\SarasaMonoSC-Regular.ttf)", 18.0f, nullptr, ioImGui.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+	ImGuiIO& _ioImGui = ImGui::GetIO();
+	fontCode = _ioImGui.Fonts->AddFontFromFileTTF(R"(resources\SarasaMonoSC-Regular.ttf)", 18.0f, nullptr, _ioImGui.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 
-	TextEditor::LanguageDefinition lang_def = TextEditor::LanguageDefinition::Lua();
+	TextEditor::LanguageDefinition _langDef = TextEditor::LanguageDefinition::Lua();
 	{
-		TextEditor::Identifier id_set_draw_color;
-		id_set_draw_color.mDeclaration = u8"set_draw_color(r, g, b, a)：设置绘图颜色";
-		lang_def.mIdentifiers.insert(std::make_pair(std::string("set_draw_color"), id_set_draw_color));
-		TextEditor::Identifier id_draw_circle;
-		id_draw_circle.mDeclaration = u8"draw_circle(x, y, r)：使用当前绘图颜色绘制填充圆";
-		lang_def.mIdentifiers.insert(std::make_pair(std::string("draw_circle"), id_draw_circle));
-		TextEditor::Identifier id_draw_rectangle;
-		id_draw_rectangle.mDeclaration = u8"draw_rectangle(x, y, w, h)：使用当前绘图颜色绘制填充矩形";
-		lang_def.mIdentifiers.insert(std::make_pair(std::string("draw_rectangle"), id_draw_rectangle));
+		TextEditor::Identifier _idSetDrawColor;
+		_idSetDrawColor.mDeclaration = u8"set_draw_color(r, g, b, a)：设置绘图颜色";
+		_langDef.mIdentifiers.insert(std::make_pair(std::string("set_draw_color"), _idSetDrawColor));
+		TextEditor::Identifier _idDrawCircle;
+		_idDrawCircle.mDeclaration = u8"draw_circle(x, y, r)：使用当前绘图颜色绘制填充圆";
+		_langDef.mIdentifiers.insert(std::make_pair(std::string("draw_circle"), _idDrawCircle));
+		TextEditor::Identifier _idDrawRectangle;
+		_idDrawRectangle.mDeclaration = u8"draw_rectangle(x, y, w, h)：使用当前绘图颜色绘制填充矩形";
+		_langDef.mIdentifiers.insert(std::make_pair(std::string("draw_rectangle"), _idDrawRectangle));
 	}
-	code_editor.SetLanguageDefinition(lang_def);
-	code_editor.SetShowWhitespaces(false);
-	code_editor.SetText(u8R"(-- Lua 脚本环境中自定义的方法：
+	codeEditor.SetLanguageDefinition(_langDef);
+	codeEditor.SetShowWhitespaces(false);
+	codeEditor.SetText(u8R"(-- Lua 脚本环境中自定义的方法：
 -- print(str)：向控制台输出字符串
 -- set_draw_color(r, g, b, a)：设置绘图颜色
 -- draw_circle(x, y, r)：使用当前绘图颜色绘制填充圆
@@ -115,42 +115,42 @@ InterpreterPattern::~InterpreterPattern()
 
 void InterpreterPattern::OnUpdate(float delta)
 {
-	static const ImVec2 size_button = { ImGui::GetContentRegionAvail().x, 30 };
-	if (ImGui::Button(u8"执 行 脚 本", size_button))
+	static const ImVec2 _sizeButton = { ImGui::GetContentRegionAvail().x, 30 };
+	if (ImGui::Button(u8"执 行 脚 本", _sizeButton))
 	{
-		lua_State* lua_state = luaL_newstate();
-		luaL_openlibs(lua_state);
+		lua_State* _luaState = luaL_newstate();
+		luaL_openlibs(_luaState);
 
-		lua_pushcfunction(lua_state, api_print);
-		lua_setglobal(lua_state, "print");
-		lua_pushcfunction(lua_state, api_set_draw_color);
-		lua_setglobal(lua_state, "set_draw_color");
-		lua_pushcfunction(lua_state, api_draw_circle);
-		lua_setglobal(lua_state, "draw_circle");
-		lua_pushcfunction(lua_state, api_draw_rectangle);
-		lua_setglobal(lua_state, "draw_rectangle");
+		lua_pushcfunction(_luaState, APIPrint);
+		lua_setglobal(_luaState, "print");
+		lua_pushcfunction(_luaState, APISetDrawColor);
+		lua_setglobal(_luaState, "set_draw_color");
+		lua_pushcfunction(_luaState, APIDrawCircle);
+		lua_setglobal(_luaState, "draw_circle");
+		lua_pushcfunction(_luaState, APIDrawRectangle);
+		lua_setglobal(_luaState, "draw_rectangle");
 
-		str_buffer_print = u8"【开始执行】\n==============\n";
+		strBufferPrint = u8"[开始执行]\n==============\n";
 
-		SDL_SetRenderTarget(g_renderer, textureTarget);
-		SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
-		SDL_RenderClear(g_renderer);
+		SDL_SetRenderTarget(gRenderer, textureTarget);
+		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
+		SDL_RenderClear(gRenderer);
 
-		if (luaL_dostring(lua_state, code_editor.GetText().c_str()) != LUA_OK)
+		if (luaL_dostring(_luaState, codeEditor.GetText().c_str()) != LUA_OK)
 		{
-			str_buffer_print += u8"\n【执行失败】\n==============\n";
-			str_buffer_print += lua_tostring(lua_state, -1);
+			strBufferPrint += u8"\n[执行失败]\n==============\n";
+			strBufferPrint += lua_tostring(_luaState, -1);
 		}
 
-		SDL_SetRenderTarget(g_renderer, nullptr);
+		SDL_SetRenderTarget(gRenderer, nullptr);
 
-		lua_close(lua_state);
+		lua_close(_luaState);
 	}
 
 	{
-		ImGui::PushFont(font_code);
+		ImGui::PushFont(fontCode);
 		static const ImVec2 size_code_editor = { 350, ImGui::GetContentRegionAvail().y };
-		code_editor.Render("code_editor", size_code_editor, true);
+		codeEditor.Render("code_editor", size_code_editor, true);
 		ImGui::PopFont();
 	}
 	ImGui::SameLine();
@@ -164,7 +164,7 @@ void InterpreterPattern::OnUpdate(float delta)
 			ImGui::EndChild();
 		}
 		ImGui::TextUnformatted(u8"控制台输出：");
-		ImGui::InputTextMultiline("##print_result", &str_buffer_print, ImGui::GetContentRegionAvail(), ImGuiInputTextFlags_ReadOnly);
+		ImGui::InputTextMultiline("##print_result", &strBufferPrint, ImGui::GetContentRegionAvail(), ImGuiInputTextFlags_ReadOnly);
 		ImGui::EndGroup();
 	}
 
