@@ -6,9 +6,9 @@
 
 using namespace _MementoPattern;
 
-MementoPattern::MementoPattern(SDL_Renderer* renderer)
+MementoPattern::MementoPattern(SDL_Renderer* _renderer)
 {
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 384, 384);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 384, 384);
 }
 
 MementoPattern::~MementoPattern()
@@ -16,71 +16,71 @@ MementoPattern::~MementoPattern()
 	SDL_DestroyTexture(textureTarget);
 }
 
-void MementoPattern::OnInput(const SDL_Event* event)
+void MementoPattern::OnInput(const SDL_Event* _event)
 {
-	player.OnInput(event);
-	_switch.OnInput(event);
+	player.OnInput(_event);
+	mySwitch.OnInput(_event);
 }
 
-void MementoPattern::OnUpdate(float delta)
+void MementoPattern::OnUpdate(float _delta)
 {
-	player.OnUpdate(delta);
+	player.OnUpdate(_delta);
 
-	if (ImGui::Button(u8"加载 \"Data/save.json\" 存档文件到场景", { ImGui::GetContentRegionAvail().x / 2, 35 }))
-		load_scene();
+	if (ImGui::Button(u8"加载 \"Data/Save.json\" 存档文件到场景", { ImGui::GetContentRegionAvail().x / 2, 35 }))
+		LoadScene();
 	ImGui::SameLine();
-	if (ImGui::Button(u8"保存场景到 \"Data/save.json\" 存档文件", { ImGui::GetContentRegionAvail().x, 35 }))
-		dump_scene();
+	if (ImGui::Button(u8"保存场景到 \"Data/Save.json\" 存档文件", { ImGui::GetContentRegionAvail().x, 35 }))
+		DumpScene();
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());
 	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::SetCursorPos({ 10, 10 });
-	ImGui::TextColored({ 1.0f, 0.35f, 0.12f, 1.0f }, u8"使用 上/下/左/右 方向键控制角色移动，使用 空格键 切换拉杆开关状态");
+	ImGui::TextColored({ 1.0f, 0.35f, 0.12f, 1.0f }, u8"使用[上/下/左/右]方向键控制角色移动，使用[空格键]切换拉杆开关状态");
 	ImGui::EndChild();
 }
 
-void MementoPattern::OnRender(SDL_Renderer* renderer)
+void MementoPattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 15, 15, 15, 255);
+	SDL_RenderClear(_renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("tidy_room"), nullptr, nullptr);
-	_switch.OnRender(renderer); player.OnRender(renderer);
+	SDL_RenderCopy(_renderer, ResourcesManager::Instance()->FindTexture("tidy_room"), nullptr, nullptr);
+	mySwitch.OnRender(_renderer); player.OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }
 
-void MementoPattern::load_scene()
+void MementoPattern::LoadScene()
 {
-	std::ifstream file("data/save.json");
-	if (!file.good()) return;
+	std::ifstream _file("Data/Save.json");
+	if (!_file.good()) return;
 
-	std::stringstream str_stream;
-	str_stream << file.rdbuf(); file.close();
+	std::stringstream _strStream;
+	_strStream << _file.rdbuf(); _file.close();
 
-	cJSON* json_root = cJSON_Parse(str_stream.str().c_str());
-	if (!json_root) return;
+	cJSON* _jsonRoot = cJSON_Parse(_strStream.str().c_str());
+	if (!_jsonRoot) return;
 
-	player.Load(cJSON_GetObjectItem(json_root, "player"));
-	_switch.Load(cJSON_GetObjectItem(json_root, "switch"));
+	player.Load(cJSON_GetObjectItem(_jsonRoot, "player"));
+	mySwitch.Load(cJSON_GetObjectItem(_jsonRoot, "switch"));
 
-	cJSON_Delete(json_root);
+	cJSON_Delete(_jsonRoot);
 }
 
-void MementoPattern::dump_scene()
+void MementoPattern::DumpScene()
 {
-	std::ofstream file("data/save.json");
-	if (!file.good()) return;
+	std::ofstream _file("data/save.json");
+	if (!_file.good()) return;
 
-	cJSON* json_root = cJSON_CreateObject();
+	cJSON* _jsonRoot = cJSON_CreateObject();
 
-	cJSON_AddItemToObject(json_root, "player", player.dump());
-	cJSON_AddItemToObject(json_root, "switch", _switch.dump());
+	cJSON_AddItemToObject(_jsonRoot, "player", player.Dump());
+	cJSON_AddItemToObject(_jsonRoot, "switch", mySwitch.Dump());
 
-	char* str_json = cJSON_Print(json_root);
-	file << str_json; file.flush(); file.close();
+	char* _strJson = cJSON_Print(_jsonRoot);
+	_file << _strJson; _file.flush(); _file.close();
 
-	free(str_json);
-	cJSON_Delete(json_root);
+	free(_strJson);
+	cJSON_Delete(_jsonRoot);
 }

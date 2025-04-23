@@ -12,21 +12,20 @@ namespace _MediatorPattern
 	{
 	public:
 		virtual ~Mediator() = default;
-		virtual void send(const std::string& message, Colleague* colleague) = 0;
+		virtual void Send(const std::string&, Colleague*) = 0;
 	};
 
 	class Colleague
 	{
+	protected:
+		Mediator* mediator;
+
 	public:
 		Colleague(Mediator* _mediator) : mediator(_mediator) {}
 		virtual ~Colleague() = default;
 
-		virtual void OnUpdate(float delta) = 0;
-		virtual void receive(const std::string& message) = 0;
-
-	protected:
-		Mediator* mediator;
-
+		virtual void OnUpdate(float) = 0;
+		virtual void Receive(const std::string&) = 0;
 	};
 
 	class ChatRoom : public Mediator
@@ -35,76 +34,73 @@ namespace _MediatorPattern
 		std::vector<Colleague*> colleagues;
 
 	public:
-		void add_colleague(Colleague* colleague)
+		void AddColleague(Colleague* _colleague)
 		{
-			colleagues.push_back(colleague);
+			colleagues.push_back(_colleague);
 		}
 
-		void send(const std::string& message, Colleague* sender) override
+		void Send(const std::string& _message, Colleague* _sender) override
 		{
 			for (Colleague* colleague : colleagues)
 			{
-				if (colleague != sender)
-					colleague->receive(message);
+				if (colleague != _sender)
+					colleague->Receive(_message);
 			}
 		}
 	};
 
 	class User : public Colleague
 	{
-	public:
-		User(Mediator* mediator, const char* atlas_path)
-			: Colleague(mediator)
-		{
-			static int next_id = 0;
-			id = next_id; next_id++;
-
-			atlas.Load(atlas_path, 6);
-			animation.SetLoop(true);
-			animation.SetInterval(0.1f);
-			animation.AddFrame(&atlas);
-		}
-
-		~User() = default;
-
-		void OnUpdate(float delta) override;
-
-		void receive(const std::string& message) override
-		{
-			str_chat_buffer.append("[RECEIVE]: " + message + "\n");
-		}
-
 	private:
 		int id = 0;
 		Atlas atlas;
 		Animation animation;
-		std::string str_chat_buffer;
-		std::string str_input_buffer;
+		std::string strChatBuffer;
+		std::string strInputBuffer;
 
-	private:
-		void send(const std::string& message)
+	public:
+		User(Mediator* _mediator, const char* _atlasPath)
+			: Colleague(_mediator)
 		{
-			mediator->send(message, this);
+			static int nextID = 0;
+			id = nextID; nextID++;
+
+			atlas.Load(_atlasPath, 6);
+			animation.SetLoop(true);
+			animation.SetInterval(0.1f);
+			animation.AddFrame(&atlas);
+		}
+		~User() = default;
+
+		void OnUpdate(float) override;
+
+		void Receive(const std::string& _message) override
+		{
+			strChatBuffer.append("[RECEIVE]: " + _message + "\n");
 		}
 
+	private:
+		void Send(const std::string& _message)
+		{
+			mediator->Send(_message, this);
+		}
 	};
 }
 
 class MediatorPattern : public Example
 {
+private:
+	_MediatorPattern::ChatRoom chatRoom;
+	_MediatorPattern::Colleague* user01 = nullptr;
+	_MediatorPattern::Colleague* user02 = nullptr;
+	_MediatorPattern::Colleague* user03 = nullptr;
+	_MediatorPattern::Colleague* user04 = nullptr;
+
 public:
 	MediatorPattern();
 	~MediatorPattern();
 
-	void OnUpdate(float delta) override;
-
-private:
-	_MediatorPattern::ChatRoom chat_room;
-	_MediatorPattern::Colleague* user_1 = nullptr;
-	_MediatorPattern::Colleague* user_2 = nullptr;
-	_MediatorPattern::Colleague* user_3 = nullptr;
-	_MediatorPattern::Colleague* user_4 = nullptr;
-
+	void OnUpdate(float) override;
 };
 
 #endif

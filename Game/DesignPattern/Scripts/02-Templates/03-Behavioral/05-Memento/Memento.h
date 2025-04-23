@@ -13,13 +13,20 @@ namespace _MementoPattern
 	public:
 		virtual ~Serializable() = default;
 
-		virtual cJSON* dump() = 0;
-		virtual void Load(const cJSON* json) = 0;
-
+		virtual cJSON* Dump() = 0;
+		virtual void Load(const cJSON*) = 0;
 	};
 
 	class Player : public Serializable
 	{
+	private:
+		Atlas atlas;
+		Vector2 position;
+		Animation animation;
+		bool isFacingRight = true;
+		bool isMoveUp = false, isMoveDown = false;
+		bool isMoveLeft = false, isMoveRight = false;
+
 	public:
 		Player()
 		{
@@ -34,26 +41,26 @@ namespace _MementoPattern
 
 		~Player() = default;
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			switch (event->type)
+			switch (_event->type)
 			{
 			case SDL_KEYDOWN:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
 				case SDLK_UP:		isMoveUp = true;		break;
-				case SDLK_DOWN:		isMoveDown = true;	break;
-				case SDLK_LEFT:		isMoveLeft = true;	break;
-				case SDLK_RIGHT:	isMoveRight = true;	break;
+				case SDLK_DOWN:		isMoveDown = true;		break;
+				case SDLK_LEFT:		isMoveLeft = true;		break;
+				case SDLK_RIGHT:	isMoveRight = true;		break;
 				default: break;
 				}
 				break;
 			case SDL_KEYUP:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
 				case SDLK_UP:		isMoveUp = false;		break;
-				case SDLK_DOWN:		isMoveDown = false;	break;
-				case SDLK_LEFT:		isMoveLeft = false;	break;
+				case SDLK_DOWN:		isMoveDown = false;		break;
+				case SDLK_LEFT:		isMoveLeft = false;		break;
 				case SDLK_RIGHT:	isMoveRight = false;	break;
 				default: break;
 				}
@@ -62,79 +69,73 @@ namespace _MementoPattern
 			}
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			static const float speed = 2.0f;
-			Vector2 direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
-			if (std::abs(direction.x) > 0.0001f)
-				isFacingRight = direction.x > 0;
-			position = position + direction * speed;
+			static const float _speed = 2.0f;
+			Vector2 _direction = Vector2((float)(isMoveRight - isMoveLeft), (float)(isMoveDown - isMoveUp)).Normalize();
+			if (std::abs(_direction.x) > 0.0001f)
+				isFacingRight = _direction.x > 0;
+			position = position + _direction * _speed;
 
 			if (position.y < 120) position.y = 120;
 			if (position.y > 384) position.y = 384;
 			if (position.x < 0) position.x = 0;
 			if (position.x > 384) position.x = 384;
 
-			animation.OnUpdate(delta);
+			animation.OnUpdate(_delta);
 			animation.SetPosition(position);
 			animation.SetFlip(isFacingRight ? SDL_RendererFlip::SDL_FLIP_NONE : SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			SDL_FRect rect = { position.x - 16, position.y + 30, 32, 20 };
-			SDL_RenderCopyF(renderer, ResourcesManager::Instance()->FindTexture("shadow_player"), nullptr, &rect);
+			SDL_FRect _rect = { position.x - 16, position.y + 30, 32, 20 };
+			SDL_RenderCopyF(_renderer, ResourcesManager::Instance()->FindTexture("shadow_player"), nullptr, &_rect);
 
-			animation.OnRender(renderer);
+			animation.OnRender(_renderer);
 		}
 
-		cJSON* dump() override
+		cJSON* Dump() override
 		{
-			cJSON* json_root = cJSON_CreateObject();
+			cJSON* _jsonRoot = cJSON_CreateObject();
 
-			cJSON* json_position = cJSON_AddObjectToObject(json_root, "position");
-			cJSON_AddNumberToObject(json_position, "x", position.x);
-			cJSON_AddNumberToObject(json_position, "y", position.y);
+			cJSON* _jsonPosition = cJSON_AddObjectToObject(_jsonRoot, "position");
+			cJSON_AddNumberToObject(_jsonPosition, "x", position.x);
+			cJSON_AddNumberToObject(_jsonPosition, "y", position.y);
 
-			cJSON_AddBoolToObject(json_root, "facing_right", isFacingRight);
+			cJSON_AddBoolToObject(_jsonRoot, "facing_right", isFacingRight);
 
-			return json_root;
+			return _jsonRoot;
 		}
 
-		void Load(const cJSON* json) override
+		void Load(const cJSON* _json) override
 		{
-			cJSON* json_position = cJSON_GetObjectItem(json, "position");
-			position.x = (float)cJSON_GetObjectItem(json_position, "x")->valuedouble;
-			position.y = (float)cJSON_GetObjectItem(json_position, "y")->valuedouble;
+			cJSON* _jsonPosition = cJSON_GetObjectItem(_json, "position");
+			position.x = (float)cJSON_GetObjectItem(_jsonPosition, "x")->valuedouble;
+			position.y = (float)cJSON_GetObjectItem(_jsonPosition, "y")->valuedouble;
 
-			isFacingRight = cJSON_GetObjectItem(json, "facing_right")->valueint;
+			isFacingRight = cJSON_GetObjectItem(_json, "facing_right")->valueint;
 		}
-
-	private:
-		Atlas atlas;
-		Vector2 position;
-		Animation animation;
-		bool isFacingRight = true;
-		bool isMoveUp = false, isMoveDown = false;
-		bool isMoveLeft = false, isMoveRight = false;
-
 	};
 
 	class Switch : public Serializable
 	{
+	private:
+		bool isOpened = false;
+
 	public:
 		Switch() = default;
 		~Switch() = default;
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			switch (event->type)
+			switch (_event->type)
 			{
 			case SDL_KEYDOWN:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
 				case SDLK_SPACE: 
-					is_opened = !is_opened; 
+					isOpened = !isOpened; 
 					Mix_PlayChannel(-1, ResourcesManager::Instance()->FindAudio("switch"), 0);
 					break;
 				default: break;
@@ -144,51 +145,46 @@ namespace _MementoPattern
 			}
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			static const SDL_FRect rect = { 215, 250, 122, 88 };
-			SDL_RenderCopyF(renderer, ResourcesManager::Instance()
-				->FindTexture(is_opened ? "bar_opened" : "bar_closed"), nullptr, &rect);
+			static const SDL_FRect _rect = { 215, 250, 122, 88 };
+			SDL_RenderCopyF(_renderer, ResourcesManager::Instance()
+				->FindTexture(isOpened ? "bar_opened" : "bar_closed"), nullptr, &_rect);
 		}
 
-		cJSON* dump() override
+		cJSON* Dump() override
 		{
-			cJSON* json_root = cJSON_CreateObject();
-			cJSON_AddBoolToObject(json_root, "opened", is_opened);
-			return json_root;
+			cJSON* _jsonRoot = cJSON_CreateObject();
+			cJSON_AddBoolToObject(_jsonRoot, "opened", isOpened);
+			return _jsonRoot;
 		}
 
-		void Load(const cJSON* json) override
+		void Load(const cJSON* _json) override
 		{
-			cJSON* json_position = cJSON_GetObjectItem(json, "position");
-			is_opened = cJSON_GetObjectItem(json, "opened")->valueint;
+			cJSON* _jsonPosition = cJSON_GetObjectItem(_json, "position");
+			isOpened = cJSON_GetObjectItem(_json, "opened")->valueint;
 		}
-
-	private:
-		bool is_opened = false;
-
 	};
 }
 
 class MementoPattern : public Example
 {
-public:
-	MementoPattern(SDL_Renderer* renderer);
-	~MementoPattern();
-
-	void OnInput(const SDL_Event* event) override;
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	_MementoPattern::Player player;
-	_MementoPattern::Switch _switch;
+	_MementoPattern::Switch mySwitch;
 	SDL_Texture* textureTarget = nullptr;
 
-private:
-	void load_scene();
-	void dump_scene();
+public:
+	MementoPattern(SDL_Renderer*);
+	~MementoPattern();
 
+	void OnInput(const SDL_Event*) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
+
+private:
+	void LoadScene();
+	void DumpScene();
 };
 
 #endif

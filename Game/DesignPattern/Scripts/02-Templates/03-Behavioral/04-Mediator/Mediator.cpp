@@ -5,9 +5,9 @@
 
 using namespace _MediatorPattern;
 
-void User::OnUpdate(float delta)
+void User::OnUpdate(float _delta)
 {
-	animation.OnUpdate(delta);
+	animation.OnUpdate(_delta);
 
 	ImGui::Dummy({ 0, 10 });
 	ImGui::Text(u8"´óÌüÍæ¼Ò [%d]£º", id);
@@ -15,14 +15,14 @@ void User::OnUpdate(float delta)
 	ImGui::SameLine();
 	{
 		ImGui::BeginGroup();
-		ImGui::InputTextMultiline((u8"##chat" + std::to_string(id)).c_str(), &str_chat_buffer, { ImGui::GetContentRegionAvail().x, 100}, ImGuiInputTextFlags_ReadOnly);
+		ImGui::InputTextMultiline((u8"##chat" + std::to_string(id)).c_str(), &strChatBuffer, { ImGui::GetContentRegionAvail().x, 100}, ImGuiInputTextFlags_ReadOnly);
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x - 100);
-		ImGui::InputText((u8"##input" + std::to_string(id)).c_str(), &str_input_buffer); ImGui::SameLine();
-		ImGui::BeginDisabled(str_input_buffer.empty());
+		ImGui::InputText((u8"##input" + std::to_string(id)).c_str(), &strInputBuffer); ImGui::SameLine();
+		ImGui::BeginDisabled(strInputBuffer.empty());
 		if (ImGui::Button((u8"·¢ËÍ##" + std::to_string(id)).c_str(), { ImGui::GetContentRegionAvail().x, 0}))
 		{
-			send(str_input_buffer);
-			str_input_buffer.clear();
+			Send(strInputBuffer);
+			strInputBuffer.clear();
 		}
 		ImGui::EndDisabled();
 		ImGui::EndGroup();
@@ -31,27 +31,29 @@ void User::OnUpdate(float delta)
 
 MediatorPattern::MediatorPattern()
 {
-	user_1 = new User(&chat_room, "Swordsman_Blue_0%d");
-	user_2 = new User(&chat_room, "Swordsman_Green_0%d");
-	user_3 = new User(&chat_room, "Swordsman_Purple_0%d");
-	user_4 = new User(&chat_room, "Swordsman_Red_0%d");
+	user01 = new User(&chatRoom, "Swordsman_Blue_0%d");
+	user02 = new User(&chatRoom, "Swordsman_Green_0%d");
+	user03 = new User(&chatRoom, "Swordsman_Purple_0%d");
+	user04 = new User(&chatRoom, "Swordsman_Red_0%d");
 
-	chat_room.add_colleague(user_1);
-	chat_room.add_colleague(user_2);
-	chat_room.add_colleague(user_3);
-	chat_room.add_colleague(user_4);
+	chatRoom.AddColleague(user01);
+	chatRoom.AddColleague(user02);
+	chatRoom.AddColleague(user03);
+	chatRoom.AddColleague(user04);
 }
 
 MediatorPattern::~MediatorPattern()
 {
-	delete user_1; delete user_2;
-	delete user_3; delete user_4;
+	delete user01;
+	delete user02;
+	delete user03;
+	delete user04;
 }
 
-void MediatorPattern::OnUpdate(float delta)
+void MediatorPattern::OnUpdate(float _delta)
 {
-	user_1->OnUpdate(delta);
-	user_2->OnUpdate(delta);
-	user_3->OnUpdate(delta);
-	user_4->OnUpdate(delta);
+	user01->OnUpdate(_delta);
+	user02->OnUpdate(_delta);
+	user03->OnUpdate(_delta);
+	user04->OnUpdate(_delta);
 }
