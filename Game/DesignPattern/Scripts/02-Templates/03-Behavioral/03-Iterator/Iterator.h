@@ -32,7 +32,7 @@ namespace _IteratorPattern
 		Item() = default;
 		virtual ~Item() = default;
 
-		const std::string& get_name() const { return name; }
+		const std::string& GetName() const { return name; }
 		Type get_type() const { return type; } 
 		Grade get_grade() const { return grade; }
 		SDL_Texture* GetTexture() const { return texture; }

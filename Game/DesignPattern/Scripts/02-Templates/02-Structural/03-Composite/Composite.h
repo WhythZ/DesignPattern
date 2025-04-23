@@ -14,178 +14,172 @@ namespace _CompositePattern
 	public:
 		using NodeList = std::vector<Node*>;
 
+	protected:
+		std::string name;
+		Vector2 position;
+		Vector2 worldPosition;
+
+		NodeList childList;
+		Node* parent = nullptr;
+
+		SDL_Texture* textureIcon = nullptr;
+
 	public:
 		Node()
 		{
 			name = "Node";
-			texture_icon = ResourcesManager::Instance()->findTexture("icon-node");
+			textureIcon = ResourcesManager::Instance()->findTexture("icon-node");
 		}
 
 		virtual ~Node()
 		{
-			for (Node* child : child_list)
-				delete child;
+			for (Node* _child : childList)
+				delete _child;
 		}
 
-		virtual void on_inspect();
-		virtual void OnUpdate(float delta);
-		virtual void OnRender(SDL_Renderer* renderer);
+		virtual void OnInspect();
+		virtual void OnUpdate(float);
+		virtual void OnRender(SDL_Renderer*);
 
-		Node* get_parent() const
+		Node* GetParent() const
 		{
 			return parent;
 		}
 
-		void set_name(const std::string& name)
+		void SetName(const std::string&)
 		{
-			this->name = name;
+			name = name;
 		}
 
-		const std::string& get_name() const
+		const std::string& GetName() const
 		{
 			return name;
 		}
 
-		void SetPosition(const Vector2& position)
+		void SetPosition(const Vector2& _position)
 		{
-			this->position = position;
+			this->position = _position;
 		}
 
-		const Vector2& get_position() const
+		const Vector2& GetPosition() const
 		{
-			return world_position;
+			return worldPosition;
 		}
 
-		SDL_Texture* get_icon() const
+		SDL_Texture* GetIcon() const
 		{
-			return texture_icon;
+			return textureIcon;
 		}
 
-		void add_child(Node* child)
+		void AddChild(Node* _child)
 		{
-			child->parent = this;
-			child_list.push_back(child);
+			_child->parent = this;
+			childList.push_back(_child);
 		}
 
-		void del_child(Node* child)
+		void DelChild(Node* _child)
 		{
-			child_list.erase(std::remove(child_list.begin(),
-				child_list.end(), child), child_list.end());
+			childList.erase(std::remove(childList.begin(), childList.end(), _child), childList.end());
 		}
 
-		NodeList& get_child_list()
+		NodeList& GetChildList()
 		{
-			return child_list;
+			return childList;
 		}
-
-	protected:
-		std::string name;
-		Vector2 position;
-		Vector2 world_position;
-
-		NodeList child_list;
-		Node* parent = nullptr;
-
-		SDL_Texture* texture_icon = nullptr;
-
 	};
 
 	class TextureNode : public Node
 	{
+	private:
+		Vector2 size;
+		float rotation = 0;
+		int textureIdx = 0;
+		SDL_Texture* texture = nullptr;
+
 	public:
 		TextureNode() 
 		{ 
 			name = "TextureNode";
-			texture_icon = ResourcesManager::Instance()->findTexture("icon-texture");
+			textureIcon = ResourcesManager::Instance()->findTexture("icon-texture");
 		}
 		~TextureNode();
 
-		void on_inspect() override;
-		void OnRender(SDL_Renderer* renderer) override;
+		void OnInspect() override;
+		void OnRender(SDL_Renderer*) override;
 
-		void set_texture(SDL_Texture* texture);
-
-	private:
-		Vector2 size;
-		float rotation = 0;
-		int idx_texture = 0;
-		SDL_Texture* texture = nullptr;
+		void SetTexture(SDL_Texture*);
 
 	private:
-		void update_size();
-
+		void UpdateSize();
 	};
 
 	class TextNode : public Node
 	{
+	private:
+		Vector2 size;
+		int fontSize = 35;
+		bool needUpdate = true;
+		std::string text = u8"文本节点";
+		SDL_Texture* textureText = nullptr;
+		float colorText[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 	public:
 		TextNode() 
 		{ 
 			name = "TextNode"; 
-			texture_icon = ResourcesManager::Instance()->findTexture("icon-text");
+			textureIcon = ResourcesManager::Instance()->findTexture("icon-text");
 		}
 		~TextNode() = default;
 
-		void on_inspect() override;
-		void OnRender(SDL_Renderer* renderer) override;
+		void OnInspect() override;
+		void OnRender(SDL_Renderer*) override;
 
-		void set_font_size(int font_size);
-		void set_text(const std::string& text);
-
-	private:
-		Vector2 size;
-		int font_size = 35;
-		bool need_update = true;
-		std::string text = u8"文本节点";
-		SDL_Texture* texture_text = nullptr;
-		float color_text[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		void SetFontSize(int);
+		void SetText(const std::string&);
 
 	private:
-		void update_texture_text(SDL_Renderer* renderer);
-
+		void UpdateTextureText(SDL_Renderer*);
 	};
 
 	class AudioNode : public Node
 	{
+	private:
+		int audioIdx = 0;
+		std::string audioID;
+
 	public:
 		AudioNode()
 		{ 
 			name = "AudioNode";
-			texture_icon = ResourcesManager::Instance()->findTexture("icon-audio");
+			textureIcon = ResourcesManager::Instance()->findTexture("icon-audio");
 		}
 		~AudioNode() = default;
 
-		void on_inspect() override;
+		void OnInspect() override;
 
-		void set_audio(Mix_Chunk* audio);
-
-	private:
-		int idx_audio = 0;
-		std::string id_audio;
-
+		void SetAudio(Mix_Chunk* audio);
 	};
 }
 
 class CompositePattern : public Example
 {
+private:
+	bool needShowPopup = false;
+	SDL_Texture* textureTarget = nullptr;
+	_CompositePattern::Node* worldTree = nullptr;
+	_CompositePattern::Node* nodeSelected = nullptr;
+
 public:
-	CompositePattern(SDL_Renderer* renderer);
+	CompositePattern(SDL_Renderer*);
 	~CompositePattern();
 
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 
 private:
-	bool need_show_popup = false;
-	SDL_Texture* textureTarget = nullptr;
-	_CompositePattern::Node* world_tree = nullptr;
-	_CompositePattern::Node* node_selected = nullptr;
-
-private:
-	void init_world_tree();
-	void render_tree_view(_CompositePattern::Node* node);
-	bool render_menu_item(SDL_Texture* texture, const char* text);
-
+	void InitWorldTree();
+	void RenderTreeView(_CompositePattern::Node*);
+	bool RenderMenuItem(SDL_Texture*, const char*);
 };
 
 #endif

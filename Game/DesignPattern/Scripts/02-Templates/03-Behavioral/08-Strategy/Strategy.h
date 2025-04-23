@@ -114,7 +114,7 @@ namespace _StrategyPattern
 			animation.OnRender(renderer);
 		}
 
-		const Vector2& get_position() const
+		const Vector2& GetPosition() const
 		{
 			return position;
 		}
@@ -155,12 +155,12 @@ namespace _StrategyPattern
 
 		void OnUpdate(float delta)
 		{
-			if (moveStrategy->need_stop(player->get_position(), position))
+			if (moveStrategy->need_stop(player->GetPosition(), position))
 				currentAnimation = &animationIdle;
 			else
 			{
 				static const float speed = 1.0f;
-				const Vector2 move_dir = moveStrategy->cal_direction(player->get_position(), position);
+				const Vector2 move_dir = moveStrategy->cal_direction(player->GetPosition(), position);
 				if (std::abs(move_dir.x) > 0.0001f) isFacingRight = move_dir.x > 0;
 				position = position + move_dir * speed;
 				currentAnimation = &animationRun;

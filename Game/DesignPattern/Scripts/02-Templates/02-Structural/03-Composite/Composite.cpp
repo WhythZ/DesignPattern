@@ -5,15 +5,15 @@
 
 using namespace _CompositePattern;
 
-static bool combo_getter(void* data, int n, const char** out_str)
+static bool ComboGetter(void* _data, int _n, const char** _outStr)
 {
-	ResourcesManager::ResIDList* id_list = (ResourcesManager::ResIDList*)data;
-	*out_str = (*id_list)[n].c_str();
+	ResourcesManager::ResIDList* id_list = (ResourcesManager::ResIDList*)_data;
+	*_outStr = (*id_list)[_n].c_str();
 
 	return true;
 }
 
-void Node::on_inspect()
+void Node::OnInspect()
 {
 	ImGui::TextDisabled(u8"空节点");
 
@@ -33,19 +33,19 @@ void Node::on_inspect()
 	ImGui::Columns(1);
 }
 
-void _CompositePattern::Node::OnUpdate(float delta)
+void _CompositePattern::Node::OnUpdate(float _delta)
 {
-	if (get_parent())
-		world_position = get_parent()->get_position() + position;
+	if (GetParent())
+		worldPosition = GetParent()->GetPosition() + position;
 
-	for (Node* child : child_list)
-		child->OnUpdate(delta);
+	for (Node* _child : childList)
+		_child->OnUpdate(_delta);
 }
 
-void _CompositePattern::Node::OnRender(SDL_Renderer* renderer)
+void _CompositePattern::Node::OnRender(SDL_Renderer* _renderer)
 {
-	for (Node* child : child_list)
-		child->OnRender(renderer);
+	for (Node* _child : childList)
+		_child->OnRender(_renderer);
 }
 
 _CompositePattern::TextureNode::~TextureNode()
@@ -53,9 +53,9 @@ _CompositePattern::TextureNode::~TextureNode()
 	SDL_DestroyTexture(texture);
 }
 
-void TextureNode::on_inspect()
+void TextureNode::OnInspect()
 {
-	Node::on_inspect();
+	Node::OnInspect();
 
 	ImGui::Separator();
 
@@ -66,11 +66,11 @@ void TextureNode::on_inspect()
 
 	ImGui::TextUnformatted(u8"纹理："); ImGui::NextColumn(); 
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getTextureResIDList();
-	if (ImGui::Combo("##纹理", &idx_texture, &combo_getter, (void*)(&resid_list), (int)resid_list.size()))
+	const ResourcesManager::ResIDList& _residList = ResourcesManager::Instance()->getTextureResIDList();
+	if (ImGui::Combo("##纹理", &textureIdx, &ComboGetter, (void*)(&_residList), (int)_residList.size()))
 	{
-		texture = ResourcesManager::Instance()->findTexture(resid_list[idx_texture]);
-		update_size();
+		texture = ResourcesManager::Instance()->findTexture(_residList[textureIdx]);
+		UpdateSize();
 	}
 	ImGui::NextColumn();
 
@@ -87,41 +87,41 @@ void TextureNode::on_inspect()
 	ImGui::Columns(1);
 }
 
-void TextureNode::OnRender(SDL_Renderer* renderer)
+void TextureNode::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_FRect rect = { world_position.x, world_position.y, size.x, size.y };
-	SDL_RenderCopyExF(renderer, texture, nullptr, &rect, rotation, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+	SDL_FRect _rect = { worldPosition.x, worldPosition.y, size.x, size.y };
+	SDL_RenderCopyExF(_renderer, texture, nullptr, &_rect, rotation, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 
-	Node::OnRender(renderer);
+	Node::OnRender(_renderer);
 }
 
-void TextureNode::set_texture(SDL_Texture* texture)
+void TextureNode::SetTexture(SDL_Texture* _texture)
 {
-	this->texture = texture;
+	texture = _texture;
 
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getTextureResIDList();
-	for (int i = 0; i < resid_list.size(); i++)
+	const ResourcesManager::ResIDList& _residList = ResourcesManager::Instance()->getTextureResIDList();
+	for (int i = 0; i < _residList.size(); i++)
 	{
-		if (texture == ResourcesManager::Instance()->findTexture(resid_list[i]))
+		if (_texture == ResourcesManager::Instance()->findTexture(_residList[i]))
 		{
-			idx_texture = i;
+			textureIdx = i;
 			break;
 		}
 	}
 
-	update_size();
+	UpdateSize();
 }
 
-void TextureNode::update_size()
+void TextureNode::UpdateSize()
 {
-	int w, h;
-	SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
-	size = { (float)w, (float)h };
+	int _w, _h;
+	SDL_QueryTexture(texture, nullptr, nullptr, &_w, &_h);
+	size = { (float)_w, (float)_h };
 }
 
-void TextNode::on_inspect()
+void TextNode::OnInspect()
 {
-	Node::on_inspect();
+	Node::OnInspect();
 
 	ImGui::Separator();
 
@@ -133,19 +133,19 @@ void TextNode::on_inspect()
 	ImGui::TextUnformatted(u8"文本："); ImGui::NextColumn();
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
 	if (ImGui::InputText(u8"##文本", &text))
-		need_update = true;
+		needUpdate = true;
 	ImGui::NextColumn();
 
 	ImGui::TextUnformatted(u8"颜色："); ImGui::NextColumn();
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	if (ImGui::ColorEdit4(u8"##颜色", color_text, ImGuiColorEditFlags_AlphaPreview))
-		need_update = true;
+	if (ImGui::ColorEdit4(u8"##颜色", colorText, ImGuiColorEditFlags_AlphaPreview))
+		needUpdate = true;
 	ImGui::NextColumn();
 
 	ImGui::TextUnformatted(u8"字号："); ImGui::NextColumn();
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	if (ImGui::DragInt(u8"##字号", &font_size, 1.0f, 10, 500, "%d px", ImGuiSliderFlags_AlwaysClamp))
-		need_update = true;
+	if (ImGui::DragInt(u8"##字号", &fontSize, 1.0f, 10, 500, "%d px", ImGuiSliderFlags_AlwaysClamp))
+		needUpdate = true;
 	ImGui::NextColumn();
 
 	ImGui::TextUnformatted(u8"尺寸："); ImGui::NextColumn();
@@ -156,53 +156,53 @@ void TextNode::on_inspect()
 	ImGui::Columns(1);
 }
 
-void TextNode::OnRender(SDL_Renderer* renderer)
+void TextNode::OnRender(SDL_Renderer* _renderer)
 {
-	if (need_update)
+	if (needUpdate)
 	{
-		update_texture_text(renderer);
-		need_update = false;
+		UpdateTextureText(_renderer);
+		needUpdate = false;
 	}
 
-	SDL_FRect rect = { world_position.x, world_position.y, size.x, size.y };
-	SDL_RenderCopyF(renderer, texture_text, nullptr, &rect);
+	SDL_FRect rect = { worldPosition.x, worldPosition.y, size.x, size.y };
+	SDL_RenderCopyF(_renderer, textureText, nullptr, &rect);
 
-	Node::OnRender(renderer);
+	Node::OnRender(_renderer);
 }
 
-void _CompositePattern::TextNode::set_font_size(int font_size)
+void _CompositePattern::TextNode::SetFontSize(int _fontSize)
 {
-	this->font_size = font_size;
-	need_update = true;
+	this->fontSize = _fontSize;
+	needUpdate = true;
 }
 
-void TextNode::set_text(const std::string& text)
+void TextNode::SetText(const std::string& _text)
 {
-	this->text = text;
-	need_update = true;
+	text = _text;
+	needUpdate = true;
 }
 
-void TextNode::update_texture_text(SDL_Renderer* renderer)
+void TextNode::UpdateTextureText(SDL_Renderer* _renderer)
 {
-	SDL_DestroyTexture(texture_text); texture_text = nullptr;
+	SDL_DestroyTexture(textureText); textureText = nullptr;
 
-	SDL_Color color =
+	SDL_Color _color =
 	{
-		(Uint8)(color_text[0] * 255), (Uint8)(color_text[1] * 255),
-		(Uint8)(color_text[2] * 255), (Uint8)(color_text[3] * 255)
+		(Uint8)(colorText[0] * 255), (Uint8)(colorText[1] * 255),
+		(Uint8)(colorText[2] * 255), (Uint8)(colorText[3] * 255)
 	};
-	SDL_Surface* surface = TTF_RenderUTF8_Blended(ResourcesManager::Instance()
-		->findFont("SarasaMonoSC-Regular")->GetFont(font_size), text.c_str(), color);
-	if (!surface) { size = { 0, 0 }; return; }
+	SDL_Surface* _surface = TTF_RenderUTF8_Blended(ResourcesManager::Instance()
+		->findFont("SarasaMonoSC-Regular")->GetFont(fontSize), text.c_str(), _color);
+	if (!_surface) { size = { 0, 0 }; return; }
 
-	texture_text = SDL_CreateTextureFromSurface(renderer, surface);
-	size = { (float)surface->w, (float)surface->h };
-	SDL_FreeSurface(surface);
+	textureText = SDL_CreateTextureFromSurface(_renderer, _surface);
+	size = { (float)_surface->w, (float)_surface->h };
+	SDL_FreeSurface(_surface);
 }
 
-void AudioNode::on_inspect()
+void AudioNode::OnInspect()
 {
-	Node::on_inspect();
+	Node::OnInspect();
 
 	ImGui::Separator();
 
@@ -213,55 +213,56 @@ void AudioNode::on_inspect()
 
 	ImGui::TextUnformatted(u8"音频："); ImGui::NextColumn();
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getAudioResIDList();
-	ImGui::Combo("##音频", &idx_audio, &combo_getter, (void*)(&resid_list), (int)resid_list.size());
+	const ResourcesManager::ResIDList& _residList = ResourcesManager::Instance()->getAudioResIDList();
+	ImGui::Combo("##音频", &audioIdx, &ComboGetter, (void*)(&_residList), (int)_residList.size());
 	ImGui::NextColumn();
 
 	ImGui::TextUnformatted(u8"播放："); ImGui::NextColumn();
-	static const ImVec2 size_btn = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
-	if (ImGui::ImageButton(ResourcesManager::Instance()->findTexture("icon-play"), size_btn))
-		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio(ResourcesManager::Instance()->getAudioResIDList()[idx_audio]), 0);
+	static const ImVec2 _btnSize = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
+	if (ImGui::ImageButton(ResourcesManager::Instance()->findTexture("icon-play"), _btnSize))
+		Mix_PlayChannel(-1, ResourcesManager::Instance()->findAudio(ResourcesManager::Instance()->getAudioResIDList()[audioIdx]), 0);
 	ImGui::NextColumn();
 
 	ImGui::Columns(1);
 }
 
-void _CompositePattern::AudioNode::set_audio(Mix_Chunk* audio)
+void _CompositePattern::AudioNode::SetAudio(Mix_Chunk* audio)
 {
-	const ResourcesManager::ResIDList& resid_list = ResourcesManager::Instance()->getAudioResIDList();
-	for (int i = 0; i < resid_list.size(); i++)
+	const ResourcesManager::ResIDList& _residList = ResourcesManager::Instance()->getAudioResIDList();
+	for (int _i = 0; _i < _residList.size(); _i++)
 	{
-		if (audio == ResourcesManager::Instance()->findAudio(resid_list[i]))
+		if (audio == ResourcesManager::Instance()->findAudio(_residList[_i]))
 		{
-			idx_audio = i;
+			audioIdx = _i;
 			break;
 		}
 	}
 }
 
-CompositePattern::CompositePattern(SDL_Renderer* renderer)
+CompositePattern::CompositePattern(SDL_Renderer* _renderer)
 {
-	init_world_tree();
+	InitWorldTree();
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 470, 450);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 470, 450);
 }
 
 CompositePattern::~CompositePattern()
 {
-	delete world_tree;
+	delete worldTree;
 	SDL_DestroyTexture(textureTarget);
 }
 
-void CompositePattern::OnUpdate(float delta)
+void CompositePattern::OnUpdate(float _delta)
 {
-	world_tree->OnUpdate(delta);
+	worldTree->OnUpdate(_delta);
 
 	{
 		ImGui::BeginChild("tree_view", { 250, ImGui::GetContentRegionAvail().y }, 
 			ImGuiChildFlags_Border, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
-		render_tree_view(world_tree);
+		RenderTreeView(worldTree);
 		ImGui::EndChild();
 	}
+
 	ImGui::SameLine();
 	{
 		ImGui::BeginGroup();
@@ -272,40 +273,40 @@ void CompositePattern::OnUpdate(float delta)
 		}
 		{
 			ImGui::BeginChild("inspector", ImGui::GetContentRegionAvail(), ImGuiChildFlags_Border);
-			if (node_selected) node_selected->on_inspect();
+			if (nodeSelected) nodeSelected->OnInspect();
 			ImGui::EndChild();
 		}
 		ImGui::EndGroup();
 	}
 
-	if (need_show_popup)
+	if (needShowPopup)
 	{
 		ImGui::OpenPopup("context menu");
-		need_show_popup = false;
+		needShowPopup = false;
 	}
 
 	if (ImGui::BeginPopup("context menu"))
 	{
 		if (ImGui::BeginMenu(u8"添加节点"))
 		{
-			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-node"), u8"空节点"))
-				node_selected->add_child(new Node());
-			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-texture"), u8"纹理节点"))
-				node_selected->add_child(new TextureNode());
-			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-text"), u8"文本节点"))
-				node_selected->add_child(new TextNode());
-			if (render_menu_item(ResourcesManager::Instance()->findTexture("icon-audio"), u8"音频节点"))
-				node_selected->add_child(new AudioNode());
+			if (RenderMenuItem(ResourcesManager::Instance()->findTexture("icon-node"), u8"空节点"))
+				nodeSelected->AddChild(new Node());
+			if (RenderMenuItem(ResourcesManager::Instance()->findTexture("icon-texture"), u8"纹理节点"))
+				nodeSelected->AddChild(new TextureNode());
+			if (RenderMenuItem(ResourcesManager::Instance()->findTexture("icon-text"), u8"文本节点"))
+				nodeSelected->AddChild(new TextNode());
+			if (RenderMenuItem(ResourcesManager::Instance()->findTexture("icon-audio"), u8"音频节点"))
+				nodeSelected->AddChild(new AudioNode());
 			ImGui::EndMenu();
 		}
 
-		ImGui::BeginDisabled(node_selected && !node_selected->get_parent());
+		ImGui::BeginDisabled(nodeSelected && !nodeSelected->GetParent());
 		if (ImGui::MenuItem(u8"删除节点"))
 		{
-			if (node_selected && node_selected->get_parent())
+			if (nodeSelected && nodeSelected->GetParent())
 			{
-				node_selected->get_parent()->del_child(node_selected);
-				delete node_selected; node_selected = nullptr;
+				nodeSelected->GetParent()->DelChild(nodeSelected);
+				delete nodeSelected; nodeSelected = nullptr;
 			}
 		}
 		ImGui::EndDisabled();
@@ -314,137 +315,137 @@ void CompositePattern::OnUpdate(float delta)
 	}
 }
 
-void CompositePattern::OnRender(SDL_Renderer* renderer)
+void CompositePattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 65, 65, 65, 255);
+	SDL_RenderClear(_renderer);
 
-	world_tree->OnRender(renderer);
+	worldTree->OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }
 
-void CompositePattern::init_world_tree()
+void CompositePattern::InitWorldTree()
 {
-	world_tree = new Node();
-	world_tree->set_name(u8"世界树");
+	worldTree = new Node();
+	worldTree->SetName(u8"世界树");
 	{
-		AudioNode* node_audio = new AudioNode();
-		node_audio->set_name(u8"背景音乐");
-		node_audio->set_audio(ResourcesManager::Instance()->findAudio("bgm"));
-		world_tree->add_child(node_audio);
+		AudioNode* _nodeAudio = new AudioNode();
+		_nodeAudio->SetName(u8"背景音乐");
+		_nodeAudio->SetAudio(ResourcesManager::Instance()->findAudio("bgm"));
+		worldTree->AddChild(_nodeAudio);
 	}
 	{
-		Node* node_brave = new Node();
-		node_brave->set_name(u8"勇者");
-		node_brave->SetPosition({ 75, 125 });
+		Node* _nodeBrave = new Node();
+		_nodeBrave->SetName(u8"勇者");
+		_nodeBrave->SetPosition({ 75, 125 });
 		{
-			TextureNode* node_texture = new TextureNode();
-			node_texture->set_name(u8"动画静帧");
-			node_texture->set_texture(ResourcesManager::Instance()->findTexture("brave"));
-			node_brave->add_child(node_texture);
+			TextureNode* _nodeTexture = new TextureNode();
+			_nodeTexture->SetName(u8"动画静帧");
+			_nodeTexture->SetTexture(ResourcesManager::Instance()->findTexture("brave"));
+			_nodeBrave->AddChild(_nodeTexture);
 
-			TextNode* node_text = new TextNode();
-			node_text->set_name(u8"你的名字");
-			node_text->SetPosition({ -10, 155 });
-			node_text->set_font_size(20);
-			node_text->set_text(u8"- 芝士勇者 -");
-			node_brave->add_child(node_text);
+			TextNode* _nodeText = new TextNode();
+			_nodeText->SetName(u8"你的名字");
+			_nodeText->SetPosition({ -10, 155 });
+			_nodeText->SetFontSize(20);
+			_nodeText->SetText(u8"- 芝士勇者 -");
+			_nodeBrave->AddChild(_nodeText);
 
-			AudioNode* node_audio = new AudioNode();
-			node_audio->set_name(u8"私人笑声");
-			node_audio->set_audio(ResourcesManager::Instance()->findAudio("manbo"));
-			node_brave->add_child(node_audio);
+			AudioNode* _nodeAudio = new AudioNode();
+			_nodeAudio->SetName(u8"私人笑声");
+			_nodeAudio->SetAudio(ResourcesManager::Instance()->findAudio("manbo"));
+			_nodeBrave->AddChild(_nodeAudio);
 		}
-		world_tree->add_child(node_brave);
+		worldTree->AddChild(_nodeBrave);
 	}
 	{
-		Node* node_ice_sword = new Node();
-		node_ice_sword->set_name(u8"寒冰大剑");
-		node_ice_sword->SetPosition({ 300, 120 });
+		Node* _nodeIceSword = new Node();
+		_nodeIceSword->SetName(u8"寒冰大剑");
+		_nodeIceSword->SetPosition({ 300, 120 });
 		{
-			TextureNode* node_texture = new TextureNode();
-			node_texture->set_name(u8"冰剑");
-			node_texture->set_texture(ResourcesManager::Instance()->findTexture("BlueSword"));
-			node_ice_sword->add_child(node_texture);
+			TextureNode* _nodeTexture = new TextureNode();
+			_nodeTexture->SetName(u8"冰剑");
+			_nodeTexture->SetTexture(ResourcesManager::Instance()->findTexture("BlueSword"));
+			_nodeIceSword->AddChild(_nodeTexture);
 
-			TextNode* node_text = new TextNode();
-			node_text->set_name(u8"剑名");
-			node_text->SetPosition({ -40, 65 });
-			node_text->set_font_size(15);
-			node_text->set_text(u8"稀有 寒冰大剑");
-			node_ice_sword->add_child(node_text);
+			TextNode* _nodeText = new TextNode();
+			_nodeText->SetName(u8"剑名");
+			_nodeText->SetPosition({ -40, 65 });
+			_nodeText->SetFontSize(15);
+			_nodeText->SetText(u8"稀有 寒冰大剑");
+			_nodeIceSword->AddChild(_nodeText);
 		}
-		world_tree->add_child(node_ice_sword);
+		worldTree->AddChild(_nodeIceSword);
 	}
 	{
-		Node* node_ice_sword = new Node();
-		node_ice_sword->set_name(u8"雷火剑");
-		node_ice_sword->SetPosition({ 300, 220 });
+		Node* _nodeIceSword = new Node();
+		_nodeIceSword->SetName(u8"雷火剑");
+		_nodeIceSword->SetPosition({ 300, 220 });
 		{
-			TextureNode* node_texture = new TextureNode();
-			node_texture->set_name(u8"火剑");
-			node_texture->set_texture(ResourcesManager::Instance()->findTexture("RedSword"));
-			node_ice_sword->add_child(node_texture);
+			TextureNode* _nodeTexture = new TextureNode();
+			_nodeTexture->SetName(u8"火剑");
+			_nodeTexture->SetTexture(ResourcesManager::Instance()->findTexture("RedSword"));
+			_nodeIceSword->AddChild(_nodeTexture);
 
-			TextNode* node_text = new TextNode();
-			node_text->set_name(u8"剑名");
-			node_text->SetPosition({ -30, 65 });
-			node_text->set_font_size(15);
-			node_text->set_text(u8"罕见 雷火剑");
-			node_ice_sword->add_child(node_text);
+			TextNode* _nodeText = new TextNode();
+			_nodeText->SetName(u8"剑名");
+			_nodeText->SetPosition({ -30, 65 });
+			_nodeText->SetFontSize(15);
+			_nodeText->SetText(u8"罕见 雷火剑");
+			_nodeIceSword->AddChild(_nodeText);
 		}
-		world_tree->add_child(node_ice_sword);
+		worldTree->AddChild(_nodeIceSword);
 	}
 }
 
-void CompositePattern::render_tree_view(Node* node)
+void CompositePattern::RenderTreeView(Node* _node)
 {
-	static const ImVec2 size_icon = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
-	static const ImGuiTreeNodeFlags base_flag = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	static const ImVec2 _iconSize = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
+	static const ImGuiTreeNodeFlags _baseFlag = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 
-	bool is_open = false;
-	bool has_child = !node->get_child_list().empty();
+	bool _isOpen = false;
+	bool _hasChild = !_node->GetChildList().empty();
 
-	if (!has_child)
+	if (!_hasChild)
 	{
-		ImGui::TreeNodeEx((void*)node->get_name().c_str(), base_flag
+		ImGui::TreeNodeEx((void*)_node->GetName().c_str(), _baseFlag
 			| ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen |
-			((node_selected == node) ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None), "");
+			((nodeSelected == _node) ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None), "");
 	}
 	else
 	{
 		ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-		is_open = ImGui::TreeNodeEx((void*)node->get_name().c_str(), base_flag |
-			((node_selected == node) ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None), "");
+		_isOpen = ImGui::TreeNodeEx((void*)_node->GetName().c_str(), _baseFlag |
+			((nodeSelected == _node) ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None), "");
 	}
 
 	if (ImGui::IsItemClicked(ImGuiMouseButton_Left) || ImGui::IsItemClicked(ImGuiMouseButton_Right))
-		node_selected = node;
+		nodeSelected = _node;
 
 	if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
-		need_show_popup = true;
+		needShowPopup = true;
 
 	ImGui::SameLine();
-	ImGui::Image(node->get_icon(), size_icon);
+	ImGui::Image(_node->GetIcon(), _iconSize);
 	ImGui::SameLine();
-	ImGui::TextUnformatted(node->get_name().c_str());
+	ImGui::TextUnformatted(_node->GetName().c_str());
 
-	if (has_child && is_open)
+	if (_hasChild && _isOpen)
 	{
-		for (Node* child : node->get_child_list())
-			render_tree_view(child);
+		for (Node* _child : _node->GetChildList())
+			RenderTreeView(_child);
 
 		ImGui::TreePop();
 	}
 }
 
-bool CompositePattern::render_menu_item(SDL_Texture* texture, const char* text)
+bool CompositePattern::RenderMenuItem(SDL_Texture* _texture, const char* _text)
 {
-	static const ImVec2 size_icon = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
+	static const ImVec2 _iconSize = { ImGui::GetTextLineHeight(), ImGui::GetTextLineHeight() };
 
-	ImGui::Image(texture, size_icon);
+	ImGui::Image(_texture, _iconSize);
 	ImGui::SameLine();
-	return ImGui::MenuItem(text);
+	return ImGui::MenuItem(_text);
 }

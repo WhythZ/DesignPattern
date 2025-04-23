@@ -19,10 +19,10 @@ namespace _DecoratorPattern
 
 		virtual void set_speed(float speed) { this->speed = speed; }
 		virtual void set_size(const Vector2& size) { this->size = size; }
-		virtual void set_texture(SDL_Texture* texture) { this->texture = texture; }
+		virtual void SetTexture(SDL_Texture* texture) { this->texture = texture; }
 
 		virtual const Vector2& GetSize() const { return size; }
-		virtual const Vector2& get_position() const { return position; }
+		virtual const Vector2& GetPosition() const { return position; }
 
 	protected:
 		Vector2 size;
@@ -118,10 +118,10 @@ namespace _DecoratorPattern
 
 		void set_speed(float speed) override { player->set_speed(speed); }
 		void set_size(const Vector2& size) override { player->set_size(size); }
-		void set_texture(SDL_Texture* texture) override { player->set_texture(texture); }
+		void SetTexture(SDL_Texture* texture) override { player->SetTexture(texture); }
 
 		const Vector2& GetSize() const override { return player->GetSize(); }
-		const Vector2& get_position() const override { return player->get_position(); }
+		const Vector2& GetPosition() const override { return player->GetPosition(); }
 
 	private:
 		Character* player = nullptr;
@@ -151,10 +151,10 @@ namespace _DecoratorPattern
 
 		void set_speed(float speed) override { player->set_speed(speed); }
 		void set_size(const Vector2& size) override { player->set_size(size); }
-		void set_texture(SDL_Texture* texture) override { player->set_texture(texture); }
+		void SetTexture(SDL_Texture* texture) override { player->SetTexture(texture); }
 
 		const Vector2& GetSize() const override { return player->GetSize(); }
-		const Vector2& get_position() const override { return player->get_position(); }
+		const Vector2& GetPosition() const override { return player->GetPosition(); }
 
 	private:
 		Character* player = nullptr;
@@ -175,7 +175,7 @@ namespace _DecoratorPattern
 
 		void OnUpdate(float delta) override
 		{
-			player->set_texture(ResourcesManager::Instance()->findTexture("large_plane"));
+			player->SetTexture(ResourcesManager::Instance()->findTexture("large_plane"));
 
 			player->OnUpdate(delta);
 		}
@@ -184,10 +184,10 @@ namespace _DecoratorPattern
 
 		void set_speed(float speed) override { player->set_speed(speed); }
 		void set_size(const Vector2& size) override { player->set_size(size); }
-		void set_texture(SDL_Texture* texture) override { player->set_texture(texture); }
+		void SetTexture(SDL_Texture* texture) override { player->SetTexture(texture); }
 
 		const Vector2& GetSize() const override { return player->GetSize(); }
-		const Vector2& get_position() const override { return player->get_position(); }
+		const Vector2& GetPosition() const override { return player->GetPosition(); }
 
 	private:
 		Character* player = nullptr;
@@ -217,8 +217,8 @@ namespace _DecoratorPattern
 			SDL_FPoint point = { position.x, position.y };
 			SDL_FRect rect = 
 			{ 
-				character->get_position().x - character->GetSize().x / 2, 
-				character->get_position().y - character->GetSize().y / 2, 
+				character->GetPosition().x - character->GetSize().x / 2, 
+				character->GetPosition().y - character->GetSize().y / 2, 
 				character->GetSize().x, character->GetSize().y 
 			};
 			if (SDL_PointInFRect(&point, &rect))

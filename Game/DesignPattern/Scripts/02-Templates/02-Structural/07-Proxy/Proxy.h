@@ -15,16 +15,16 @@ public:
 	void OnRender(SDL_Renderer* renderer) override;
 
 private:
-	int font_size = 50;
-	bool need_update = true;
+	int fontSize = 50;
+	bool needUpdate = true;
 	SDL_Rect rect_text = { 0 };
-	SDL_Texture* texture_text = nullptr;
+	SDL_Texture* textureText = nullptr;
 	SDL_Texture* textureTarget = nullptr;
 	std::string str_text = "Hello World !";
-	float color_text[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float colorText[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 private:
-	void update_texture_text(SDL_Renderer* renderer);
+	void UpdateTextureText(SDL_Renderer* renderer);
 
 };
 

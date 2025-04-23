@@ -105,7 +105,7 @@ void IteratorPattern::on_update_sample(Item* item)
 	ImGui::SameLine();
 	{
 		ImGui::BeginGroup();
-		ImGui::Text(u8"< %s >", item->get_name().c_str());
+		ImGui::Text(u8"< %s >", item->GetName().c_str());
 		ImGui::TextUnformatted(u8"类型："); ImGui::SameLine();
 		ImGui::TextDisabled(type_name[(int)item->get_type()]);
 		ImGui::TextUnformatted(u8"品质："); ImGui::SameLine();
