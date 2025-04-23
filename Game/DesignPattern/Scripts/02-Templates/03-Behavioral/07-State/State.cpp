@@ -4,48 +4,48 @@
 
 using namespace _StatePattern;
 
-StatePattern::StatePattern(SDL_Renderer* renderer)
+StatePattern::StatePattern(SDL_Renderer* _renderer)
 {
-	state_list[0] = new IdleState();	state_name_list[0] = u8"ÏĞÖÃ";
-	state_list[1] = new AttackState();	state_name_list[1] = u8"¹¥»÷";
-	state_list[2] = new JumpState();	state_name_list[2] = u8"ÌøÔ¾";
-	state_list[3] = new RunState();		state_name_list[3] = u8"±¼ÅÜ";
+	stateList[0] = new IdleState();	stateNameList[0] = u8"ÏĞÖÃ";
+	stateList[1] = new AttackState();	stateNameList[1] = u8"¹¥»÷";
+	stateList[2] = new JumpState();	stateNameList[2] = u8"ÌøÔ¾";
+	stateList[3] = new RunState();		stateNameList[3] = u8"±¼ÅÜ";
 
-	player.set_state(state_list[idx_state]);
+	player.SetState(stateList[stateIdx]);
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 StatePattern::~StatePattern()
 {
-	for (int i = 0; i < 4; i++)
-		delete state_list[i];
+	for (int _i = 0; _i < 4; _i++)
+		delete stateList[_i];
 
 	SDL_DestroyTexture(textureTarget);
 }
 
-void StatePattern::OnUpdate(float delta)
+void StatePattern::OnUpdate(float _delta)
 {
-	player.OnUpdate(delta);
+	player.OnUpdate(_delta);
 
 	ImGui::TextUnformatted(u8"ÇĞ»»µ±Ç°½ÇÉ«×´Ì¬Îª£º"); ImGui::SameLine();
-	if (ImGui::Combo(u8"##ÇĞ»»µ±Ç°½ÇÉ«×´Ì¬Îª£º", &idx_state, state_name_list, 4))
-		player.set_state(state_list[idx_state]);
+	if (ImGui::Combo(u8"##ÇĞ»»µ±Ç°½ÇÉ«×´Ì¬Îª£º", &stateIdx, stateNameList, 4))
+		player.SetState(stateList[stateIdx]);
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());
 	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 }
 
-void StatePattern::OnRender(SDL_Renderer* renderer)
+void StatePattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 15, 15, 15, 255);
+	SDL_RenderClear(_renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("Platform"), nullptr, nullptr);
+	SDL_RenderCopy(_renderer, ResourcesManager::Instance()->FindTexture("Platform"), nullptr, nullptr);
 
-	player.OnRender(renderer);
+	player.OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }

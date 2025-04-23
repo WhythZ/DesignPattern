@@ -4,36 +4,36 @@
 
 using namespace _StrategyPattern;
 
-StrategyPattern::StrategyPattern(SDL_Renderer* renderer)
+StrategyPattern::StrategyPattern(SDL_Renderer* _renderer)
 {
 	boarList.push_back(new Boar(&player, { 100, 100 }));
 	boarList.push_back(new Boar(&player, { 620, 100 }));
 	boarList.push_back(new Boar(&player, { 360, 620 }));
 
-	for (Boar* boar : boarList)
-		boar->set_strategy(&followStrategy);
+	for (Boar* _boar : boarList)
+		_boar->set_strategy(&followStrategy);
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 StrategyPattern::~StrategyPattern()
 {
-	for (Boar* boar : boarList)
-		delete boar;
+	for (Boar* _boar : boarList)
+		delete _boar;
 
 	SDL_DestroyTexture(textureTarget);
 }
 
-void StrategyPattern::OnInput(const SDL_Event* event)
+void StrategyPattern::OnInput(const SDL_Event* _event)
 {
-	player.OnInput(event);
+	player.OnInput(_event);
 }
 
-void StrategyPattern::OnUpdate(float delta)
+void StrategyPattern::OnUpdate(float _delta)
 {
-	player.OnUpdate(delta);
-	for (Boar* boar : boarList)
-		boar->OnUpdate(delta);
+	player.OnUpdate(_delta);
+	for (Boar* _boar : boarList)
+		_boar->OnUpdate(_delta);
 
 	if (ImGui::Button(isUsingFollowStrategy ? u8"切换野猪为 [远离] 策略" : u8"切换野猪为 [跟随] 策略",
 		{ ImGui::GetContentRegionAvail().x, 35 }))
@@ -52,17 +52,17 @@ void StrategyPattern::OnUpdate(float delta)
 	ImGui::EndChild();
 }
 
-void StrategyPattern::OnRender(SDL_Renderer* renderer)
+void StrategyPattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 15, 15, 15, 255);
+	SDL_RenderClear(_renderer);
 
-	SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("grassland"), nullptr, nullptr);
+	SDL_RenderCopy(_renderer, ResourcesManager::Instance()->FindTexture("grassland"), nullptr, nullptr);
 	
-	for (Boar* boar : boarList)
-		boar->OnRender(renderer);
-	player.OnRender(renderer);
+	for (Boar* _boar : boarList)
+		_boar->OnRender(_renderer);
+	player.OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }

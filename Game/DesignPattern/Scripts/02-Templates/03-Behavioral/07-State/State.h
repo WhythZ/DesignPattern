@@ -10,38 +10,37 @@ namespace _StatePattern
 	{
 	public:
 		virtual ~State() = default;
-		virtual void OnUpdate(float delta) = 0;
-		virtual void OnRender(SDL_Renderer* renderer) = 0;
 
+		virtual void OnUpdate(float) = 0;
+		virtual void OnRender(SDL_Renderer*) = 0;
 	};
 
 	class AnimatedState : public State
 	{
-	public:
-		AnimatedState(const char* atlas_temp, int num)
-		{
-			atlas.Load(atlas_temp, num);
-			animation.AddFrame(&atlas);
-			animation.SetInterval(0.1f);
-			animation.SetLoop(true);
-		}
-
-		virtual void OnUpdate(float delta)
-		{
-			animation.SetPosition(position);
-			animation.OnUpdate(delta);
-		}
-
-		virtual void OnRender(SDL_Renderer* renderer)
-		{
-			animation.OnRender(renderer);
-		}
-
 	protected:
 		Atlas atlas;
 		Vector2 position;
 		Animation animation;
 
+	public:
+		AnimatedState(const char* _atlasTemp, int _num)
+		{
+			atlas.Load(_atlasTemp, _num);
+			animation.AddFrame(&atlas);
+			animation.SetInterval(0.1f);
+			animation.SetLoop(true);
+		}
+
+		virtual void OnUpdate(float _delta)
+		{
+			animation.SetPosition(position);
+			animation.OnUpdate(_delta);
+		}
+
+		virtual void OnRender(SDL_Renderer* _renderer)
+		{
+			animation.OnRender(_renderer);
+		}
 	};
 
 	class AttackState : public AnimatedState
@@ -49,7 +48,6 @@ namespace _StatePattern
 	public:
 		AttackState() : AnimatedState("Role_Attack%d", 6) { position = { 360, 374 }; }
 		~AttackState() = default;
-
 	};
 
 	class IdleState : public AnimatedState
@@ -57,7 +55,6 @@ namespace _StatePattern
 	public:
 		IdleState() : AnimatedState("Role_Idle%d", 6) { position = { 360, 374 }; }
 		~IdleState() = default;
-
 	};
 
 	class JumpState : public AnimatedState
@@ -65,7 +62,6 @@ namespace _StatePattern
 	public:
 		JumpState() : AnimatedState("Role_Jump%d", 10) { position = { 360, 374 }; }
 		~JumpState() = default;
-
 	};
 
 	class RunState : public AnimatedState
@@ -73,57 +69,54 @@ namespace _StatePattern
 	public:
 		RunState() : AnimatedState("Role_Run%d", 8) { position = { 360, 374 }; }
 		~RunState() = default;
-
 	};
 
 	class Player
 	{
+	private:
+		State* state = nullptr;
+
 	public:
 		Player() = default;
 		~Player() = default;
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
 			if (!state) return;
 
-			state->OnUpdate(delta);
+			state->OnUpdate(_delta);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
 			if (!state) return;
 
-			state->OnRender(renderer);
+			state->OnRender(_renderer);
 		}
 
-		void set_state(State* state)
+		void SetState(State* _state)
 		{
-			this->state = state;
+			this->state = _state;
 		}
-
-	private:
-		State* state = nullptr;
-
 	};
 
 }
 
 class StatePattern : public Example
 {
-public:
-	StatePattern(SDL_Renderer* renderer);
-	~StatePattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
-	int idx_state = 0;
+	int stateIdx = 0;
 	_StatePattern::Player player;
-	const char* state_name_list[4];
-	_StatePattern::State* state_list[4];
+	const char* stateNameList[4];
+	_StatePattern::State* stateList[4];
 	SDL_Texture* textureTarget = nullptr;
 
+public:
+	StatePattern(SDL_Renderer*);
+	~StatePattern();
+
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif
