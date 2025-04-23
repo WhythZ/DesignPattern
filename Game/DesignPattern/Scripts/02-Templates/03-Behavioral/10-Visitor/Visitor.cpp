@@ -4,80 +4,76 @@ using namespace _VisitorPattern;
 
 static std::string strOutput;
 
-void InpsectVisitor::visit(const MagicBook& magic_book)
+void InpsectVisitor::Visit(const MagicBook& _magicBook)
 {
-	strOutput += u8"检视道具 [" + std::to_string(magic_book.get_id()) + u8"]：一本神奇的魔法书？\n";
+	strOutput += u8"检视道具 [" + std::to_string(_magicBook.GetID()) + u8"]：一本神奇的魔法书？\n";
 }
 
-void InpsectVisitor::visit(const OrdinaryPotion& ordinary_potion)
+void InpsectVisitor::Visit(const OrdinaryPotion& _ordinaryPotion)
 {
-	strOutput += u8"检视道具 [" + std::to_string(ordinary_potion.get_id()) + u8"]：只是一瓶普通的药水……\n";
+	strOutput += u8"检视道具 [" + std::to_string(_ordinaryPotion.GetID()) + u8"]：只是一瓶普通的药水……\n";
 }
 
-void InpsectVisitor::visit(const Coins& coins)
+void InpsectVisitor::Visit(const Coins& _coins)
 {
-	strOutput += u8"检视道具 [" + std::to_string(coins.get_id()) + u8"]：亮晶晶的？钱币！\n";
+	strOutput += u8"检视道具 [" + std::to_string(_coins.GetID()) + u8"]：亮晶晶的？钱币！\n";
 }
 
-void InpsectVisitor::visit(const Scrolls& scrolls)
+void InpsectVisitor::Visit(const Scrolls& _scrolls)
 {
-	strOutput += u8"检视道具 [" + std::to_string(scrolls.get_id()) + u8"]：普通人无法参透其中奥妙的卷轴。\n";
+	strOutput += u8"检视道具 [" + std::to_string(_scrolls.GetID()) + u8"]：普通人无法参透其中奥妙的卷轴。\n";
 }
 
-void InpsectVisitor::visit(const Stick& stick)
+void InpsectVisitor::Visit(const Stick& _stick)
 {
-	strOutput += u8"检视道具 [" + std::to_string(stick.get_id()) + u8"]：一根木棍，或许有用……\n";
+	strOutput += u8"检视道具 [" + std::to_string(_stick.GetID()) + u8"]：一根木棍，或许有用……\n";
 }
 
-void InpsectVisitor::visit(const Stone& stone)
+void InpsectVisitor::Visit(const Stone& _stone)
 {
-	strOutput += u8"检视道具 [" + std::to_string(stone.get_id()) + u8"]：你或许应该扔掉来节省背包空间的石头。\n";
+	strOutput += u8"检视道具 [" + std::to_string(_stone.GetID()) + u8"]：你或许应该扔掉来节省背包空间的石头。\n";
 }
 
-void ApplyVisitor::visit(const MagicBook& magic_book)
+void ApplyVisitor::Visit(const MagicBook& _magicBook)
 {
-	strOutput += u8"使用道具 [" + std::to_string(magic_book.get_id()) + u8"]：你的体内被魔法元素充盈！\n";
+	strOutput += u8"使用道具 [" + std::to_string(_magicBook.GetID()) + u8"]：你的体内被魔法元素充盈！\n";
 }
 
-void ApplyVisitor::visit(const OrdinaryPotion& ordinary_potion)
+void ApplyVisitor::Visit(const OrdinaryPotion& _ordinaryPotion)
 {
-	strOutput += u8"使用道具 [" + std::to_string(ordinary_potion.get_id()) + u8"]：什么事情也没有发生……\n";
+	strOutput += u8"使用道具 [" + std::to_string(_ordinaryPotion.GetID()) + u8"]：什么事情也没有发生……\n";
 }
 
-void ApplyVisitor::visit(const Coins& coins)
+void ApplyVisitor::Visit(const Coins& _coins)
 {
-	strOutput += u8"使用道具 [" + std::to_string(coins.get_id()) + u8"]：你的财富值大大增加了！\n";
+	strOutput += u8"使用道具 [" + std::to_string(_coins.GetID()) + u8"]：你的财富值大大增加了！\n";
 }
 
-void ApplyVisitor::visit(const Scrolls& scrolls)
+void ApplyVisitor::Visit(const Scrolls& _scrolls)
 {
-	strOutput += u8"使用道具 [" + std::to_string(scrolls.get_id()) + u8"]：智慧等级不够无法进行学习！\n";
+	strOutput += u8"使用道具 [" + std::to_string(_scrolls.GetID()) + u8"]：智慧等级不够无法进行学习！\n";
 }
 
-void ApplyVisitor::visit(const Stick& stick)
+void ApplyVisitor::Visit(const Stick& _stick)
 {
-	strOutput += u8"使用道具 [" + std::to_string(stick.get_id()) + u8"]：什么事情也没有发生……\n";
+	strOutput += u8"使用道具 [" + std::to_string(_stick.GetID()) + u8"]：什么事情也没有发生……\n";
 }
 
-void ApplyVisitor::visit(const Stone& stone)
+void ApplyVisitor::Visit(const Stone& _stone)
 {
-	strOutput += u8"使用道具 [" + std::to_string(stone.get_id()) + u8"]：什么事情也没有发生……\n";
+	strOutput += u8"使用道具 [" + std::to_string(_stone.GetID()) + u8"]：什么事情也没有发生……\n";
 }
 
-VisitorPattern::VisitorPattern() = default;
-
-VisitorPattern::~VisitorPattern() = default;
-
-void VisitorPattern::OnUpdate(float delta)
+void VisitorPattern::OnUpdate(float _delta)
 {
-	static const ImVec2 size_dummy = { 33, 0 };
+	static const ImVec2 _sizeDummy = { 33, 0 };
 
-	on_update_item_btn<MagicBook>(magic_book);				ImGui::SameLine(); ImGui::Dummy(size_dummy); ImGui::SameLine();
-	on_update_item_btn<OrdinaryPotion>(ordinary_potion);	ImGui::SameLine(); ImGui::Dummy(size_dummy); ImGui::SameLine();
-	on_update_item_btn<Coins>(coins);						ImGui::SameLine(); ImGui::Dummy(size_dummy); ImGui::SameLine();
-	on_update_item_btn<Scrolls>(scrolls);					ImGui::SameLine(); ImGui::Dummy(size_dummy); ImGui::SameLine();
-	on_update_item_btn<Stick>(stick);						ImGui::SameLine(); ImGui::Dummy(size_dummy); ImGui::SameLine();
-	on_update_item_btn<Stone>(stone);
+	OnUpdateItemButton<MagicBook>(magicBook);				ImGui::SameLine(); ImGui::Dummy(_sizeDummy); ImGui::SameLine();
+	OnUpdateItemButton<OrdinaryPotion>(ordinaryPotion);		ImGui::SameLine(); ImGui::Dummy(_sizeDummy); ImGui::SameLine();
+	OnUpdateItemButton<Coins>(coins);						ImGui::SameLine(); ImGui::Dummy(_sizeDummy); ImGui::SameLine();
+	OnUpdateItemButton<Scrolls>(scrolls);					ImGui::SameLine(); ImGui::Dummy(_sizeDummy); ImGui::SameLine();
+	OnUpdateItemButton<Stick>(stick);						ImGui::SameLine(); ImGui::Dummy(_sizeDummy); ImGui::SameLine();
+	OnUpdateItemButton<Stone>(stone);
 
 	ImGui::InputTextMultiline(u8"##输出内容", &strOutput, ImGui::GetContentRegionAvail(), ImGuiInputTextFlags_ReadOnly);
 }
