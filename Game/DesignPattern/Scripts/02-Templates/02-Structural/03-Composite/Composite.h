@@ -1,11 +1,11 @@
 #ifndef _COMPOSITE_H_
 #define _COMPOSITE_H_
 
-#include "Vector2.h"
-#include "Example.h"
-
 #include <string>
 #include <vector>
+
+#include "Vector2.h"
+#include "Example.h"
 
 namespace _CompositePattern
 {

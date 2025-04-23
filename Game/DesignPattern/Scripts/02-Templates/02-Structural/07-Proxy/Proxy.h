@@ -1,9 +1,9 @@
 #ifndef _PROXY_H_
 #define _PROXY_H_
 
-#include "Example.h"
-
 #include <string>
+
+#include "Example.h"
 
 class ProxyPattern : public Example
 {

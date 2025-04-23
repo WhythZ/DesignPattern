@@ -1,11 +1,11 @@
 #ifndef _DECORATOR_H_
 #define _DECORATOR_H_
 
-#include "Vector2.h"
-#include "Example.h"
-
 #include <vector>
 #include <functional>
+
+#include "Vector2.h"
+#include "Example.h"
 
 namespace _DecoratorPattern
 {

@@ -1,8 +1,9 @@
 #include "Proxy.h"
-#include "ResourceManager.h"
 
 #include <imgui.h>
 #include <imgui_stdlib.h>
+
+#include "ResourceManager.h"
 
 ProxyPattern::ProxyPattern(SDL_Renderer* renderer)
 {

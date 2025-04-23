@@ -1,9 +1,9 @@
 #ifndef _BRIDGE_H_
 #define _BRIDGE_H_
 
-#include "Example.h"
-
 #include <string>
+
+#include "Example.h"
 
 namespace _BridgePattern
 {

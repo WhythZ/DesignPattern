@@ -1,9 +1,9 @@
 #ifndef _OBSERVER_H_
 #define _OBSERVER_H_
 
-#include "Example.h"
-
 #include <vector>
+
+#include "Example.h"
 
 namespace _ObserverPattern
 {

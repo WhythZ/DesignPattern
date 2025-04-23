@@ -1,13 +1,13 @@
 #ifndef _ITERATOR_H_
 #define _ITERATOR_H_
 
-#include "Example.h"
-#include "ResourceManager.h"
-
 #include <random>
 #include <string>
 #include <vector>
 #include <algorithm>
+
+#include "Example.h"
+#include "ResourceManager.h"
 
 namespace _IteratorPattern
 {

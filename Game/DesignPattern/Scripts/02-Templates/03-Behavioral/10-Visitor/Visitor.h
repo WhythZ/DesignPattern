@@ -1,11 +1,11 @@
 #ifndef _VISITOR_H_
 #define _VISITOR_H_
 
-#include "Example.h"
-#include "ResourceManager.h"
-
 #include <imgui.h>
 #include <imgui_stdlib.h>
+
+#include "Example.h"
+#include "ResourceManager.h"
 
 namespace _VisitorPattern
 {

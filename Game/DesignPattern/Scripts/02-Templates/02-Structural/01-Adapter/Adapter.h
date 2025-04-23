@@ -1,10 +1,10 @@
 #ifndef _ADAPTER_H_
 #define _ADAPTER_H_
 
-#include "Example.h"
-
 #include <string>
 #include <vector>
+
+#include "Example.h"
 
 namespace _AdapterPattern
 {
@@ -23,43 +23,39 @@ namespace _AdapterPattern
 	class LoaderImpl
 	{
 	public:
-		virtual bool Load(GameObjectList& dst, const std::string& path) = 0;
-
+		virtual bool Load(GameObjectList&, const std::string&) = 0;
 	};
 
 	class JSONLoader : public LoaderImpl
 	{
 	public:
-		bool Load(GameObjectList& dst, const std::string& path) override;
-
+		bool Load(GameObjectList&, const std::string&) override;
 	};
 
 	class XMLLoader : public LoaderImpl
 	{
 	public:
-		bool Load(GameObjectList& dst, const std::string& path) override;
-
+		bool Load(GameObjectList&, const std::string&) override;
 	};
 }
 
 class AdapterPattern : public Example
 {
-public:
-	AdapterPattern(SDL_Renderer* renderer);
-	~AdapterPattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	SDL_Texture* textureTarget = nullptr;
-	_AdapterPattern::XMLLoader xml_loader;
-	_AdapterPattern::JSONLoader json_loader;
-	_AdapterPattern::GameObjectList game_object_list;
+	_AdapterPattern::XMLLoader xmlLoader;
+	_AdapterPattern::JSONLoader jsonLoader;
+	_AdapterPattern::GameObjectList gameObjectList;
+
+public:
+	AdapterPattern(SDL_Renderer*);
+	~AdapterPattern();
+
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 
 private:
-	void reload_scene(_AdapterPattern::LoaderImpl* loader, const std::string& path);
-
+	void ReloadScene(_AdapterPattern::LoaderImpl*, const std::string&);
 };
 
 #endif

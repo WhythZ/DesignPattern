@@ -1,7 +1,8 @@
 #include "Observer.h"
-#include "ResourceManager.h"
 
 #include <imgui.h>
+
+#include "ResourceManager.h"
 
 using namespace _ObserverPattern;
 

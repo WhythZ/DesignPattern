@@ -1,6 +1,8 @@
 #include "ExampleManager.h"
+
 #include <Windows.h>
 #include <imgui.h>
+
 #include "ResourceManager.h"
 
 #include "../../02-Templates/01-Creational/01-FactoryMethod/FactoryMethod.h"

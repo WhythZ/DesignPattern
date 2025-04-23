@@ -1,9 +1,9 @@
 ﻿#ifndef _FLYWEIGHT_H_
 #define _FLYWEIGHT_H_
 
-#include "Example.h"
-
 #include <string>
+
+#include "Example.h"
 
 class FlyweightPattern : public Example
 {

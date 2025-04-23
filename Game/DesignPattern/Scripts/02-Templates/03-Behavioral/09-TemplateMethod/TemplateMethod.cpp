@@ -1,8 +1,8 @@
 #include "TemplateMethod.h"
 
-#include <imgui.h>
-
 #include <random>
+
+#include <imgui.h>
 
 using namespace _TemplateMethodPattern;
 

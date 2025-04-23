@@ -1,6 +1,7 @@
 #include "Application.h"
-#include "ExampleManager.h"
-#include "ResourceManager.h"
+
+#include <thread>
+#include <chrono>
 
 #include <imgui.h>
 #include <SDL_ttf.h>
@@ -10,8 +11,8 @@
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
 
-#include <thread>
-#include <chrono>
+#include "ExampleManager.h"
+#include "ResourceManager.h"
 
 Application* Application::application = nullptr;
 

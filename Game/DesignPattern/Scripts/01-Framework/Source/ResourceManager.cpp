@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+
 #include <SDL_image.h>
 
 ResourcesManager* ResourcesManager::manager = nullptr;

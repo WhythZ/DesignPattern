@@ -1,9 +1,9 @@
 #ifndef _FACADE_H_
 #define _FACADE_H_
 
-#include "Example.h"
-
 #include <string>
+
+#include "Example.h"
 
 class FacadePattern : public Example
 {

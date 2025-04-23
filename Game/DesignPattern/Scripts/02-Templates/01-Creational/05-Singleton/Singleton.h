@@ -1,10 +1,10 @@
 #ifndef _SINGLETON_H_
 #define _SINGLETON_H_
 
+#include <unordered_map>
+
 #include "Example.h"
 #include "Animation.h"
-
-#include <unordered_map>
 
 namespace _SingletonPattern
 {

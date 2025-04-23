@@ -1,10 +1,10 @@
 #ifndef _FONT_WRAPPER_H_
 #define _FONT_WRAPPER_H_
 
-#include <SDL_ttf.h>
-
 #include <string>
 #include <unordered_map>
+
+#include <SDL_ttf.h>
 
 class FontWrapper
 {

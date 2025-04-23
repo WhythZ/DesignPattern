@@ -1,9 +1,9 @@
 #ifndef _CHAIN_OF_RESPONSIBILITY_H_
 #define _CHAIN_OF_RESPONSIBILITY_H_
 
-#include "Example.h"
-
 #include <imgui.h>
+
+#include "Example.h"
 
 namespace _ChainOfResponsibilityPattern
 {

@@ -1,11 +1,11 @@
 #ifndef _INTERPRETER_H_
 #define _INTERPRETER_H_
 
-#include "Example.h"
-
 #include <lua.hpp>
 #include <imgui.h>
 #include <TextEditor.h>
+
+#include "Example.h"
 
 class InterpreterPattern : public Example
 {
