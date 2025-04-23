@@ -3,36 +3,36 @@
 
 using namespace _CommandPattern;
 
-void Player::on_move(const SDL_Point& dir)
+void Player::OnMove(const SDL_Point& dir)
 {
-	SDL_Point new_idx = { idx_map_grid.x + dir.x, idx_map_grid.y + dir.y };
+	SDL_Point new_idx = { mapGridIdx.x + dir.x, mapGridIdx.y + dir.y };
 	if (new_idx.x < 0 || new_idx.x >= 12 || new_idx.y < 0 || new_idx.y >= 12
 		|| map->grids[new_idx.y][new_idx.x] == Map::GridType::Inaccessible)
 		return;
 
-	idx_map_grid = new_idx;
+	mapGridIdx = new_idx;
 
-	if (!is_replaying)
-		cmd_list.push_back(new MoveCommand(this, dir));
+	if (!isReplaying)
+		cmdList.push_back(new MoveCommand(this, dir));
 	
 	if (map->grids[new_idx.y][new_idx.x] == Map::GridType::Goal)
 	{
-		is_achieved_goal = true;
+		isAchievedGoal = true;
 		Mix_PlayChannel(-1, ResourcesManager::Instance()->FindAudio("achieve"), 0);
 	}
 }
 
 void _CommandPattern::Player::Reset()
 {
-	idx_cmd = 0;
-	idx_map_grid = { 2, 2 };
+	cmdIdx = 0;
+	mapGridIdx = { 2, 2 };
 }
 
-void Player::replay()
+void Player::Replay()
 {
 	Reset();
 
-	is_replaying = true;
+	isReplaying = true;
 }
 
 CommandPattern::CommandPattern(SDL_Renderer* renderer)
@@ -78,9 +78,9 @@ void CommandPattern::OnUpdate(float delta)
 {
 	player->OnUpdate(delta);
 
-	ImGui::BeginDisabled(!player->can_replay());
+	ImGui::BeginDisabled(!player->CanReplay());
 	if (ImGui::Button(u8"回放玩家操作", { ImGui::GetContentRegionAvail().x, 35 }))
-		player->replay();
+		player->Replay();
 	ImGui::EndDisabled();
 
 	ImGui::BeginChild("scene", ImGui::GetContentRegionAvail());

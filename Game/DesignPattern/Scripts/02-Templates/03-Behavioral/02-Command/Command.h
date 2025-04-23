@@ -22,25 +22,37 @@ namespace _CommandPattern
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute() = 0;
-
+		virtual void Execute() = 0;
 	};
 
 	class Player
 	{
+	private:
+		Map* map = nullptr;
+		Timer replayTimer;
+		bool isReplaying = false;
+		bool isAchievedGoal = false;
+
+		int cmdIdx = 0;
+		std::vector<Command*> cmdList;
+
+		Atlas atlas;
+		Animation animation;
+		SDL_Point mapGridIdx = { 0 };
+
 	public:
 		Player(Map* _map) : map(_map)
 		{
 			Reset();
 		
-			replay_timer.SetWaitTime(0.25f);
-			replay_timer.SetOneShot(false);
-			replay_timer.SetOnTimeout([&]()
+			replayTimer.SetWaitTime(0.25f);
+			replayTimer.SetOneShot(false);
+			replayTimer.SetOnTimeout([&]()
 				{
-					if (is_replaying && idx_cmd < cmd_list.size())
+					if (isReplaying && cmdIdx < cmdList.size())
 					{
-						cmd_list[idx_cmd]->execute();
-						idx_cmd++;
+						cmdList[cmdIdx]->Execute();
+						cmdIdx++;
 					}
 				});
 
@@ -51,23 +63,23 @@ namespace _CommandPattern
 		}
 		~Player()
 		{
-			for (Command* cmd : cmd_list)
-				delete cmd;
+			for (Command* _cmd : cmdList)
+				delete _cmd;
 		}
 
-		void OnInput(const SDL_Event* event)
+		void OnInput(const SDL_Event* _event)
 		{
-			if (is_replaying) return;
+			if (isReplaying) return;
 
-			switch (event->type)
+			switch (_event->type)
 			{
 			case SDL_KEYDOWN:
-				switch (event->key.keysym.sym)
+				switch (_event->key.keysym.sym)
 				{
-				case SDLK_UP:		on_move({ 0, -1 });		break;
-				case SDLK_DOWN:		on_move({ 0, 1 });		break;
-				case SDLK_LEFT:		on_move({ -1, 0 });		break;
-				case SDLK_RIGHT:	on_move({ 1, 0 });		break;
+				case SDLK_UP:		OnMove({ 0, -1 });		break;
+				case SDLK_DOWN:		OnMove({ 0, 1 });		break;
+				case SDLK_LEFT:		OnMove({ -1, 0 });		break;
+				case SDLK_RIGHT:	OnMove({ 1, 0 });		break;
 				default: break;
 				}
 				break;
@@ -75,80 +87,64 @@ namespace _CommandPattern
 			}
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			Vector2 position =
+			Vector2 _position =
 			{
-				idx_map_grid.x * 48.0f + 24.0f,
-				idx_map_grid.y * 48.0f + 24.0f - 30.0f 
+				mapGridIdx.x * 48.0f + 24.0f,
+				mapGridIdx.y * 48.0f + 24.0f - 30.0f 
 			};
-			animation.SetPosition(position);
-			animation.OnUpdate(delta);
+			animation.SetPosition(_position);
+			animation.OnUpdate(_delta);
 
-			replay_timer.OnUpdate(delta);
+			replayTimer.OnUpdate(_delta);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			animation.OnRender(renderer);
+			animation.OnRender(_renderer);
 		}
 
-		void on_move(const SDL_Point& dir);
+		void OnMove(const SDL_Point&);
 
 		void Reset();
-		void replay();
+		void Replay();
 
-		bool can_replay() const { return is_achieved_goal; }
-
-	private:
-		Map* map = nullptr;
-		Timer replay_timer;
-		bool is_replaying = false;
-		bool is_achieved_goal = false;
-
-		int idx_cmd = 0;
-		std::vector<Command*> cmd_list;
-
-		Atlas atlas;
-		Animation animation;
-		SDL_Point idx_map_grid = { 0 };
-
+		bool CanReplay() const { return isAchievedGoal; }
 	};
 
 	class MoveCommand : public Command
 	{
+	private:
+		Player* player = nullptr;
+		SDL_Point direction = { 0 };
+
 	public:
 		MoveCommand(Player* _player, const SDL_Point& dir) 
 			: player(_player), direction(dir) {}
 		~MoveCommand() = default;
 
-		void execute() override
+		void Execute() override
 		{
-			player->on_move(direction);
+			player->OnMove(direction);
 		}
-
-	private:
-		Player* player = nullptr;
-		SDL_Point direction = { 0 };
-
 	};
 }
 
 class CommandPattern : public Example
 {
-public:
-	CommandPattern(SDL_Renderer* renderer);
-	~CommandPattern();
-
-	void OnInput(const SDL_Event* event) override;
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	_CommandPattern::Map map;
 	SDL_Texture* textureTarget = nullptr;
 	_CommandPattern::Player* player = nullptr;
 
+public:
+	CommandPattern(SDL_Renderer*);
+	~CommandPattern();
+
+	void OnInput(const SDL_Event*) override;
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif

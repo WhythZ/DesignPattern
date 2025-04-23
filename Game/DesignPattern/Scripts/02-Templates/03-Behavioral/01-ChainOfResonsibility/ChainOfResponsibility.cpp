@@ -4,26 +4,24 @@
 
 using namespace _ChainOfResponsibilityPattern;
 
-static std::string str_output;
-static bool is_bubbling = true;
+static std::string strOutput;
+static bool isBubbling = true;
 
-ChainOfResponsibilityPattern::ChainOfResponsibilityPattern()
-	: window_1(1, { 0.65f, 0.2f, 0.2f, 1.0f }, { 679, 575 }, { 0, 0 }),
-		window_2(2, { 0.2f, 0.65f, 0.2f, 1.0f }, { 425, 350 }, { 50, 50 }),
-		window_3(3, { 0.2f, 0.2f, 0.65f, 1.0f }, { 200, 175 }, { 100, 100 })
+ChainOfResponsibilityPattern::ChainOfResponsibilityPattern():
+	window01(1, { 0.65f, 0.2f, 0.2f, 1.0f }, { 679, 575 }, { 0, 0 }),
+	window02(2, { 0.2f, 0.65f, 0.2f, 1.0f }, { 425, 350 }, { 50, 50 }),
+	window03(3, { 0.2f, 0.2f, 0.65f, 1.0f }, { 200, 175 }, { 100, 100 })
 {
-	window_3.set_next(&window_2);
-	window_2.set_next(&window_1);
+	window03.SetNext(&window02);
+	window02.SetNext(&window01);
 }
 
-ChainOfResponsibilityPattern::~ChainOfResponsibilityPattern() = default;
-
-void ChildWindow::handle()
+void ChildWindow::Handle()
 {
-	str_output += u8"点击消息传递到 [" + std::to_string(id) + u8"] 号窗口！\n";
+	strOutput += u8"点击消息传递到 [" + std::to_string(id) + u8"] 号窗口！\n";
 
-	if (next && is_bubbling)
-		next->handle();
+	if (next && isBubbling)
+		next->Handle();
 }
 
 void ChildWindow::OnUpdate()
@@ -35,8 +33,8 @@ void ChildWindow::OnUpdate()
 	ImGui::Text(u8"窗口 [%d]", id);
 	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 	{
-		str_output.clear(); 
-		handle();
+		strOutput.clear(); 
+		Handle();
 	}
 	ImGui::EndChild();
 	ImGui::PopStyleColor();
@@ -45,15 +43,15 @@ void ChildWindow::OnUpdate()
 void ChainOfResponsibilityPattern::OnUpdate(float delta)
 {
 	ImGui::TextUnformatted(u8"允许鼠标点击消息冒泡："); ImGui::SameLine();
-	ImGui::Checkbox(u8"##允许鼠标点击消息冒泡", &is_bubbling);
+	ImGui::Checkbox(u8"##允许鼠标点击消息冒泡", &isBubbling);
 
 	ImGui::BeginChild("region", { ImGui::GetContentRegionAvail().x, 575 });
 
-	window_1.OnUpdate();
-	window_2.OnUpdate();
-	window_3.OnUpdate();
+	window01.OnUpdate();
+	window02.OnUpdate();
+	window03.OnUpdate();
 
 	ImGui::EndChild();
 
-	ImGui::InputTextMultiline(u8"##输出内容", &str_output, ImGui::GetContentRegionAvail(), ImGuiInputTextFlags_ReadOnly);
+	ImGui::InputTextMultiline(u8"##输出内容", &strOutput, ImGui::GetContentRegionAvail(), ImGuiInputTextFlags_ReadOnly);
 }
