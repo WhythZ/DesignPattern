@@ -6,7 +6,7 @@
 
 using namespace _TemplateMethodPattern;
 
-void CustomizedMapGen::on_inspect_config()
+void CustomizedMapGen::OnInspectConfig()
 {
 	ImGui::SetNextWindowSize({ 320, 285 });
 	if (!ImGui::BeginPopup("config_window")) return;
@@ -18,16 +18,17 @@ void CustomizedMapGen::on_inspect_config()
 
 		ImGui::TextUnformatted(u8"深坑数量："); ImGui::NextColumn();
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-		ImGui::DragInt(u8"##深坑数量", &num_hole, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragInt(u8"##深坑数量", &holeNum, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
 		ImGui::NextColumn();
 
 		ImGui::TextUnformatted(u8"地刺数量："); ImGui::NextColumn();
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-		ImGui::DragInt(u8"##地刺数量", &num_spikes, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragInt(u8"##地刺数量", &spikesNum, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
 		ImGui::NextColumn();
 
 		ImGui::Columns(1);
 	}
+
 	ImGui::Separator();
 	{
 		ImGui::TextDisabled(u8"生物");
@@ -35,17 +36,17 @@ void CustomizedMapGen::on_inspect_config()
 		ImGui::SetColumnWidth(0, 110);
 
 		ImGui::TextUnformatted(u8"生成精灵："); ImGui::NextColumn();
-		ImGui::Checkbox(u8"##生成精灵", &has_npc);
+		ImGui::Checkbox(u8"##生成精灵", &hasNPC);
 		ImGui::NextColumn();
 
 		ImGui::TextUnformatted(u8"蜥蜴数量："); ImGui::NextColumn();
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-		ImGui::DragInt(u8"##蜥蜴数量", &num_lizard, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragInt(u8"##蜥蜴数量", &lizardNum, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
 		ImGui::NextColumn();
 
 		ImGui::TextUnformatted(u8"哥布林数量："); ImGui::NextColumn();
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-		ImGui::DragInt(u8"##哥布林数量", &num_goblin, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragInt(u8"##哥布林数量", &goblinNum, 1.0f, 0, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
 		ImGui::NextColumn();
 
 		ImGui::Columns(1);
@@ -57,11 +58,11 @@ void CustomizedMapGen::on_inspect_config()
 		ImGui::SetColumnWidth(0, 110);
 
 		ImGui::TextUnformatted(u8"生成出口："); ImGui::NextColumn();
-		ImGui::Checkbox(u8"##生成出口", &has_exit);
+		ImGui::Checkbox(u8"##生成出口", &hasExit);
 		ImGui::NextColumn();
 
 		ImGui::TextUnformatted(u8"生成奖励宝箱："); ImGui::NextColumn();
-		ImGui::Checkbox(u8"##生成奖励宝箱", &has_reward);	
+		ImGui::Checkbox(u8"##生成奖励宝箱", &hasReward);	
 		ImGui::NextColumn();
 
 		ImGui::Columns(1);
@@ -70,78 +71,78 @@ void CustomizedMapGen::on_inspect_config()
 	ImGui::EndPopup();
 }
 
-void CustomizedMapGen::generate_npc(Map* map)
+void CustomizedMapGen::GenerateNPC(Map* _map)
 {
-	if (has_npc)
+	if (hasNPC)
 	{
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		map->add_item(new Elf(), empty_grid_list[rand() % empty_grid_list.size()]);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		_map->AddItem(new Elf(), _emptyGridList[rand() % _emptyGridList.size()]);
 	}
 }
 
-void CustomizedMapGen::generate_exit(Map* map)
+void CustomizedMapGen::GenerateExit(Map* _map)
 {
-	if (has_exit)
+	if (hasExit)
 	{
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		map->add_item(new Stairs(), empty_grid_list[rand() % empty_grid_list.size()]);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		_map->AddItem(new Stairs(), _emptyGridList[rand() % _emptyGridList.size()]);
 	}
 }
 
-void CustomizedMapGen::generate_trap(Map* map)
+void CustomizedMapGen::GenerateTrap(Map* _map)
 {
 	{
-		std::vector<SDL_Point> target_grid_list(num_hole);
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		std::sample(empty_grid_list.begin(), empty_grid_list.end(),
-			target_grid_list.begin(), num_hole, std::mt19937(std::random_device()()));
-		for (const SDL_Point& grid : target_grid_list)
-			map->add_item(new Hole(), grid);
+		std::vector<SDL_Point> _targetGridList(holeNum);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		std::sample(_emptyGridList.begin(), _emptyGridList.end(),
+			_targetGridList.begin(), holeNum, std::mt19937(std::random_device()()));
+		for (const SDL_Point& _grid : _targetGridList)
+			_map->AddItem(new Hole(), _grid);
 	}
 	{
-		std::vector<SDL_Point> target_grid_list(num_spikes);
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		std::sample(empty_grid_list.begin(), empty_grid_list.end(),
-			target_grid_list.begin(), num_spikes, std::mt19937(std::random_device()()));
-		for (const SDL_Point& grid : target_grid_list)
-			map->add_item(new Spikes(), grid);
+		std::vector<SDL_Point> _targetGridList(spikesNum);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		std::sample(_emptyGridList.begin(), _emptyGridList.end(),
+			_targetGridList.begin(), spikesNum, std::mt19937(std::random_device()()));
+		for (const SDL_Point& _grid : _targetGridList)
+			_map->AddItem(new Spikes(), _grid);
 	}
 }
 
-void CustomizedMapGen::generate_enemy(Map* map)
+void CustomizedMapGen::GenerateEnemy(Map* _map)
 {
 	{
-		std::vector<SDL_Point> target_grid_list(num_goblin);
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		std::sample(empty_grid_list.begin(), empty_grid_list.end(),
-			target_grid_list.begin(), num_goblin, std::mt19937(std::random_device()()));
-		for (const SDL_Point& grid : target_grid_list)
-			map->add_item(new Goblin(), grid);
+		std::vector<SDL_Point> _targetGridList(goblinNum);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		std::sample(_emptyGridList.begin(), _emptyGridList.end(),
+			_targetGridList.begin(), goblinNum, std::mt19937(std::random_device()()));
+		for (const SDL_Point& _grid : _targetGridList)
+			_map->AddItem(new Goblin(), _grid);
 	}
 	{
-		std::vector<SDL_Point> target_grid_list(num_lizard);
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		std::sample(empty_grid_list.begin(), empty_grid_list.end(),
-			target_grid_list.begin(), num_lizard, std::mt19937(std::random_device()()));
-		for (const SDL_Point& grid : target_grid_list)
-			map->add_item(new Lizard(), grid);
-	}
-}
-
-void CustomizedMapGen::generate_reward(Map* map)
-{
-	if (has_reward)
-	{
-		const std::vector<SDL_Point>& empty_grid_list = map->get_empty_grids();
-		map->add_item(new Chest(), empty_grid_list[rand() % empty_grid_list.size()]);
+		std::vector<SDL_Point> _targetGridList(lizardNum);
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		std::sample(_emptyGridList.begin(), _emptyGridList.end(),
+			_targetGridList.begin(), lizardNum, std::mt19937(std::random_device()()));
+		for (const SDL_Point& _grid : _targetGridList)
+			_map->AddItem(new Lizard(), _grid);
 	}
 }
 
-TemplateMethodPattern::TemplateMethodPattern(SDL_Renderer* renderer)
+void CustomizedMapGen::GenerateReward(Map* _map)
 {
-	map = map_generator.generate();
+	if (hasReward)
+	{
+		const std::vector<SDL_Point>& _emptyGridList = _map->GetEmptyGrids();
+		_map->AddItem(new Chest(), _emptyGridList[rand() % _emptyGridList.size()]);
+	}
+}
 
-	textureTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+TemplateMethodPattern::TemplateMethodPattern(SDL_Renderer* _renderer)
+{
+	map = mapGenerator.Generate();
+
+	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 }
 
 TemplateMethodPattern::~TemplateMethodPattern()
@@ -151,9 +152,9 @@ TemplateMethodPattern::~TemplateMethodPattern()
 	SDL_DestroyTexture(textureTarget);
 }
 
-void TemplateMethodPattern::OnUpdate(float delta)
+void TemplateMethodPattern::OnUpdate(float _delta)
 {
-	map->OnUpdate(delta);
+	map->OnUpdate(_delta);
 
 	if (ImGui::ImageButton(ResourcesManager::Instance()->FindTexture("icon-config"), { 30, 30 }))
 		ImGui::OpenPopup("config_window");
@@ -167,23 +168,23 @@ void TemplateMethodPattern::OnUpdate(float delta)
 	if (ImGui::Button(u8"重新生成关卡地图", { ImGui::GetContentRegionAvail().x, 35 }))
 	{
 		delete map;
-		map = map_generator.generate();
+		map = mapGenerator.Generate();
 	}
 
 	ImGui::BeginChild("map", ImGui::GetContentRegionAvail());
 	ImGui::Image(textureTarget, ImGui::GetContentRegionAvail());
 	ImGui::EndChild();
 
-	map_generator.on_inspect_config();
+	mapGenerator.OnInspectConfig();
 }
 
-void TemplateMethodPattern::OnRender(SDL_Renderer* renderer)
+void TemplateMethodPattern::OnRender(SDL_Renderer* _renderer)
 {
-	SDL_SetRenderTarget(renderer, textureTarget);
-	SDL_SetRenderDrawColor(renderer, 65, 65, 65, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderTarget(_renderer, textureTarget);
+	SDL_SetRenderDrawColor(_renderer, 65, 65, 65, 255);
+	SDL_RenderClear(_renderer);
 
-	map->OnRender(renderer);
+	map->OnRender(_renderer);
 
-	SDL_SetRenderTarget(renderer, nullptr);
+	SDL_SetRenderTarget(_renderer, nullptr);
 }

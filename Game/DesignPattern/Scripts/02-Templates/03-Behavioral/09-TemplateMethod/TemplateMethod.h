@@ -8,71 +8,66 @@ namespace _TemplateMethodPattern
 {
 	class Item
 	{
-	public:
-		virtual ~Item() = default;
-
-		virtual void OnUpdate(float delta) {}
-		virtual void OnRender(SDL_Renderer* renderer) = 0;
-
-		void SetPosition(const Vector2& position)
-		{
-			this->position = position;
-		}
-
 	protected:
 		Vector2 position;
 
+	public:
+		virtual ~Item() = default;
+
+		virtual void OnUpdate(float _delta) {}
+		virtual void OnRender(SDL_Renderer*) = 0;
+
+		void SetPosition(const Vector2& _position)
+		{
+			this->position = _position;
+		}
 	};
 
 	class StaticItem : public Item
 	{
-	public:
-		StaticItem(const std::string& texture_id)
-		{
-			texture = ResourcesManager::Instance()->FindTexture(texture_id);
-		}
-
-		~StaticItem() = default;
-
-		void OnRender(SDL_Renderer* renderer) override
-		{
-			SDL_FRect rect = { position.x - 20, position.y - 20, 40, 40 };
-			SDL_RenderCopyF(renderer, texture, nullptr, &rect);
-		}
-
 	private:
 		SDL_Texture* texture = nullptr;
 
+	public:
+		StaticItem(const std::string& _textureID)
+		{
+			texture = ResourcesManager::Instance()->FindTexture(_textureID);
+		}
+		~StaticItem() = default;
+
+		void OnRender(SDL_Renderer* _renderer) override
+		{
+			SDL_FRect _rect = { position.x - 20, position.y - 20, 40, 40 };
+			SDL_RenderCopyF(_renderer, texture, nullptr, &_rect);
+		}
 	};
 
 	class DynamicItem : public Item
 	{
-	public:
-		DynamicItem(const std::string& atlas_temp, int num)
-		{
-			atlas.Load(atlas_temp.c_str(), num);
-			animation.SetLoop(true);
-			animation.SetInterval(0.4f / num);
-			animation.AddFrame(&atlas);
-		}
-
-		~DynamicItem() = default;
-
-		void OnUpdate(float delta) override
-		{
-			animation.OnUpdate(delta);
-			animation.SetPosition(position);
-		}
-
-		void OnRender(SDL_Renderer* renderer) override
-		{
-			animation.OnRender(renderer);
-		}
-
 	private:
 		Atlas atlas;
 		Animation animation;
 
+	public:
+		DynamicItem(const std::string& _atlasTemp, int _num)
+		{
+			atlas.Load(_atlasTemp.c_str(), _num);
+			animation.SetLoop(true);
+			animation.SetInterval(0.4f / _num);
+			animation.AddFrame(&atlas);
+		}
+		~DynamicItem() = default;
+
+		void OnUpdate(float _delta) override
+		{
+			animation.OnUpdate(_delta);
+			animation.SetPosition(position);
+		}
+
+		void OnRender(SDL_Renderer* _renderer) override
+		{
+			animation.OnRender(_renderer);
+		}
 	};
 
 	class Chest : public StaticItem
@@ -80,7 +75,6 @@ namespace _TemplateMethodPattern
 	public:
 		Chest() : StaticItem("chest_full_open_anim_f1") {}
 		~Chest() = default;
-
 	};
 
 	class Stairs : public StaticItem
@@ -88,7 +82,6 @@ namespace _TemplateMethodPattern
 	public:
 		Stairs() : StaticItem("floor_stairs") {}
 		~Stairs() = default;
-
 	};
 
 	class Hole : public StaticItem
@@ -96,7 +89,6 @@ namespace _TemplateMethodPattern
 	public:
 		Hole() : StaticItem("hole") {}
 		~Hole() = default;
-
 	};
 
 	class Elf : public DynamicItem
@@ -104,7 +96,6 @@ namespace _TemplateMethodPattern
 	public:
 		Elf() : DynamicItem("elf_f_idle_anim_f%d", 4) {}
 		~Elf() = default;
-
 	};
 
 	class Goblin : public DynamicItem
@@ -112,7 +103,6 @@ namespace _TemplateMethodPattern
 	public:
 		Goblin() : DynamicItem("goblin_idle_anim_f%d", 4) {}
 		~Goblin() = default;
-
 	};
 
 	class Lizard : public DynamicItem
@@ -120,7 +110,6 @@ namespace _TemplateMethodPattern
 	public:
 		Lizard() : DynamicItem("lizard_f_idle_anim_f%d", 4) {}
 		~Lizard() = default;
-
 	};
 
 	class Spikes : public DynamicItem
@@ -128,11 +117,17 @@ namespace _TemplateMethodPattern
 	public:
 		Spikes() : DynamicItem("floor_spikes_anim_f%d", 2) {}
 		~Spikes() = default;
-
 	};
 
 	class Map
 	{
+	private:
+		bool needUpdateBackground = true;
+		SDL_Texture* textureBackgorund = nullptr;
+
+		std::vector<std::vector<Item*>> grids;
+		std::vector<SDL_Point> emptyGridIdxList;
+
 	public:
 		Map()
 		{
@@ -141,92 +136,84 @@ namespace _TemplateMethodPattern
 
 		~Map()
 		{
-			for (const std::vector<Item*>& line : grids)
+			for (const std::vector<Item*>& _line : grids)
 			{
-				for (Item* item : line)
-					delete item;
+				for (Item* _item : _line)
+					delete _item;
 			}
 		}
 
-		void add_item(Item* item, const SDL_Point& idx)
+		void AddItem(Item* _item, const SDL_Point& _idx)
 		{
-			delete grids[idx.y][idx.x];
-			grids[idx.y][idx.x] = item;
+			delete grids[_idx.y][_idx.x];
+			grids[_idx.y][_idx.x] = _item;
 
-			const Vector2 position = 
+			const Vector2 _position = 
 			{ 
-				(idx.x + 1) * 40.f + 20,
-				(idx.y + 2) * 40.f + 20 
+				(_idx.x + 1) * 40.f + 20,
+				(_idx.y + 2) * 40.f + 20 
 			};
-			item->SetPosition(position);
+			_item->SetPosition(_position);
 		}
 
-		const std::vector<SDL_Point>& get_empty_grids()
+		const std::vector<SDL_Point>& GetEmptyGrids()
 		{
-			empty_grid_idx_list.clear();
+			emptyGridIdxList.clear();
 
-			for (int y = 0; y < 15; y++)
-				for (int x = 0; x < 16; x++)
-					if (!grids[y][x]) empty_grid_idx_list.push_back({ x, y });
+			for (int _y = 0; _y < 15; _y++)
+				for (int _x = 0; _x < 16; _x++)
+					if (!grids[_y][_x]) emptyGridIdxList.push_back({ _x, _y });
 
-			return empty_grid_idx_list;
+			return emptyGridIdxList;
 		}
 
-		void OnUpdate(float delta)
+		void OnUpdate(float _delta)
 		{
-			for (int y = 0; y < 15; y++)
-				for (int x = 0; x < 16; x++)
-					if (grids[y][x]) grids[y][x]->OnUpdate(delta);
+			for (int _y = 0; _y < 15; _y++)
+				for (int _x = 0; _x < 16; _x++)
+					if (grids[_y][_x]) grids[_y][_x]->OnUpdate(_delta);
 		}
 
-		void OnRender(SDL_Renderer* renderer)
+		void OnRender(SDL_Renderer* _renderer)
 		{
-			if (need_update_background)
+			if (needUpdateBackground)
 			{
-				update_texture_background(renderer);
-				need_update_background = false;
+				UpdateTextureBackground(_renderer);
+				needUpdateBackground = false;
 			}
 
-			SDL_RenderCopy(renderer, texture_backgorund, nullptr, nullptr);
-			for (int y = 14; y >= 0; y--)
+			SDL_RenderCopy(_renderer, textureBackgorund, nullptr, nullptr);
+			for (int _y = 14; _y >= 0; _y--)
 			{
-				for (int x = 0; x < 16; x++)
-					if (grids[y][x]) grids[y][x]->OnRender(renderer);
+				for (int _x = 0; _x < 16; _x++)
+					if (grids[_y][_x]) grids[_y][_x]->OnRender(_renderer);
 			}
-			SDL_RenderCopy(renderer, ResourcesManager::Instance()->FindTexture("dungeon_background"), nullptr, nullptr);
+			SDL_RenderCopy(_renderer, ResourcesManager::Instance()->FindTexture("dungeon_background"), nullptr, nullptr);
 		}
 
 	private:
-		bool need_update_background = true;
-		SDL_Texture* texture_backgorund = nullptr;
-
-		std::vector<std::vector<Item*>> grids;
-		std::vector<SDL_Point> empty_grid_idx_list;
-
-	private:
-		void update_texture_background(SDL_Renderer* renderer)
+		void UpdateTextureBackground(SDL_Renderer* _renderer)
 		{
-			SDL_DestroyTexture(texture_backgorund);
-			texture_backgorund = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
+			SDL_DestroyTexture(textureBackgorund);
+			textureBackgorund = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 
-			SDL_SetRenderTarget(renderer, texture_backgorund);
-			for (int y = 0; y < 15; y++)
+			SDL_SetRenderTarget(_renderer, textureBackgorund);
+			for (int _y = 0; _y < 15; _y++)
 			{
-				for (int x = 0; x < 16; x++)
+				for (int _x = 0; _x < 16; _x++)
 				{
-					SDL_Texture* texture_floor = nullptr;
+					SDL_Texture* _textureFloor = nullptr;
 					if (rand() % 100 < 10)
-						texture_floor = ResourcesManager::Instance()->FindTexture((rand() % 2) ? "floor_2" : "floor_3");
+						_textureFloor = ResourcesManager::Instance()->FindTexture((rand() % 2) ? "floor_2" : "floor_3");
 					else
-						texture_floor = ResourcesManager::Instance()->FindTexture("floor_1");
+						_textureFloor = ResourcesManager::Instance()->FindTexture("floor_1");
 
-					SDL_Rect rect = { (x + 1) * 40, (y + 2) * 40, 40, 40 };
-					SDL_RenderCopy(renderer, texture_floor, nullptr, &rect);
+					SDL_Rect _rect = { (_x + 1) * 40, (_y + 2) * 40, 40, 40 };
+					SDL_RenderCopy(_renderer, _textureFloor, nullptr, &_rect);
 				}
 			}
-			SDL_SetRenderTarget(renderer, nullptr);
+			SDL_SetRenderTarget(_renderer, nullptr);
 		}
-
 	};
 
 	class MapGenTemplate
@@ -234,71 +221,67 @@ namespace _TemplateMethodPattern
 	public:
 		virtual ~MapGenTemplate() = default;
 
-		Map* generate()
+		Map* Generate()
 		{
-			Map* map = new Map();
+			Map* _map = new Map();
 
-			generate_exit(map);
-			generate_trap(map);
-			generate_reward(map);
+			GenerateExit(_map);
+			GenerateTrap(_map);
+			GenerateReward(_map);
 
-			generate_npc(map);
-			generate_enemy(map);
+			GenerateNPC(_map);
+			GenerateEnemy(_map);
 			
-			return map;
+			return _map;
 		}
 
 	protected:
-		virtual void generate_npc(Map* map) = 0;
-		virtual void generate_exit(Map* map) = 0;
-		virtual void generate_trap(Map* map) = 0;
-		virtual void generate_enemy(Map* map) = 0;
-		virtual void generate_reward(Map* map) = 0;
-
+		virtual void GenerateNPC(Map*) = 0;
+		virtual void GenerateExit(Map*) = 0;
+		virtual void GenerateTrap(Map*) = 0;
+		virtual void GenerateEnemy(Map*) = 0;
+		virtual void GenerateReward(Map*) = 0;
 	};
 
 	class CustomizedMapGen : public MapGenTemplate
 	{
+	private:
+		int holeNum = 2;
+		int spikesNum = 4;
+		int goblinNum = 6;
+		int lizardNum = 3;
+		bool hasNPC = true;
+		bool hasExit = true;
+		bool hasReward = true;
+
 	public:
 		CustomizedMapGen() = default;
 		~CustomizedMapGen() = default;
 
-		void on_inspect_config();
+		void OnInspectConfig();
 
 	protected:
-		void generate_npc(Map* map) override;
-		void generate_exit(Map* map) override;
-		void generate_trap(Map* map) override;
-		void generate_enemy(Map* map) override;
-		void generate_reward(Map* map) override;
-
-	private:
-		int num_hole = 2;
-		int num_spikes = 4;
-		int num_goblin = 6;
-		int num_lizard = 3;
-		bool has_npc = true;
-		bool has_exit = true;
-		bool has_reward = true;
-
+		void GenerateNPC(Map*) override;
+		void GenerateExit(Map*) override;
+		void GenerateTrap(Map*) override;
+		void GenerateEnemy(Map*) override;
+		void GenerateReward(Map*) override;
 	};
-
 }
 
 class TemplateMethodPattern : public Example
 {
-public:
-	TemplateMethodPattern(SDL_Renderer* renderer);
-	~TemplateMethodPattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	SDL_Texture* textureTarget = nullptr;
 	_TemplateMethodPattern::Map* map = nullptr;
-	_TemplateMethodPattern::CustomizedMapGen map_generator;
+	_TemplateMethodPattern::CustomizedMapGen mapGenerator;
 
+public:
+	TemplateMethodPattern(SDL_Renderer*);
+	~TemplateMethodPattern();
+
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
 };
 
 #endif
