@@ -2,12 +2,12 @@
 
 #include <imgui.h>
 
-void FacadePattern::OnUpdate(float delta)
+void FacadePattern::OnUpdate(float _delta)
 {
-	static const ImVec2 size_text = ImGui::CalcTextSize(str_text.c_str());
-	static const ImVec2 size_content = ImGui::GetContentRegionAvail();
-	static const ImVec2 position_cursor = { (size_content.x - size_text.x) / 2, (size_content.y - size_text.y) / 2 };
+	static const ImVec2 _sizeText = ImGui::CalcTextSize(strText.c_str());
+	static const ImVec2 _sizeContent = ImGui::GetContentRegionAvail();
+	static const ImVec2 _positionCursor = { (_sizeContent.x - _sizeText.x) / 2, (_sizeContent.y - _sizeText.y) / 2 };
 
-	ImGui::SetCursorPos(position_cursor);
-	ImGui::TextDisabled(str_text.c_str());
+	ImGui::SetCursorPos(_positionCursor);
+	ImGui::TextDisabled(strText.c_str());
 }

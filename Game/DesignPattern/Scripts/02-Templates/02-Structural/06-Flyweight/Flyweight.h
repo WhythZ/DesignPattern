@@ -7,15 +7,15 @@
 
 class FlyweightPattern : public Example
 {
+private:
+	std::string strText = u8"详见下列文件中的资源管线代码实现\n\n"
+		u8"Framework/Atlas.h \nFramework/Animation.h\nFramework/ResourcesManager.cpp";
+
 public:
 	FlyweightPattern() = default;
 	~FlyweightPattern() = default;
 
-	void OnUpdate(float delta) override;
-
-private:
-	std::string str_text = u8"详见下列文件中的资源管线代码实现：\n\n"
-		u8"Framework/Atlas.h \nFramework/Animation.h\nFramework/ResourcesManager.cpp";
+	void OnUpdate(float) override;
 };
 
 #endif

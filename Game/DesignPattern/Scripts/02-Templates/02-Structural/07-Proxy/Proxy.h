@@ -7,25 +7,24 @@
 
 class ProxyPattern : public Example
 {
-public:
-	ProxyPattern(SDL_Renderer* renderer);
-	~ProxyPattern();
-
-	void OnUpdate(float delta) override;
-	void OnRender(SDL_Renderer* renderer) override;
-
 private:
 	int fontSize = 50;
 	bool needUpdate = true;
-	SDL_Rect rect_text = { 0 };
+	SDL_Rect rectText = { 0 };
 	SDL_Texture* textureText = nullptr;
 	SDL_Texture* textureTarget = nullptr;
-	std::string str_text = "Hello World !";
+	std::string strText = "Hello World !";
 	float colorText[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-private:
-	void UpdateTextureText(SDL_Renderer* renderer);
+public:
+	ProxyPattern(SDL_Renderer*);
+	~ProxyPattern();
 
+	void OnUpdate(float) override;
+	void OnRender(SDL_Renderer*) override;
+
+private:
+	void UpdateTextureText(SDL_Renderer*);
 };
 
 #endif
