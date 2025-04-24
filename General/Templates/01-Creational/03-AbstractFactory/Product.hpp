@@ -1,8 +1,6 @@
 #ifndef _PRODUCT_HPP_
 #define _PRODUCT_HPP_
 
-#include <iostream>
-
 //产品的抽象类
 class Product
 {

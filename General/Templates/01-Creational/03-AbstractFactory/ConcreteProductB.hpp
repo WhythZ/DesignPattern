@@ -1,6 +1,7 @@
 #ifndef _CONCRETE_PRODUCT_B_HPP_
 #define _CONCRETE_PRODUCT_B_HPP_
 
+#include <iostream>
 #include "Product.hpp"
 
 //所有的B产品都属于同一种类（产品等级结构），但其后面的数字代表其属于不同品牌（产品族）

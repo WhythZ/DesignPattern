@@ -1,6 +1,7 @@
 #ifndef _CONCRETE_PRODUCT_HPP_
 #define _CONCRETE_PRODUCT_HPP_
 
+#include <iostream>
 #include "Product.hpp"
 
 //对产品抽象类的其中一种A实现
