@@ -5,18 +5,21 @@
 #include "Product.hpp"
 
 //对产品抽象类的其中一种A实现
-class ConcreteProductA : public Product
+class ConcreteProductA :public Product
 {
 public:
-    ~ConcreteProductA() override;
+    //当基类的析构是虚函数时，派生类析构自动成为虚析构，不必用virtual或override修饰
+    ~ConcreteProductA();
+
     void Use() override;
 };
 
 //对产品抽象类的其中一种B实现
-class ConcreteProductB : public Product
+class ConcreteProductB :public Product
 {
 public:
-    ~ConcreteProductB() override;
+    ~ConcreteProductB();
+
     void Use() override;
 };
 

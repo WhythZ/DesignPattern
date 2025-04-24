@@ -8,23 +8,35 @@
 class ConcreteFactoryA :public Factory
 {
 public:
+    ~ConcreteFactoryA();
+    
     Product* CreateProduct() override;
 };
 
 class ConcreteFactoryB :public Factory
 {
 public:
+    ~ConcreteFactoryB();
+    
     Product* CreateProduct() override;
 };
 
+ConcreteFactoryA::~ConcreteFactoryA() {}
+
 Product* ConcreteFactoryA::CreateProduct()
 {
-    return new ConcreteProductA();
+    Product* _product = new ConcreteProductA();
+    products.emplace_back(_product);
+    return _product;
 }
+
+ConcreteFactoryB::~ConcreteFactoryB() {}
 
 Product* ConcreteFactoryB::CreateProduct()
 {
-    return new ConcreteProductB();
+    Product* _product = new ConcreteProductB();
+    products.emplace_back(_product);
+    return _product;
 }
 
 #endif

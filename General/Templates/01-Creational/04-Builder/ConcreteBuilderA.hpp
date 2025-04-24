@@ -4,11 +4,11 @@
 #include "Builder.hpp"
 
 //为了生产特定产品的具体Builder，是对抽象Builder的一种实现
-class ConcreteBuilderA : public Builder
+class ConcreteBuilderA :public Builder
 {
 public:
     //需要实现父类中的所有纯虚函数，包括纯虚析构函数，否则此类仍为抽象类
-    ~ConcreteBuilderA() override;
+    ~ConcreteBuilderA();
 
     //对各抽象制造步骤的具体实现
     void ConstructPart1() override;

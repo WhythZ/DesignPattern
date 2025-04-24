@@ -5,18 +5,20 @@
 #include "Product.hpp"
 
 //对产品抽象类的其中一种A实现
-class ConcreteProductA : public Product
+class ConcreteProductA :public Product
 {
 public:
-    ~ConcreteProductA() override;
+    ~ConcreteProductA();
+
     void Use() override;
 };
 
 //对产品抽象类的其中一种B实现
-class ConcreteProductB : public Product
+class ConcreteProductB :public Product
 {
 public:
-    ~ConcreteProductB() override;
+    ~ConcreteProductB();
+
     void Use() override;
 };
 

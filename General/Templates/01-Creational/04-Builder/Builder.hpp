@@ -7,7 +7,7 @@
 class Builder
 {
 protected:
-    //需要被生产出的产品
+    //需要被生产出的产品，此处建造者只负责创建对象，而不负责销毁
     Product product;
     
 public:
@@ -23,7 +23,7 @@ public:
     virtual Product* GetBuilding() = 0;
 };
 
-//纯虚析构函数需要实现
+//纯虚析构函数也需实现
 Builder::~Builder() {}
 
 #endif
