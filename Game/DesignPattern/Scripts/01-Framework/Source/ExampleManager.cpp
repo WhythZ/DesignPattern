@@ -53,6 +53,7 @@ void ExampleManager::Init(SDL_Renderer* _renderer)
 {
 	renderer = _renderer;
 
+	//创建目标纹理用于渲染
 	textureTarget = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 720, 720);
 	SDL_SetTextureBlendMode(textureTarget, SDL_BLENDMODE_BLEND);
 
@@ -98,29 +99,57 @@ void ExampleManager::OnInput(const SDL_Event* _event)
 
 void ExampleManager::OnUpdate(float _delta)
 {
+	#pragma region MainWindow
+	//获取ImGui的主视口，通常对应整个应用窗口的工作区
 	ImGuiViewport* _viewport = ImGui::GetMainViewport();
+	//设置下一个窗口位置为视口的工作区原点，通常是(0,0)
 	ImGui::SetNextWindowPos(_viewport->WorkPos);
+	//设置下一个窗口大小为视口的工作区尺寸，通常是整个客户区大小
 	ImGui::SetNextWindowSize(_viewport->WorkSize);
+	//绑定窗口到指定视口ID，确保窗口与视口关联
 	ImGui::SetNextWindowViewport(_viewport->ID);
 
-	static const ImGuiWindowFlags _flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar
-		| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-		| ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoSavedSettings;
+	//配置主窗口的标志位组合，使用位运算|组合多个标志
+	static const ImGuiWindowFlags _flags =
+		ImGuiWindowFlags_NoDocking                //禁止停靠
+		| ImGuiWindowFlags_NoTitleBar             //无标题栏
+		| ImGuiWindowFlags_NoCollapse             //禁止折叠
+		| ImGuiWindowFlags_NoResize               //禁止调整大小
+		| ImGuiWindowFlags_NoMove                 //禁止移动
+		| ImGuiWindowFlags_NoBringToFrontOnFocus  //禁止获取焦点时前置
+		| ImGuiWindowFlags_NoNavFocus             //禁止导航焦点
+		| ImGuiWindowFlags_NoSavedSettings;       //不保存窗口设置
 
+	//开始绘制名为"main_window"的主窗口，依次传入窗口名称标识、是否打开的指针（nullptr表示不可关闭）、窗口标志位
 	ImGui::Begin("main_window", nullptr, _flags);
+	#pragma endregion
 
+	#pragma region MenuRegion
+	//定义菜单子窗口的固定宽度（180像素）和可用内容区域高度
 	static const ImVec2 _menuSize = { 180, ImGui::GetContentRegionAvail().y };
+	
+	//在作用域内若无ImGui::EndChild()，作用域结束时编译器会报错提醒，故这种写法可以防止忘写ImGui::EndChild()
+	//且单独的BeginChild如果忘记配对EndChild可能会导致UI层级错误，故这种写法可以防止UI层级匹配错误
 	{
+		// 开始一个名为"menu"的子窗口区域，依次传入子窗口ID、子窗口尺寸、子窗口标志（显示边框）
 		ImGui::BeginChild("menu", _menuSize, ImGuiChildFlags_Border);
+		//更新三个主题菜单内容
 		OnUpdateSubject(subjectCreational);
 		OnUpdateSubject(subjectStructural);
 		OnUpdateSubject(subjectBehavioral);
+		//结束菜单子窗口
 		ImGui::EndChild();
 	}
 
+	//将下一个UI元素放置在同一行，紧接上一个元素之后
 	ImGui::SameLine();
+	#pragma endregion
 
+	#pragma region ContentRegion
+	//获取剩余可用区域作为右侧内容区域大小
 	static const ImVec2 _stageSize = ImGui::GetContentRegionAvail();
+	
+	//作用域
 	{
 		ImGui::BeginChild("stage", _stageSize, ImGuiChildFlags_Border);
 		if (currentExample)
@@ -129,7 +158,9 @@ void ExampleManager::OnUpdate(float _delta)
 			OnUpdateBlankContent();
 		ImGui::EndChild();
 	}
-
+	#pragma endregion
+	
+	//结束主窗口绘制
 	ImGui::End();
 }
 

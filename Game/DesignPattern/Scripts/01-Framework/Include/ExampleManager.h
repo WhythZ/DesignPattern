@@ -13,8 +13,8 @@ private:
 	struct MenuItem
 	{
 		std::string id;
-		SDL_Texture* icon = nullptr;
 		std::string title;
+		SDL_Texture* icon = nullptr;
 
 		MenuItem(const std::string& _id, SDL_Texture* _icon, const std::string& _title)
 			: id(_id), icon(_icon), title(_title) {}
@@ -50,7 +50,9 @@ private:
 	ExampleManager() = default;
 	~ExampleManager();
 
+	//显示默认空白界面
 	void OnUpdateBlankContent();
+	//更新模式分类菜单
 	void OnUpdateSubject(const Subject&);
 	
 	void SwitchTo(const std::string&);
